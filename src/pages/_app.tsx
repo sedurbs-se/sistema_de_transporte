@@ -1,19 +1,24 @@
 import '../styles/globals.css'
-import type { AppProps } from 'next/app'
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { useState } from 'react';
+import { useCreateStore, Provider } from '../store/store';
+import type { AppProps } from 'next/app'
 
-function MyApp({ Component, pageProps }: AppProps) {
+interface pageProps {
+  initialZustandState: any
+}
+
+function MyApp({ Component, pageProps }: AppProps<pageProps>) {
   const [queryClient] = useState(() => new QueryClient());
-
+  const createStore = useCreateStore(pageProps.initialZustandState)
 
   // Validade if logged here
-
   return (
-    <QueryClientProvider client={queryClient}>
-      <Component {...pageProps} />
-    </QueryClientProvider>
-
+    <Provider createStore={createStore}>
+      <QueryClientProvider client={queryClient}>
+        <Component {...pageProps} />
+      </QueryClientProvider>
+    </Provider>
   )
 }
 
