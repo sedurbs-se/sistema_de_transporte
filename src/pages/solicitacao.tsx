@@ -8,8 +8,9 @@ import { Solicitacao } from "../domain/types/Solicitação";
 
 const Teste: NextPage  = () => {
     return (
+        <>
+        <NavBarT></NavBarT>
         <Container>
-            <NavBarT></NavBarT>
             <ListaSolicitacoes Solicitacoes=
             {[{
             usuario_id: "Sr. Enoque",
@@ -57,6 +58,7 @@ const Teste: NextPage  = () => {
                             hora:'11:00',
                             status_id:'ESPERA'}]}></ListaSolicitacoes>
       </Container>
+      </>
     )
 }
 

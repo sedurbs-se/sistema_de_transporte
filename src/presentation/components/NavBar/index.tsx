@@ -1,6 +1,9 @@
+import Link from "next/link";
 import { useState } from "react";
 import { Container, Navbar, NavDropdown, Nav } from "react-bootstrap"
+import DropdownLink from "../DropdownLink";
 import style from "./index.module.scss";
+
 
 const NavBarT = () => {
     const [show, setShow] = useState({
@@ -47,9 +50,9 @@ const NavBarT = () => {
              onMouseLeave={hideDropDown}
           title="Movimentação" 
           id="movimentacao">
-              <NavDropdown.Item href="#action3">Solicitação</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">Saída</NavDropdown.Item>
-              <NavDropdown.Item href="#action5">Retorno</NavDropdown.Item>
+              <NavDropdown.Item text="Solicitação" href="/solicitacao" as={DropdownLink}></NavDropdown.Item>
+              <NavDropdown.Item text="Saída" href="/saida" as={DropdownLink}></NavDropdown.Item>
+              <NavDropdown.Item text="Retorno" href="/retorno" as={DropdownLink}></NavDropdown.Item>
             </NavDropdown>
             <NavDropdown 
             className={style['dropdown-box']}
@@ -58,10 +61,10 @@ const NavBarT = () => {
             show={show.gerencia}
             title="Gerência" 
             id="gerencia">
-              <NavDropdown.Item href="/setores">Setor</NavDropdown.Item>
-              <NavDropdown.Item href="/veiculos">Veículo</NavDropdown.Item>
-              <NavDropdown.Item href="/locadoras">Locadora</NavDropdown.Item>
-              <NavDropdown.Item href="/motoristas">Motorista</NavDropdown.Item>
+              <NavDropdown.Item text="Setor" href="/setores" as={DropdownLink}></NavDropdown.Item>
+              <NavDropdown.Item text="Veículo" href="/veiculos" as={DropdownLink}></NavDropdown.Item>
+              <NavDropdown.Item text="Locadora" href="/locadoras" as={DropdownLink}></NavDropdown.Item>
+              <NavDropdown.Item text="Motorista" href="/motoristas" as={DropdownLink}></NavDropdown.Item>
             </NavDropdown>
             <NavDropdown 
             className={style['dropdown-box']}
@@ -70,15 +73,15 @@ const NavBarT = () => {
             show={show.relatorios}
             title="Relatórios" 
             id="relatorios">
-              <NavDropdown.Item href="#action3">Viagens por mês</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">Quilometragem geral</NavDropdown.Item>
-              <NavDropdown.Item href="#action5">Retorno de viagem</NavDropdown.Item>
+              <NavDropdown.Item text="Viagens por mês" href="#action3" as={DropdownLink}></NavDropdown.Item>
+              <NavDropdown.Item text="Quilometragem geral" href="#action4" as={DropdownLink}></NavDropdown.Item>
+              <NavDropdown.Item text="Retorno de viagem" href="#action5"as={DropdownLink}></NavDropdown.Item>
             </NavDropdown>
             </Nav>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-                Bem vindo, <a href="#login">Mark Otto</a>
+                Bem vindo, <a href="#login">John Doe</a>
             </Navbar.Text>
           </Navbar.Collapse>
           </Container>
