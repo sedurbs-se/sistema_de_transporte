@@ -38,7 +38,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
             },
         }
     }
-    const motoristas = await axios.get("http://localhost:3000/api/motoristas");
+    const motoristas = await axios.get("http://localhost:3000/api/motorista/list");
 
     state.motoristas = motoristas.data.motoristas;
 
