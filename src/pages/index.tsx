@@ -17,10 +17,7 @@ const Login: NextPage<Props> = ({ isAuthenticated }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <h1>
-          Sistema de Transporte
-        </h1>
-
+      <img src="https://sedurbs.se.gov.br/wp-content/themes/sedurbs/img/sedurbs-logo.png"></img>
         <LoginContainer />
       </main>
 

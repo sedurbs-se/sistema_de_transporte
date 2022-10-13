@@ -31,7 +31,8 @@ const LoginContainer = () => {
 
     const errorMessage = axios.isAxiosError(error) && error.response?.data.error;
 
-    const handleSubmit = () => {
+    const handleSubmit = (ev: any) => {
+        ev.preventDefault();
         refetch()
     };
 
@@ -41,6 +42,8 @@ const LoginContainer = () => {
 
     return (
         <div className={style["login-container"]}>
+            <span>sistema de transporte</span>
+            <form onSubmit={handleSubmit}>
             <input placeholder="Login" type="text"
                 onChange={(e) => setLoginForm({ ...loginForm, login: e.target.value })} />
 
@@ -51,12 +54,13 @@ const LoginContainer = () => {
                 style={{ visibility: isError ? "visible" : "hidden" }}
             >
                 {isError && errorMessage}
-
             </div>
 
-            <button onClick={() => handleSubmit()}>
+            <button type="submit">
                 Entrar
             </button>
+
+            </form>
 
         </div>
     )

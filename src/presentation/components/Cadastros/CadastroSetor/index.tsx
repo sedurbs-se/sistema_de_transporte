@@ -1,5 +1,6 @@
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container } from "react-bootstrap";
 import { Setor } from "../../../../domain/types/Setor";
+import style from "../CadastroLocadora/index.module.scss"
 
 export interface CadastroSetorProps {
     setor?: Setor
@@ -7,6 +8,12 @@ export interface CadastroSetorProps {
 
 const CadastroSetor = (props: CadastroSetorProps) => {
     return (
+      <Container
+      style={{border:'1px solid gray', borderRadius:'4px', padding:'15px', marginBottom:'15px'}}
+      >
+        <h3
+        className={style["title"]}
+        >Cadastro</h3>
         <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Código</Form.Label>
@@ -32,6 +39,7 @@ const CadastroSetor = (props: CadastroSetorProps) => {
         Salvar
       </Button>
         </Form>
+        </Container>
     )
 }
 
