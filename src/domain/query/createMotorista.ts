@@ -18,7 +18,7 @@ interface ICreateMotoristaResponse {
 
 function createMotorista(params: ICreateMotoristaDTO, onSuccess: (data: ICreateMotoristaResponse) => void): UseQueryResult<ICreateMotoristaResponse> {
     return useQuery('createMotorista', async () => {
-        const { data }: AxiosResponse = await axios.post("http://localhost:3000/api/motoristas/create",
+        const { data }: AxiosResponse = await axios.post("http://localhost:3000/api/motorista",
             { ...params });
         return data;
     }, {
