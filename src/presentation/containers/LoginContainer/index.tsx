@@ -1,39 +1,45 @@
 import axios, { AxiosError } from "axios";
+import Router from "next/router";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { useBearStore } from "../../../store";
+import { Usuario } from "../../../domain/types/Usuario";
+import { userStore  } from "../../../domain/store/user";
 import style from "./index.module.scss";
 
 const LoginContainer = () => {
+
+    const { setUser } = userStore ();
+
 
     const [loginForm, setLoginForm] = useState({
         login: "",
         password: ""
     });
 
-    const { isLoading, isError, error, data, refetch } = useQuery<{ name: string }, AxiosError>(['loginForm', loginForm], () =>
+    const { isLoading, isError, error, refetch } = useQuery<Usuario, AxiosError>(['loginForm', loginForm], () =>
         axios.post("/api/login", loginForm)
-            .then(({ data }: { data: { name: string } }) => data),
+            .then(({ data }: { data: Usuario }) => data),
         {
             enabled: false,
             refetchOnWindowFocus: false,
             retry: false,
+            onSuccess: (data) => {
+                setUser(data);
+                Router.push("/home");
+            }
         }
     );
+
+    const errorMessage = axios.isAxiosError(error) && error.response?.data.error;
 
     const handleSubmit = () => {
         refetch()
     };
 
-    const errorMessage = axios.isAxiosError(error) && error.response?.data.error;
-
     if (isLoading) {
         return <div>Carregando...</div>
     }
 
-    const { bears, increasePopulation } = useBearStore();
-
-    console.log(bears)
     return (
         <div className={style["login-container"]}>
             <input placeholder="Login" type="text"

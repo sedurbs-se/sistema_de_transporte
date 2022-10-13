@@ -1,6 +1,5 @@
 import { NextPage } from "next";
 import Head from "next/head";
-import { HomeContainer } from "../presentation/containers/Home";
 import Table from "react-bootstrap/Table"
 import { Button, Container } from "react-bootstrap";
 import NavBarT from "../presentation/components/NavBar";

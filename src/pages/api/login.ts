@@ -4,7 +4,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {
-    name: string
+    id:string
+    nome: string
+    login:string
 }
 
 type Error = {
@@ -18,7 +20,12 @@ export default function handler(
     const { login, password } = req.body;
     console.log(login, password)
     if (login == 'admin' && password == 'admin') {
-        res.status(200).json({ name: 'John Doe' })
+        res.status(200).json({ 
+            id:"1",
+            login: 'admin',
+            nome: 'John Doe' 
+        
+        })
     }
     else {
         res.status(401).json({ error: 'Invalid credentials' })
