@@ -6,6 +6,10 @@ export interface CadastroLocadoraProps {
 }
 
 const CadastroLocadoras = (props: CadastroLocadoraProps) => {
+
+
+    
+  
     return (
         <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">

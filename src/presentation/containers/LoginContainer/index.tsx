@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 import { Usuario } from "../../../shared/types/Usuario";
 import { useStore } from "../../../domain/store/store";
 import style from "./index.module.scss";
+import { authenticateUser, IAuthenticateUserResponse } from "../../../domain/query/authenticateUser";
 
 const LoginContainer = () => {
 
@@ -15,25 +16,19 @@ const LoginContainer = () => {
         password: ""
     });
 
-    const { isLoading, isError, error, refetch } = useQuery<{ token: string }, AxiosError>(['loginForm', loginForm], () =>
-        axios.post("/api/login", loginForm)
-            .then(({ data }: { data: { token: string } }) => data),
-        {
-            enabled: false,
-            refetchOnWindowFocus: false,
-            retry: false,
-            onSuccess: ({ token }) => {
-                createSession(token);
-                Router.push("/home");
-            }
-        }
-    );
+    const onSuccess = ({ token }: IAuthenticateUserResponse) => {
+        createSession(token);
+        Router.push("/home");
+    };
+
+    const { isLoading, isError, error, refetch } = authenticateUser(loginForm, onSuccess);
 
     const errorMessage = axios.isAxiosError(error) && error.response?.data.error;
 
-    const handleSubmit = () => {
-        refetch()
+    const handleSubmit = async () => {
+        refetch();
     };
+
 
     if (isLoading) {
         return <div>Carregando...</div>

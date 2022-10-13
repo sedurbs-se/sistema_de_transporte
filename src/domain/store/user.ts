@@ -24,6 +24,7 @@ export const createUserStore = (set: any, get: any, api: any) => ({
     user: {},
     setUser: (user: Usuario) => set({ user, isAuthenticated: true }),
     createSession: async (token: string) => {
+
         nookies.set(undefined, 'token', token, {
             path: "/",
             maxAge: 30 * 24 * 60 * 60

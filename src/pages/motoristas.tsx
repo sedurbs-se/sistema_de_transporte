@@ -7,15 +7,19 @@ import ListaSetores from "../presentation/components/Listas/ListaSetores";
 import { Solicitacao } from "../shared/types/Solicitação";
 import CadastroSetor from "../presentation/components/Cadastros/CadastroSetor";
 import ListaMotoristas from "../presentation/components/Listas/ListaMotoristas";
+import CadastroMotorista from "../presentation/components/Cadastros/CadastroMotorista";
 
-const Teste: NextPage  = () => {
+
+const Teste: NextPage = () => {
     return (
         <>
-        <NavBarT></NavBarT>
-        <Container>
-            <ListaMotoristas motoristas={[{nome:'TT', celular:'8484844', vinculo_id:'ejjeje'}]}></ListaMotoristas>
-      </Container>
-      </>
+            <NavBarT></NavBarT>
+            <Container>
+                <ListaMotoristas />
+
+                <CadastroMotorista />
+            </Container>
+        </>
     )
 }
 

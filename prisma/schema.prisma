@@ -26,7 +26,7 @@ model Motorista {
   nome           String
   celular        String
   telefone       String
-  data_nascmento DateTime
+  data_nascimento DateTime
   bairro         String
   endereco       String
 }

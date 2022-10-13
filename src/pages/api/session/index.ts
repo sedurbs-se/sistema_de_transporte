@@ -1,7 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { PrismaClient } from '@prisma/client'
-import { Usuario } from '../../shared/types/Usuario';
-import PrismaInstance from '../../shared/prisma.index';
+import PrismaInstance from '../../../shared/prisma.index';
 import { sign } from 'jsonwebtoken';
 
 
@@ -34,9 +32,8 @@ export default async function handler(
         })
 
         if (user) {
-
             const token = sign({
-                user: user
+                user
             }, "sistema_transporte", {
                 expiresIn: "1d"
             });
