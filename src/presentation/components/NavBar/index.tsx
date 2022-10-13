@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Container, Navbar, NavDropdown, Nav } from "react-bootstrap"
+import style from "./index.module.scss";
 
 const NavBarT = () => {
     const [show, setShow] = useState({
@@ -35,10 +36,12 @@ const NavBarT = () => {
             }
     }
     return (
-        <Navbar sticky="top" style={{padding:'10px'}} >
+        <Navbar variant="dark" bg="dark" style={{marginBottom:'20px'}} sticky="top">
+            <Container>
           <Navbar.Brand href="#home">Sistema de transporte</Navbar.Brand>
           <Nav>
           <NavDropdown 
+          className={style['dropdown-box']}
              show={show.movimentacao}
              onMouseEnter={showDropDown} 
              onMouseLeave={hideDropDown}
@@ -49,17 +52,19 @@ const NavBarT = () => {
               <NavDropdown.Item href="#action5">Retorno</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown 
+            className={style['dropdown-box']}
             onMouseEnter={showDropDown} 
             onMouseLeave={hideDropDown}
             show={show.gerencia}
             title="Gerência" 
             id="gerencia">
               <NavDropdown.Item href="/setores">Setor</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">Veículo</NavDropdown.Item>
+              <NavDropdown.Item href="/veiculos">Veículo</NavDropdown.Item>
               <NavDropdown.Item href="/locadoras">Locadora</NavDropdown.Item>
-              <NavDropdown.Item href="#action5">Motorista</NavDropdown.Item>
+              <NavDropdown.Item href="/motoristas">Motorista</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown 
+            className={style['dropdown-box']}
             onMouseEnter={showDropDown} 
             onMouseLeave={hideDropDown}
             show={show.relatorios}
@@ -76,7 +81,7 @@ const NavBarT = () => {
                 Bem vindo, <a href="#login">Mark Otto</a>
             </Navbar.Text>
           </Navbar.Collapse>
-
+          </Container>
       </Navbar>
     )
 }

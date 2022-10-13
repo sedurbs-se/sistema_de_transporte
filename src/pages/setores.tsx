@@ -6,14 +6,18 @@ import NavBarT from "../presentation/components/NavBar";
 import ListaSetores from "../presentation/components/Listas/ListaSetores";
 import { Solicitacao } from "../domain/types/Solicitação";
 import CadastroSetor from "../presentation/components/Cadastros/CadastroSetor";
+import style from "../presentation/components/Cadastros/CadastroLocadora/index.module.scss"
 
 const Teste: NextPage  = () => {
     return (
+        <>
+        <NavBarT></NavBarT>
         <Container>
-            <NavBarT></NavBarT>
+        <h2 className={style["title"]}>Setores</h2>
             <ListaSetores setores = {[{codigo:'017',sigla:'ARQUIVO',ramal:5359}]}></ListaSetores>
             <CadastroSetor ></CadastroSetor>
       </Container>
+      </>
     )
 }
 
