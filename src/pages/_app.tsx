@@ -1,6 +1,8 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { QueryClient, QueryClientProvider } from 'react-query';
+import 'bootstrap/dist/css/bootstrap.min.css';  
+
 import { useState } from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {

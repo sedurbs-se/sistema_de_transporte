@@ -1,4 +1,5 @@
-import { useAtom } from "jotai";
+import { atom } from "jotai";
+import { Veiculos } from "../domain/types/Veiculos";
 
 
-// const veiculosAtom = useAtom([])
+const veiculosAtom = atom<Veiculos | undefined>(undefined)

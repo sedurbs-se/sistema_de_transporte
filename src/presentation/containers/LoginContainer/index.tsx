@@ -49,7 +49,7 @@ const LoginContainer = () => {
 
             </div>
 
-            <button onClick={() => increasePopulation()}>
+            <button onClick={() => handleSubmit()}>
                 Entrar
             </button>
 
