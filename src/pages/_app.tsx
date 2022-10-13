@@ -1,5 +1,7 @@
 import '../styles/globals.css'
 import { QueryClient, QueryClientProvider } from 'react-query';
+import 'bootstrap/dist/css/bootstrap.min.css';  
+
 import { useState } from 'react';
 import { useCreateStore, Provider } from '../domain/store/store';
 import type { AppProps } from 'next/app'
