@@ -1,3 +1,0 @@
-
-
-const Prisma = new PrismaInstace

@@ -2,7 +2,6 @@ import axios, { AxiosError } from "axios";
 import Router from "next/router";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { Usuario } from "../../../shared/types/Usuario";
 import { useStore } from "../../../domain/store/store";
 import style from "./index.module.scss";
 
