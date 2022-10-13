@@ -3,13 +3,12 @@ import Router from "next/router";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import { Usuario } from "../../../domain/types/Usuario";
-import { userStore  } from "../../../domain/store/user";
+import { useStore } from "../../../domain/store/store";
 import style from "./index.module.scss";
 
 const LoginContainer = () => {
 
-    const { setUser } = userStore ();
-
+    const { setUser } = useStore();
 
     const [loginForm, setLoginForm] = useState({
         login: "",
