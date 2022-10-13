@@ -17,10 +17,9 @@ const Home: NextPage<Props> = ({ isAuthenticated }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main className={styles.main}>
-                <h1>
-                    Sistema de Transporte
-                </h1>
-
+                <h2>
+                    SISTEMA DE TRANSPORTE
+                </h2>
                 <HomeContainer />
             </main>
 

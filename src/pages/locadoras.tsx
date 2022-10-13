@@ -1,21 +1,20 @@
 import { NextPage } from "next";
-import Head from "next/head";
-import Table from "react-bootstrap/Table"
 import { Button, Container } from "react-bootstrap";
 import NavBarT from "../presentation/components/NavBar";
 import ListaLocadoras from "../presentation/components/Listas/ListaLocadoras";
-import { Solicitacao } from "../shared/types/Solicitação";
-import CadastroSetor from "../presentation/components/Cadastros/CadastroSetor";
 import CadastroLocadoras from "../presentation/components/Cadastros/CadastroLocadora";
+import style from "../presentation/components/Cadastros/CadastroLocadora/index.module.scss"
 
 const Teste: NextPage  = () => {
     return (
+        <>
+        <NavBarT></NavBarT>
         <Container>
-            <NavBarT></NavBarT>
+            <h2 className={style["title"]}>Locadoras</h2>
             <ListaLocadoras locadoras = {[{descricao:'fffff',bairro:'ESTANCIA'}]}></ListaLocadoras>
             <CadastroLocadoras></CadastroLocadoras>
-        
       </Container>
+      </>
     )
 }
 

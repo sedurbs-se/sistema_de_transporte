@@ -1,8 +1,6 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import Router from "next/router";
 import { useState } from "react";
-import { useQuery } from "react-query";
-import { Usuario } from "../../../shared/types/Usuario";
 import { useStore } from "../../../domain/store/store";
 import style from "./index.module.scss";
 import { authenticateUser, IAuthenticateUserResponse } from "../../../domain/query/authenticateUser";
@@ -25,8 +23,9 @@ const LoginContainer = () => {
 
     const errorMessage = axios.isAxiosError(error) && error.response?.data.error;
 
-    const handleSubmit = async () => {
-        refetch();
+    const handleSubmit = (ev: any) => {
+        ev.preventDefault();
+        refetch()
     };
 
 
@@ -36,6 +35,8 @@ const LoginContainer = () => {
 
     return (
         <div className={style["login-container"]}>
+            <span>sistema de transporte</span>
+            <form onSubmit={handleSubmit}>
             <input placeholder="Login" type="text"
                 onChange={(e) => setLoginForm({ ...loginForm, login: e.target.value })} />
 
@@ -46,12 +47,13 @@ const LoginContainer = () => {
                 style={{ visibility: isError ? "visible" : "hidden" }}
             >
                 {isError && errorMessage}
-
             </div>
 
-            <button onClick={() => handleSubmit()}>
+            <button type="submit">
                 Entrar
             </button>
+
+            </form>
 
         </div>
     )
