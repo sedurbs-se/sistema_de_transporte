@@ -1,5 +1,5 @@
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import { Locadora } from "../../../../domain/types/Locadora";
+import { Locadora } from "../../../../shared/types/Locadora";
 import style from "./index.module.scss"
 
 export interface CadastroLocadoraProps {
@@ -7,6 +7,10 @@ export interface CadastroLocadoraProps {
 }
 
 const CadastroLocadoras = (props: CadastroLocadoraProps) => {
+
+
+    
+  
     return (
       <Container
       style={{border:'1px solid gray', borderRadius:'4px', padding:'15px', marginBottom:'15px'}}

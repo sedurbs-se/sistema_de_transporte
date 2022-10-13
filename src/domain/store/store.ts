@@ -4,6 +4,7 @@ import createContext from 'zustand/context'
 import { createUserStore, initialUserStoreState, IUserStore } from './user';
 import { createVeiculoStore, initialVeiculosStoreState, IVeiculosStore } from './veiculos';
 import { combine } from "zustand/middleware";
+import { createMotoristasStore, initialMotoristasStoreState } from './motoristas';
 
 interface IInitialState extends IUserStore, IVeiculosStore {
 };
@@ -20,6 +21,7 @@ let store: any;
 const getDefaultInitialState = (): IInitialState => ({
     ...initialVeiculosStoreState,
     ...initialUserStoreState,
+    ...initialMotoristasStoreState
 })
 
 const zustandContext = createContext<useStoreState>()
@@ -34,7 +36,8 @@ export const initializeStore = (preloadedState = {}) => {
         },
             (set, get, api) => ({
                 ...createVeiculoStore(set, get, api),
-                ...createUserStore(set, get, api)
+                ...createUserStore(set, get, api),
+                ...createMotoristasStore(set, get, api),
             }))
     )
 };

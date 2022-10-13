@@ -1,5 +1,5 @@
 import { Button, Table } from "react-bootstrap"
-import { Locadora } from "../../../../domain/types/Locadora"
+import { Locadora } from "../../../../shared/types/Locadora"
 
 export interface ListaLocadorasProps {
     locadoras: Locadora[]

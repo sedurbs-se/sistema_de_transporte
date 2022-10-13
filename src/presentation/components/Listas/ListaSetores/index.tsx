@@ -1,5 +1,5 @@
 import { Button, Table } from "react-bootstrap"
-import { Setor } from "../../../../domain/types/Setor"
+import { Setor } from "../../../../shared/types/Setor"
 
 export interface ListaSetoresProps {
     setores: Setor[]

@@ -4,7 +4,7 @@ import Table from "react-bootstrap/Table"
 import { Button, Container } from "react-bootstrap";
 import NavBarT from "../presentation/components/NavBar";
 import ListaSolicitacoes from "../presentation/components/Listas/ListaSolicitacoes";
-import { Solicitacao } from "../domain/types/Solicitação";
+import { Solicitacao } from "../shared/types/Solicitação";
 
 const Teste: NextPage  = () => {
     return (

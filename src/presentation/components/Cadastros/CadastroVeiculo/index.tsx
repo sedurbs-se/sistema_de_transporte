@@ -1,5 +1,5 @@
 import { Form, Button, Container, Col, Row } from "react-bootstrap";
-import { Veiculos } from "../../../../domain/types/Veiculos";
+import { Veiculos } from "../../../../shared/types/Veiculos";
 import style from "../CadastroLocadora/index.module.scss"
 
 export interface CadastroVeiculoProps {

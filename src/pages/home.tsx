@@ -32,7 +32,9 @@ export const getServerSideProps: GetServerSideProps<Props> = async context => {
 
     const state = zustandStore.getState();
 
-    const isAuthenticated = true;
+    const { verifySession } = state;
+
+    const  isAuthenticated = await verifySession(context);
 
     if (!isAuthenticated) {
         return {
@@ -42,7 +44,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async context => {
             },
         }
     }
-    
+
     // Get Veiculos
     const veiculos = await axios.get("http://localhost:3000/api/veiculos");
 

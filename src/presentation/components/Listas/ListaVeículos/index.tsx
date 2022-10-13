@@ -1,5 +1,5 @@
 import { Button, Table } from "react-bootstrap";
-import { Veiculos } from "../../../../domain/types/Veiculos";
+import { Veiculos } from "../../../../shared/types/Veiculos";
 
 export interface ListaVeiculosProps {
     veiculos: Veiculos[]

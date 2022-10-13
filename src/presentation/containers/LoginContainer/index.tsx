@@ -1,33 +1,25 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import Router from "next/router";
 import { useState } from "react";
-import { useQuery } from "react-query";
-import { Usuario } from "../../../domain/types/Usuario";
 import { useStore } from "../../../domain/store/store";
 import style from "./index.module.scss";
+import { authenticateUser, IAuthenticateUserResponse } from "../../../domain/query/authenticateUser";
 
 const LoginContainer = () => {
 
-    const { setUser } = useStore();
+    const { createSession } = useStore();
 
     const [loginForm, setLoginForm] = useState({
         login: "",
         password: ""
     });
 
-    const { isLoading, isError, error, refetch } = useQuery<Usuario, AxiosError>(['loginForm', loginForm], () =>
-        axios.post("/api/login", loginForm)
-            .then(({ data }: { data: Usuario }) => data),
-        {
-            enabled: false,
-            refetchOnWindowFocus: false,
-            retry: false,
-            onSuccess: (data) => {
-                setUser(data);
-                Router.push("/home");
-            }
-        }
-    );
+    const onSuccess = ({ token }: IAuthenticateUserResponse) => {
+        createSession(token);
+        Router.push("/home");
+    };
+
+    const { isLoading, isError, error, refetch } = authenticateUser(loginForm, onSuccess);
 
     const errorMessage = axios.isAxiosError(error) && error.response?.data.error;
 
@@ -35,6 +27,7 @@ const LoginContainer = () => {
         ev.preventDefault();
         refetch()
     };
+
 
     if (isLoading) {
         return <div>Carregando...</div>
