@@ -1,5 +1,5 @@
 
-import { Usuario } from '../domain/types/Usuario'
+import { Usuario } from '../types/Usuario'
 
 export interface IUserStore {
     user: Usuario | {};

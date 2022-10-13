@@ -1,7 +1,7 @@
 import '../styles/globals.css'
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { useState } from 'react';
-import { useCreateStore, Provider } from '../store/store';
+import { useCreateStore, Provider } from '../domain/store/store';
 import type { AppProps } from 'next/app'
 
 interface pageProps {

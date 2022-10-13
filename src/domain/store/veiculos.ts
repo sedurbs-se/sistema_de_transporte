@@ -1,5 +1,5 @@
 import create from 'zustand'
-import { Veiculos } from '../domain/types/Veiculos';
+import { Veiculos } from '../types/Veiculos';
 
 export interface IVeiculosStore {
     veiculos: Veiculos[];

@@ -1,10 +1,8 @@
-
-
 import axios from 'axios'
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import { HomeContainer } from '../presentation/containers/Home'
-import { initializeStore } from '../store/store'
+import { initializeStore } from '../domain/store/store'
 import styles from '../styles/Home.module.css'
 
 interface Props {
@@ -12,7 +10,6 @@ interface Props {
 }
 
 const Home: NextPage<Props> = ({ isAuthenticated }) => {
-
     return (
         <div className={styles.container}>
             <Head>
@@ -59,6 +56,5 @@ export const getServerSideProps: GetServerSideProps<Props> = async context => {
         }
     }
 }
-
 
 export default Home;

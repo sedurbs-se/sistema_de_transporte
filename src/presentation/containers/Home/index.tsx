@@ -1,4 +1,4 @@
-import { useStore } from "../../../store/store";
+import { useStore } from "../../../domain/store/store";
 import { LoginContainer } from "../LoginContainer";
 import style from "./index.module.scss";
 import shallow from "zustand/shallow";

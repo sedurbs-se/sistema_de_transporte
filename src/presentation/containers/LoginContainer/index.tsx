@@ -3,7 +3,7 @@ import Router from "next/router";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import { Usuario } from "../../../domain/types/Usuario";
-import { userStore  } from "../../../store/user";
+import { userStore  } from "../../../domain/store/user";
 import style from "./index.module.scss";
 
 const LoginContainer = () => {
