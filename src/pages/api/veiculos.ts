@@ -2,7 +2,7 @@
 
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { Veiculos } from '../../domain/types/Veiculos'
+import { Veiculos } from '../../shared/types/Veiculos'
 
 type Data = {
     veiculos: Veiculos[]

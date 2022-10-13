@@ -1,5 +1,5 @@
 import { Button, Container, Table } from "react-bootstrap"
-import { Solicitacao } from "../../../../domain/types/Solicitação"
+import { Solicitacao } from "../../../../shared/types/Solicitação"
 
 export interface ListaSolicitacoesProps {
     Solicitacoes: Solicitacao[]

@@ -1,5 +1,5 @@
 import { Form, Button } from "react-bootstrap";
-import { Setor } from "../../../../domain/types/Setor";
+import { Setor } from "../../../../shared/types/Setor";
 
 export interface CadastroSetorProps {
     setor?: Setor

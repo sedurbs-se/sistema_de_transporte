@@ -1,5 +1,5 @@
 import create from 'zustand'
-import { Veiculos } from '../types/Veiculos';
+import { Veiculos } from '../../shared/types/Veiculos';
 
 export interface IVeiculosStore {
     veiculos: Veiculos[];

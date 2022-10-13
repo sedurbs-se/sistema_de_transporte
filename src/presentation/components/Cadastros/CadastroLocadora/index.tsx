@@ -1,5 +1,5 @@
 import { Form, Button } from "react-bootstrap";
-import { Locadora } from "../../../../domain/types/Locadora";
+import { Locadora } from "../../../../shared/types/Locadora";
 
 export interface CadastroLocadoraProps {
     locadora?: Locadora

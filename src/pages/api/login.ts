@@ -1,33 +1,53 @@
-
-
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { PrismaClient } from '@prisma/client'
+import { Usuario } from '../../shared/types/Usuario';
+import PrismaInstance from '../../shared/prisma.index';
+import { sign } from 'jsonwebtoken';
 
-type Data = {
-    id:string
-    nome: string
-    login:string
+
+interface Response {
+    token: string;
 }
 
 type Error = {
     error: string
-}
-export default function handler(
+};
+
+export default async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<Data | Error>
+    res: NextApiResponse<Response | Error>
 ) {
 
     const { login, password } = req.body;
-    console.log(login, password)
-    if (login == 'admin' && password == 'admin') {
-        res.status(200).json({ 
-            id:"1",
-            login: 'admin',
-            nome: 'John Doe' 
-        
+
+    try {
+        const user = await PrismaInstance.usuario.findFirst({
+            where: {
+                login: login,
+                password: password
+            },
+            select: {
+                id: true,
+                nome: true,
+                login: true
+            }
         })
+
+        if (user) {
+
+            const token = sign({
+                user: user
+            }, "sistema_transporte", {
+                expiresIn: "1d"
+            });
+
+            res.status(200).json({ token })
+        }
+        else {
+            res.status(401).json({ error: 'Invalid credentials' })
+        }
+    } catch (error: any) {
+        res.status(500).json(error.message)
     }
-    else {
-        res.status(401).json({ error: 'Invalid credentials' })
-    }
+
 }

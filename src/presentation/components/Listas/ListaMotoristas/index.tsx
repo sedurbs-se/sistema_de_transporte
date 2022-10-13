@@ -1,5 +1,5 @@
 import { Button, Table } from "react-bootstrap"
-import { Motorista } from "../../../../domain/types/Motorista"
+import { Motorista } from "../../../../shared/types/Motorista"
 
 export interface ListaMotoristasProps {
     motoristas: Motorista[]

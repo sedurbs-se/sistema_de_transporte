@@ -2,28 +2,28 @@ import axios, { AxiosError } from "axios";
 import Router from "next/router";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { Usuario } from "../../../domain/types/Usuario";
+import { Usuario } from "../../../shared/types/Usuario";
 import { useStore } from "../../../domain/store/store";
 import style from "./index.module.scss";
 
 const LoginContainer = () => {
 
-    const { setUser } = useStore();
+    const { createSession } = useStore();
 
     const [loginForm, setLoginForm] = useState({
         login: "",
         password: ""
     });
 
-    const { isLoading, isError, error, refetch } = useQuery<Usuario, AxiosError>(['loginForm', loginForm], () =>
+    const { isLoading, isError, error, refetch } = useQuery<{ token: string }, AxiosError>(['loginForm', loginForm], () =>
         axios.post("/api/login", loginForm)
-            .then(({ data }: { data: Usuario }) => data),
+            .then(({ data }: { data: { token: string } }) => data),
         {
             enabled: false,
             refetchOnWindowFocus: false,
             retry: false,
-            onSuccess: (data) => {
-                setUser(data);
+            onSuccess: ({ token }) => {
+                createSession(token);
                 Router.push("/home");
             }
         }

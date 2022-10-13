@@ -2,7 +2,7 @@ import { useStore } from "../../../domain/store/store";
 import { LoginContainer } from "../LoginContainer";
 import style from "./index.module.scss";
 import shallow from "zustand/shallow";
-import { Veiculos } from "../../../domain/types/Veiculos";
+import { Veiculos } from "../../../shared/types/Veiculos";
 
 const HomeContainer = () => {
 
