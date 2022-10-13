@@ -3,6 +3,10 @@ import { Button, Col, Form, Row } from "react-bootstrap"
 import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
 import { createMotorista } from "../../../../domain/query/createMotorista";
+import shallow from "zustand/shallow";
+import { createMotorista, ICreateMotoristaDTO, ICreateMotoristaResponse } from "../../../../domain/query/createMotorista";
+import { useStore } from "../../../../domain/store/store";
+
 
 interface IMotoristaForm {
     nome: string;
@@ -16,16 +20,22 @@ interface IMotoristaForm {
 
 const CadastroMotorista = () => {
 
+    const { addMotorista } = useStore(state => state, shallow);
+
     const { control, register, handleSubmit, watch, formState: { errors } } = useForm();
 
-    const form = watch() as IMotoristaForm;
-    const { refetch, isError } = createMotorista(form)
+    const onSuccess = ({ motorista }: ICreateMotoristaResponse) => {
+        addMotorista(motorista)
+    };
+
+    const form = watch() as ICreateMotoristaDTO;
+
+    const { refetch, isError } = createMotorista(form, onSuccess)
 
     const onSubmit = async () => {
-        const { data } = await refetch();
-
-        console.log(data)
+        refetch();
     };
+
 
     return (
         <div>
