@@ -1,3 +1,5 @@
+import { Motorista } from "@prisma/client";
+import { useEffect } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap"
 import { useForm } from "react-hook-form";
 import shallow from "zustand/shallow";
@@ -5,24 +7,40 @@ import { createMotorista, ICreateMotoristaDTO, ICreateMotoristaResponse } from "
 import { useStore } from "../../../../domain/store/store";
 
 
-
 const CadastroMotorista = () => {
 
-    const { addMotorista } = useStore(state => state, shallow);
+    const { addMotorista, selectedMotorista, setSelectedMotorista, updateMotorista } = useStore(state => state, shallow);
 
-    const { control, register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, formState: { errors }, setValue } = useForm();
 
     const onSuccess = ({ motorista }: ICreateMotoristaResponse) => {
-        addMotorista(motorista)
+        if (selectedMotorista) {
+            setSelectedMotorista()
+            updateMotorista(motorista);
+        } else {
+            addMotorista(motorista)
+        }
     };
 
-    const form = watch() as ICreateMotoristaDTO;
+    const form = watch() as ICreateMotoristaDTO['params'];
 
-    const { refetch, isError } = createMotorista(form, onSuccess)
+    const { refetch, isError } = createMotorista({
+        params: form,
+        onSuccess,
+        id: selectedMotorista?.id
+    });
 
     const onSubmit = async () => {
         refetch();
     };
+
+    useEffect(() => {
+        if (selectedMotorista) {
+            Object.keys(form).forEach(key => {
+                setValue(key, selectedMotorista[key as keyof Motorista])
+            })
+        }
+    }, [selectedMotorista])
 
 
     return (
@@ -34,8 +52,6 @@ const CadastroMotorista = () => {
                     <Form.Label>Nome</Form.Label>
                     <Form.Control {...register("nome", { required: "Por favor escreva o nome do motorista!" })} />
                 </Form.Group>
-
-
 
                 <Form.Group className="mb-3" controlId="formBasicDataNascimento">
                     <Form.Label>Data de Nascimento</Form.Label>

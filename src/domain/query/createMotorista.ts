@@ -3,22 +3,28 @@ import axios, { AxiosResponse } from "axios";
 import { useQuery, UseQueryResult } from "react-query";
 
 interface ICreateMotoristaDTO {
-    nome: string;
-    celular: string;
-    telefone: string;
-    data_nascimento: string;
-    bairro: string;
-    endereco: string;
-    vinculo: string;
+    params: {
+        nome: string;
+        celular: string;
+        telefone: string;
+        data_nascimento: string;
+        bairro: string;
+        endereco: string;
+        vinculo: string;
+    };
+    onSuccess: (data: ICreateMotoristaResponse) => void;
+    id?: string;
+
 }
 
 interface ICreateMotoristaResponse {
     motorista: Motorista;
 }
 
-function createMotorista(params: ICreateMotoristaDTO, onSuccess: (data: ICreateMotoristaResponse) => void): UseQueryResult<ICreateMotoristaResponse> {
+
+function createMotorista({ params, onSuccess, id }: ICreateMotoristaDTO): UseQueryResult<ICreateMotoristaResponse> {
     return useQuery('createMotorista', async () => {
-        const { data }: AxiosResponse = await axios.post("http://localhost:3000/api/motorista",
+        const { data }: AxiosResponse = await axios.post(`http://localhost:3000/api/motorista/${id}`,
             { ...params });
         return data;
     }, {

@@ -7,12 +7,10 @@ import { initializeStore } from "../../domain/store/store";
 
 const Teste: NextPage = () => {
     return (
-        <>
-            <Container >
-                <h2 className={style["title"]}>Motoristas</h2>
-                <ListaMotoristas></ListaMotoristas>
-            </Container>
-        </>
+        <Container >
+            <h2 className={style["title"]}>Motoristas</h2>
+            <ListaMotoristas />
+        </Container>
     )
 };
 

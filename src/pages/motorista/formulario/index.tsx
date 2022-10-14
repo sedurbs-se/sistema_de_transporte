@@ -7,10 +7,9 @@ import axios from "axios";
 import { initializeStore } from "../../../domain/store/store";
 
 
-const Teste: NextPage = () => {
+const CadastrarMotorista: NextPage = () => {
     return (
         <>
-            <NavBarT></NavBarT>
             <Container >
                 <h2 className={style["title"]}>Motoristas</h2>
                 <CadastroMotorista></CadastroMotorista>
@@ -35,10 +34,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
                 permanent: false,
             },
         }
-    }
-    const motoristas = await axios.get("http://localhost:3000/api/motorista/list");
-
-    state.motoristas = motoristas.data.motoristas;
+    };
 
     return {
         props: {
@@ -47,4 +43,4 @@ export const getServerSideProps: GetServerSideProps = async context => {
     }
 }
 
-export default Teste
+export default CadastrarMotorista

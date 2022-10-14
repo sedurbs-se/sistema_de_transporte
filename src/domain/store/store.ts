@@ -4,11 +4,11 @@ import createContext from 'zustand/context'
 import { createUserStore, initialUserStoreState, IUserStore } from './user';
 import { createVeiculoStore, initialVeiculosStoreState, IVeiculosStore } from './veiculos';
 import { combine } from "zustand/middleware";
-import { createMotoristasStore, initialMotoristasStoreState } from './motoristas';
+import { createMotoristasStore, IMotoristasStore, initialMotoristasStoreState } from './motoristas';
 
-interface IInitialState extends IUserStore, IVeiculosStore {
+
+export  interface IInitialState extends IUserStore, IVeiculosStore, IMotoristasStore {
 };
-
 
 type useStoreState = typeof initializeStore extends (
     ...args: never

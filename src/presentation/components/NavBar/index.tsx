@@ -64,7 +64,7 @@ const NavBarT = () => {
               <NavDropdown.Item text="Setor" href="/setores" as={DropdownLink}></NavDropdown.Item>
               <NavDropdown.Item text="Veículo" href="/veiculos" as={DropdownLink}></NavDropdown.Item>
               <NavDropdown.Item text="Locadora" href="/locadoras" as={DropdownLink}></NavDropdown.Item>
-              <NavDropdown.Item text="Motorista" href="/motoristas" as={DropdownLink}></NavDropdown.Item>
+              <NavDropdown.Item text="Motorista" href="/motorista" as={DropdownLink}></NavDropdown.Item>
             </NavDropdown>
             <NavDropdown 
             className={style['dropdown-box']}
