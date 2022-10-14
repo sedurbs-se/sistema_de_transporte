@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { useState } from "react";
-import { Container, Navbar, NavDropdown, Nav } from "react-bootstrap"
+import { Container, Navbar, NavDropdown, Nav, Button } from "react-bootstrap"
 import DropdownLink from "../DropdownLink";
 import style from "./index.module.scss";
+import Swal from "sweetalert2";
 
 
 const NavBarT = () => {
@@ -11,6 +12,8 @@ const NavBarT = () => {
         "gerencia": false,
         "relatorios": false
     });
+
+
     const showDropDown = (e: any) => {
         console.log(e.target.id)
         const {id} = e.target
@@ -26,6 +29,7 @@ const NavBarT = () => {
                 return
             }
     }
+
     const hideDropDown = (e: any) => {
         const {id} = e.target
         switch(id) {
@@ -38,11 +42,28 @@ const NavBarT = () => {
                 setShow({...show, relatorios: false})
             }
     }
+
+    const showModaLogout = (e: any) => {
+        e.preventDefault();
+        {Swal.fire({
+            title:'Deseja sair da sua conta?',
+            cancelButtonText:'Não',
+            showCancelButton:true,
+            confirmButtonColor:'#2da44e',
+            cancelButtonColor:'#7c7c8a',
+            confirmButtonText:'Sim'}).then((res) => {
+                if(res.isConfirmed) {
+                    Swal.fire('OK')
+                }
+            })}
+    }
+
+
     return (
-        <Navbar variant="dark" bg="dark" style={{marginBottom:'20px'}} sticky="top">
+        <Navbar variant="dark" bg="dark" sticky="top">
             <Container>
-          <Navbar.Brand href="#home">Sistema de transporte</Navbar.Brand>
-          <Nav>
+          <Navbar.Brand href="/">Sistema de transporte</Navbar.Brand>
+          <Nav className="me-auto">
           <NavDropdown 
           className={style['dropdown-box']}
              show={show.movimentacao}
@@ -78,13 +99,13 @@ const NavBarT = () => {
               <NavDropdown.Item text="Retorno de viagem" href="#action5"as={DropdownLink}></NavDropdown.Item>
             </NavDropdown>
             </Nav>
+            </Container>
           <Navbar.Toggle />
-          <Navbar.Collapse className="justify-content-end">
+          <Navbar.Collapse >
             <Navbar.Text>
-                Bem vindo, <a href="#login">John Doe</a>
+                Bem vindo, <Button onClick={showModaLogout}>John Doe</Button>
             </Navbar.Text>
           </Navbar.Collapse>
-          </Container>
       </Navbar>
     )
 }

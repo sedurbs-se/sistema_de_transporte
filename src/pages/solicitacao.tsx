@@ -46,7 +46,7 @@ const Teste: NextPage  = () => {
                         num_ocupantes:1,
                         data:'11/10/2022',
                         hora:'11:00',
-                        status_id:'ESPERA'},
+                        status_id:'AUTORIZADO'},
                         {
                             usuario_id: "Sr. Enoque",
                             ramal_id: 5306,

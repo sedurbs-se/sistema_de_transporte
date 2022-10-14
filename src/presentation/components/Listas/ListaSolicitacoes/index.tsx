@@ -1,5 +1,7 @@
-import { Button, Container, Table } from "react-bootstrap"
+import { Badge, Button, Container, Table } from "react-bootstrap"
 import { Solicitacao } from "../../../../shared/types/Solicitação"
+import getBadgeTypeByStatus from "../../../../shared/utils/getBadgeTypeByStatus"
+
 
 export interface ListaSolicitacoesProps {
     Solicitacoes: Solicitacao[]
@@ -33,7 +35,7 @@ const ListaSolicitacoes = (props: ListaSolicitacoesProps) => {
                       <td>{solicitacao.num_ocupantes}</td>
                       <td>{solicitacao.data}</td>
                       <td>{solicitacao.hora}</td>
-                      <td>{solicitacao.status_id}</td>
+                      <td><Badge pill bg={getBadgeTypeByStatus(solicitacao.status_id)}>{solicitacao.status_id}</Badge></td>
                   </tr>
               ))
           }
