@@ -11,7 +11,7 @@ export default async function onError(
     if (error instanceof AppError) {
         res.status(error.statusCode).end(error.message);
     } else {
-        res.status(500).end('Internal server error');
+        res.status(500).end('Internal server error', error);
     }
 
 

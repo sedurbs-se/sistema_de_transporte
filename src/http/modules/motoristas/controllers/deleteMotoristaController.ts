@@ -14,7 +14,7 @@ const deleteMotoristaController = catchAsyncErrors(async (req: NextApiRequest, r
 
     await prisma.motorista.delete({ where: { id: id as string } })
 
-    res.status(200).send();
+    res.status(200).send({});
 });
 
 export { deleteMotoristaController }

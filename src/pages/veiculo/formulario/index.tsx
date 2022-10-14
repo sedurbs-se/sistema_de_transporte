@@ -1,0 +1,41 @@
+import { GetServerSideProps, NextPage } from "next";
+import { Container } from "react-bootstrap";
+import style from "../../../presentation/components/Cadastros/CadastroLocadora/index.module.scss"
+import { initializeStore } from "../../../domain/store/store";
+import CadastroVeiculo from "../../../presentation/components/Cadastros/CadastroVeiculo";
+
+const Veiculos: NextPage = () => {
+    return (
+        <Container >
+            <h2 className={style["title"]}>Veiculos</h2>
+            <CadastroVeiculo />
+        </Container>
+    )
+};
+
+export const getServerSideProps: GetServerSideProps = async context => {
+    const zustandStore = initializeStore();
+
+    const state = zustandStore.getState();
+
+    const { verifySession } = state;
+
+    const isAuthenticated = await verifySession(context);
+
+    if (!isAuthenticated) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            },
+        }
+    };
+
+    return {
+        props: {
+            initialZustandState: JSON.parse(JSON.stringify(state)),
+        }
+    }
+}
+
+export default Veiculos

@@ -11,22 +11,37 @@ datasource db {
 }
 
 model Usuario {
-  id        String      @id @default(uuid())
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  login     String      @unique
-  password  String      @default("abcd1234")
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  login     String   @unique
+  password  String   @default("abcd1234")
   nome      String
 }
 
 model Motorista {
-  id             String   @id @default(uuid())
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  nome           String
-  celular        String
-  telefone       String
+  id              String   @id @default(uuid())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  nome            String
+  celular         String
+  telefone        String
   data_nascimento DateTime
-  bairro         String
-  endereco       String
+  bairro          String
+  endereco        String
+}
+
+model Veiculo {
+  id                   String   @id @default(uuid())
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  placa                String
+  descricao            String
+  componentes          String
+  quilometragemInicial String
+  quilometragemAtual   String
+  // tipo_frota_id: string;
+  // locadora_id: string;
+  // setor_id: string;
+  observacao           String
 }

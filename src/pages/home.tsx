@@ -1,7 +1,6 @@
 import axios from 'axios'
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-import { HomeContainer } from '../presentation/containers/MotoristaContainer'
 import { initializeStore } from '../domain/store/store'
 import styles from '../styles/Home.module.css'
 

@@ -1,7 +1,7 @@
 import nc from "next-connect";
 import onError from "../../../http/middlewares/onErrors";
 import { createMotoristaController } from "../../../http/modules/motoristas/controllers/createMotoristaController";
-import { deleteMotoristaController } from "../../../http/modules/motoristas/controllers/deleteMotorista";
+import { deleteMotoristaController } from "../../../http/modules/motoristas/controllers/deleteMotoristaController";
 import { getMotoristaController } from "../../../http/modules/motoristas/controllers/getMotoristaController";
 
 const handler = nc({ onError })
