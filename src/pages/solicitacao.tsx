@@ -9,7 +9,6 @@ import { Solicitacao } from "../shared/types/Solicitação";
 const Teste: NextPage  = () => {
     return (
         <>
-        <NavBarT></NavBarT>
         <Container>
             <ListaSolicitacoes Solicitacoes=
             {[{

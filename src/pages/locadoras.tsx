@@ -8,7 +8,6 @@ import style from "../presentation/components/Cadastros/CadastroLocadora/index.m
 const Teste: NextPage  = () => {
     return (
         <>
-        <NavBarT></NavBarT>
         <Container>
             <h2 className={style["title"]}>Locadoras</h2>
             <ListaLocadoras locadoras = {[{descricao:'fffff',bairro:'ESTANCIA'}]}></ListaLocadoras>

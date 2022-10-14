@@ -11,7 +11,6 @@ import style from "../presentation/components/Cadastros/CadastroLocadora/index.m
 const Teste: NextPage  = () => {
     return (
         <>
-        <NavBarT></NavBarT>
         <Container>
         <h2 className={style["title"]}>Setores</h2>
             <ListaSetores setores = {[{codigo:'017',sigla:'ARQUIVO',ramal:5359}]}></ListaSetores>

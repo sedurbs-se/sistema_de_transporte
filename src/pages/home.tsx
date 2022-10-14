@@ -20,7 +20,7 @@ const Home: NextPage<Props> = ({ isAuthenticated }) => {
                 <h2>
                     SISTEMA DE TRANSPORTE
                 </h2>
-                <HomeContainer />
+ 
             </main>
 
         </div>

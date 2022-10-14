@@ -5,17 +5,16 @@ import style from "../presentation/components/Cadastros/CadastroLocadora/index.m
 import ListaVeiculos from "../presentation/components/Listas/ListaVeículos";
 import CadastroVeiculo from "../presentation/components/Cadastros/CadastroVeiculo";
 
-const Teste: NextPage  = () => {
-    return (
-        <>
-        <NavBarT></NavBarT>
-        <Container >
+const Teste: NextPage = () => {
+  return (
+    <>
+      <Container >
         <h2 className={style["title"]}>Veículos</h2>
-        <ListaVeiculos veiculos={[{placa:'NVL-2487', descricao:'GOL', quilometragem:41.2,tipo_frota_id:'TITULAR'}]}></ListaVeiculos>
-      <CadastroVeiculo></CadastroVeiculo>
+        <ListaVeiculos veiculos={[{ placa: 'NVL-2487', descricao: 'GOL', quilometragem: 41.2, tipo_frota_id: 'TITULAR' }]}></ListaVeiculos>
+        <CadastroVeiculo></CadastroVeiculo>
       </Container>
-      </>
-    )
+    </>
+  )
 }
 
 export default Teste

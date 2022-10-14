@@ -16,7 +16,7 @@ const LoginContainer = () => {
 
     const onSuccess = ({ token }: IAuthenticateUserResponse) => {
         createSession(token);
-        Router.push("/home");
+        Router.push("/motorista");
     };
 
     const { isLoading, isError, error, refetch } = authenticateUser(loginForm, onSuccess);

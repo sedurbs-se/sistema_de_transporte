@@ -2,6 +2,7 @@ import { Button, Table } from "react-bootstrap"
 import shallow from "zustand/shallow"
 import { useStore } from "../../../../domain/store/store"
 import { Motorista } from "../../../../shared/types/Motorista"
+import TableComponent from "../../Table"
 
 export interface ListaMotoristasProps {
 }
@@ -11,31 +12,20 @@ const ListaMotoristas = (props: ListaMotoristasProps) => {
 
     const { motoristas }: { motoristas: Motorista[] } = useStore((state) => state, shallow);
 
-    return (
-        <Table striped bordered hover>
-            <thead>
-                <tr>
-                    <th>Editar</th>
-                    <th>Excluir</th>
-                    <th>Descrição</th>
-                    <th>Celular</th>
-                    <th>Vínculo</th>
-                </tr>
-            </thead>
-            <tbody>
-                {
-                    motoristas.map((motorista) => (
-                        <tr>
-                            <td><Button>Editar</Button></td>
-                            <td><Button variant="danger">Excluir</Button></td>
-                            <td>{motorista.nome}</td>
-                            <td>{motorista.celular}</td>
-                            <td>{motorista.vinculo_id}</td>
-                        </tr>
-                    ))
-                }
-            </tbody>
-        </Table>)
+    const tableColumns = [
+        ["Nome", "nome"],
+        ["Celular", "celular"],
+        ["Vinculo", "vinculo"],
+        ["", ""]
+    ];
+
+
+    return (<TableComponent
+        tableHeaderData={tableColumns}
+        tableBodyData={motoristas}
+        onDelete={(id) => console.log(id)}
+        onEdit={(id) => console.log(id)}
+    />)
 }
 
 export default ListaMotoristas;

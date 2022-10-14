@@ -1,22 +1,10 @@
-import axios, { AxiosError } from "axios";
 import { Button, Col, Form, Row } from "react-bootstrap"
 import { useForm } from "react-hook-form";
-import { useQuery } from "react-query";
-import { createMotorista } from "../../../../domain/query/createMotorista";
 import shallow from "zustand/shallow";
 import { createMotorista, ICreateMotoristaDTO, ICreateMotoristaResponse } from "../../../../domain/query/createMotorista";
 import { useStore } from "../../../../domain/store/store";
 
 
-interface IMotoristaForm {
-    nome: string;
-    celular: string;
-    telefone: string;
-    data_nascimento: string;
-    bairro: string;
-    endereco: string;
-    vinculo: string;
-}
 
 const CadastroMotorista = () => {
 
