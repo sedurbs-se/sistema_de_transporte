@@ -22,9 +22,9 @@ interface ICreateMotoristaResponse {
 }
 
 
-function createMotorista({ params, onSuccess, id }: ICreateMotoristaDTO): UseQueryResult<ICreateMotoristaResponse> {
+function useCreateMotorista({ params, onSuccess, id }: ICreateMotoristaDTO): UseQueryResult<ICreateMotoristaResponse> {
     return useQuery('createMotorista', async () => {
-        const { data }: AxiosResponse = await axios.post(`http://localhost:3000/api/motorista/${id}`,
+        const { data }: AxiosResponse =  await axios.post(`http://localhost:3000/api/motorista/${id || ''}`,
             { ...params });
         return data;
     }, {
@@ -33,5 +33,5 @@ function createMotorista({ params, onSuccess, id }: ICreateMotoristaDTO): UseQue
     });
 }
 
-export { createMotorista };
+export { useCreateMotorista };
 export type { ICreateMotoristaDTO, ICreateMotoristaResponse }

@@ -1,20 +1,19 @@
 import { GetServerSideProps, NextPage } from "next";
-import { Container } from "react-bootstrap";
-import CadastroMotorista from "../../../presentation/components/Cadastros/CadastroMotorista";
-import style from "../../../presentation/components/Cadastros/CadastroLocadora/index.module.scss"
+import CadastroMotorista from "@components/Cadastros/CadastroMotorista";
+import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
 import axios from "axios";
-import { initializeStore } from "../../../domain/store/store";
-import { NextParsedUrlQuery } from "next/dist/server/request-meta";
+import { initializeStore } from "@domain/store/store";
 import { ParsedUrlQuery } from "querystring";
+import PageContainer from "@components/PageContainer";
 
 
 const CadastrarMotorista: NextPage = () => {
     return (
         <>
-            <Container >
+            <PageContainer>
                 <h2 className={style["title"]}>Motoristas</h2>
                 <CadastroMotorista></CadastroMotorista>
-            </Container>
+            </PageContainer>
         </>
     )
 };

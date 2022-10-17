@@ -1,16 +1,15 @@
-import { NextPage } from "next";
-import Head from "next/head";
-import Table from "react-bootstrap/Table"
-import { Button, Container } from "react-bootstrap";
-import NavBarT from "../presentation/components/NavBar";
-import ListaSolicitacoes from "../presentation/components/Listas/ListaSolicitacoes";
-import { Solicitacao } from "../shared/types/Solicitação";
+import { GetServerSideProps, NextPage } from "next";
+import ListaSolicitacoes from "@components/Listas/ListaSolicitacoes";
+import { Solicitacao } from "../../shared/types/Solicitação";
+import PageContainer from "@components/PageContainer";
+import { initializeStore } from "@domain/store/store";
 
-const Teste: NextPage  = () => {
+const Solicitacao: NextPage  = () => {
     return (
         <>
-        <Container>
-            <ListaSolicitacoes Solicitacoes=
+        <PageContainer>
+            <ListaSolicitacoes 
+            Solicitacoes=
             {[{
             usuario_id: "Sr. Enoque",
             ramal_id: 5306,
@@ -46,7 +45,7 @@ const Teste: NextPage  = () => {
                         num_ocupantes:1,
                         data:'11/10/2022',
                         hora:'11:00',
-                        status_id:'ESPERA'},
+                        status_id:'AUTORIZADO'},
                         {
                             usuario_id: "Sr. Enoque",
                             ramal_id: 5306,
@@ -55,10 +54,35 @@ const Teste: NextPage  = () => {
                             num_ocupantes:1,
                             data:'11/10/2022',
                             hora:'11:00',
-                            status_id:'ESPERA'}]}></ListaSolicitacoes>
-      </Container>
+                            status_id:'ESPERA'}] as Solicitacao[]}></ListaSolicitacoes>
+      </PageContainer>
       </>
     )
 }
 
-export default Teste
+export const getServerSideProps: GetServerSideProps = async context => {
+    const zustandStore = initializeStore();
+
+    const state = zustandStore.getState();
+
+    const { verifySession } = state;
+
+    const isAuthenticated = await verifySession(context);
+
+    if (!isAuthenticated) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            },
+        }
+    }
+
+    return {
+        props: {
+            initialZustandState: JSON.parse(JSON.stringify(state)),
+        }
+    }
+}
+
+export default Solicitacao;

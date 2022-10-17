@@ -15,7 +15,7 @@ interface ICreateVeiculoResponse {
     veiculo: Veiculo;
 }
 
-function createVeiculo({ params, onSuccess, id }: ICreateVeiculoDTO): UseQueryResult<ICreateVeiculoResponse> {
+function useCreateVeiculo({ params, onSuccess, id }: ICreateVeiculoDTO): UseQueryResult<ICreateVeiculoResponse> {
     return useQuery('createVeiculo', async () => {
         const { data }: AxiosResponse = await axios.post(`http://localhost:3000/api/veiculo/${id}`,
             { ...params });
@@ -26,5 +26,5 @@ function createVeiculo({ params, onSuccess, id }: ICreateVeiculoDTO): UseQueryRe
     });
 }
 
-export { createVeiculo };
+export { useCreateVeiculo };
 export type { ICreateVeiculoDTO, ICreateVeiculoResponse }

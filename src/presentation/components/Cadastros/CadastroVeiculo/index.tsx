@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { Form, Button, Container, Col, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import shallow from "zustand/shallow";
-import { createVeiculo, ICreateVeiculoDTO, ICreateVeiculoResponse } from "../../../../domain/query/createVeiculo";
-import { useStore } from "../../../../domain/store/store";
+import { useCreateVeiculo, ICreateVeiculoDTO, ICreateVeiculoResponse } from "@domain/query/createVeiculo";
+import { useStore } from "@domain/store/store";
 import style from "../CadastroLocadora/index.module.scss"
 
 
@@ -30,7 +30,7 @@ const CadastroVeiculo = () => {
 
     const form = watch() as ICreateVeiculoDTO['params'];
 
-    const { refetch, isError } = createVeiculo({
+    const { refetch, isError } = useCreateVeiculo({
         params: form,
         onSuccess,
         id: selectedVeiculo?.id

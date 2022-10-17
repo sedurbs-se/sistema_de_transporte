@@ -1,44 +1,36 @@
-import { Button, Container, Table } from "react-bootstrap"
-import { Solicitacao } from "../../../../shared/types/Solicitação"
+import { Badge, Button, Container, Table } from "react-bootstrap"
+import { Solicitacao } from "@shared/types/Solicitação"
+import getBadgeTypeByStatus from "@shared/utils/getBadgeTypeByStatus"
+import TableComponent from "@components/Table"
+
 
 export interface ListaSolicitacoesProps {
     Solicitacoes: Solicitacao[]
 }
 
 const ListaSolicitacoes = (props: ListaSolicitacoesProps) => {
+
+    const tableColumns = [
+        ["Usuário", "usuario_id"],
+        ["Ramal", "ramal_id"],
+        ["Atividade", "atividade"],
+        ["Município", "municipio_id"],
+        ["Ocupantes", "num_ocupantes"],
+        ["Data", "data"],
+        ["Hora", "hora"],
+        ["Status", "status_id"],
+        ["", ""],
+    ]
+
+    const tableBody = props.Solicitacoes.map((solicitacao) => ({...solicitacao, status_id: <Badge pill bg={getBadgeTypeByStatus(solicitacao.status_id)}>{solicitacao.status_id}</Badge>}))
+    
     return (
-  <Table striped bordered hover>
-      <thead>
-          <tr>
-              <th>Editar</th>
-              <th>Usuário</th>
-              <th>Ramal</th>
-              <th>Atividade</th>
-              <th>Município</th>
-              <th>Ocup.</th>
-              <th>Data</th>
-              <th>Hora</th>
-              <th>Status</th>
-          </tr>
-      </thead>
-      <tbody>
-          {
-              props.Solicitacoes.map((solicitacao) => (
-                  <tr>
-                      <td><Button>Editar</Button></td>
-                      <td>{solicitacao.usuario_id}</td>
-                      <td>{solicitacao.ramal_id}</td>
-                      <td>{solicitacao.atividade}</td>
-                      <td>{solicitacao.municipio_id}</td>
-                      <td>{solicitacao.num_ocupantes}</td>
-                      <td>{solicitacao.data}</td>
-                      <td>{solicitacao.hora}</td>
-                      <td>{solicitacao.status_id}</td>
-                  </tr>
-              ))
-          }
-      </tbody>
-  </Table>
+        <TableComponent 
+        tableHeaderData={tableColumns}
+        tableBodyData={tableBody}
+        onDelete={(id) => console.log(id)}
+        onEdit={(id) => console.log(id)}
+        ></TableComponent>
     )
 }
 

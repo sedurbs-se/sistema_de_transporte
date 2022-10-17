@@ -1,19 +1,27 @@
 import { GetServerSideProps, NextPage } from "next";
-import { Button, Container } from "react-bootstrap";
-import NavBarT from "../../../presentation/components/NavBar";
-import CadastroMotorista from "../../../presentation/components/Cadastros/CadastroMotorista";
-import style from "../../../presentation/components/Cadastros/CadastroLocadora/index.module.scss"
+import { Breadcrumb, Button, Container } from "react-bootstrap";
+import CadastroMotorista from "@components/Cadastros/CadastroMotorista";
+import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
 import axios from "axios";
-import { initializeStore } from "../../../domain/store/store";
+import { initializeStore } from "@domain/store/store";
+import PageContainer from "@components/PageContainer";
+import Link from "next/link";
 
 
 const CadastrarMotorista: NextPage = () => {
     return (
         <>
-            <Container >
+            <PageContainer >
+            <Breadcrumb>
+      <Breadcrumb.Item ><Link href="/solicitacao">Solicitacoes</Link></Breadcrumb.Item>
+      <Breadcrumb.Item>
+      <Link href="/motorista">Listagem</Link>
+      </Breadcrumb.Item>
+      <Breadcrumb.Item active>Formulário</Breadcrumb.Item>
+    </Breadcrumb>
                 <h2 className={style["title"]}>Motoristas</h2>
                 <CadastroMotorista></CadastroMotorista>
-            </Container>
+            </PageContainer>
         </>
     )
 };

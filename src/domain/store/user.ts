@@ -5,7 +5,7 @@ import nookies from "nookies"
 import { GetServerSidePropsContext } from 'next';
 
 export interface IUserStore {
-    user: Usuario | {};
+    user: Usuario | null;
     setUser: (user: Usuario) => void;
     createSession: (token: string) => Promise<void>;
     verifySession: (context: GetServerSidePropsContext) => boolean;
@@ -13,7 +13,7 @@ export interface IUserStore {
 }
 
 export const initialUserStoreState: IUserStore = {
-    user: {},
+    user: null,
     setUser: (user: Usuario) => { },
     createSession: async (token: string) => { },
     verifySession: (context: GetServerSidePropsContext) => false,
@@ -21,7 +21,6 @@ export const initialUserStoreState: IUserStore = {
 }
 
 export const createUserStore = (set: any, get: any, api: any) => ({
-    user: {},
     setUser: (user: Usuario) => set({ user, isAuthenticated: true }),
     createSession: async (token: string) => {
 
@@ -49,7 +48,6 @@ export const createUserStore = (set: any, get: any, api: any) => ({
 
         return false;
     },
-    isAuthenticated: false,
 })
 
 

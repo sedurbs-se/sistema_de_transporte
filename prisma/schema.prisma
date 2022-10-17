@@ -45,3 +45,39 @@ model Veiculo {
   // setor_id: string;
   observacao           String
 }
+
+model Setor {
+  id        String   @id @default(uuid())
+  codigo    String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  descricao String
+  sigla     String
+  responsavel String
+  ramal     String
+}
+
+model Locadora {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  descricao String
+  sigla String
+  endereco String
+  bairro String
+  telefone String
+}
+
+model Solicitacao {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ramal String
+  atividade String
+  municipio String
+  num_ocupantes Int
+  status String
+  observacao String
+  setor String
+  tipo String
+}

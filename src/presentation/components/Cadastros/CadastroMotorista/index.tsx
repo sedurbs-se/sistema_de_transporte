@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap"
 import { useForm } from "react-hook-form";
 import shallow from "zustand/shallow";
-import { createMotorista, ICreateMotoristaDTO, ICreateMotoristaResponse } from "../../../../domain/query/createMotorista";
-import { useStore } from "../../../../domain/store/store";
+import { useCreateMotorista, ICreateMotoristaDTO, ICreateMotoristaResponse } from "@domain/query/createMotorista";
+import { useStore } from "@domain/store/store";
 
 
 const CadastroMotorista = () => {
@@ -24,7 +24,7 @@ const CadastroMotorista = () => {
 
     const form = watch() as ICreateMotoristaDTO['params'];
 
-    const { refetch, isError } = createMotorista({
+    const { refetch, isError } = useCreateMotorista({
         params: form,
         onSuccess,
         id: selectedMotorista?.id
@@ -44,8 +44,8 @@ const CadastroMotorista = () => {
 
 
     return (
-        <div>
-            <h1>Cadastro de Motorista</h1>
+        <fieldset>
+            <legend>Cadastro de Motorista</legend>
             <Form onSubmit={handleSubmit(onSubmit)}>
 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -92,7 +92,7 @@ const CadastroMotorista = () => {
                     Salvar
                 </Button>
             </Form>
-        </div>
+        </fieldset>
     )
 }
 

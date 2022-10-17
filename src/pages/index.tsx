@@ -1,6 +1,7 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import { initializeStore } from '@domain/store/store'
 import { LoginContainer } from '../presentation/containers/LoginContainer'
 import styles from '../styles/Home.module.css'
 
@@ -9,6 +10,8 @@ interface Props {
 }
 
 const Login: NextPage<Props> = ({ isAuthenticated }) => {
+
+
 
   return (
     <div className={styles.container}>
@@ -26,18 +29,31 @@ const Login: NextPage<Props> = ({ isAuthenticated }) => {
 }
 
 export const getServerSideProps: GetServerSideProps<Props> = async context => {
-  const isAuthenticated = false;
+  const zustandStore = initializeStore();
+
+    const state = zustandStore.getState();
+
+    console.log(state)
+
+    const { verifySession } = state;
+
+    const isAuthenticated = await verifySession(context);
 
   if (isAuthenticated) {
     return {
       redirect: {
-        destination: '/home',
+        destination: '/solicitacao',
         permanent: false,
       },
     }
   }
 
-  return { props: { isAuthenticated } }
+  return {
+    props: {
+        isAuthenticated,
+        initialZustandState: JSON.parse(JSON.stringify(state)),
+    }
+}
 }
 
 
