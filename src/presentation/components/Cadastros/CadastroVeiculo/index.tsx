@@ -14,7 +14,15 @@ const CadastroVeiculo = () => {
         addVeiculo,
         selectedVeiculo,
         setSelectedVeiculo,
-        updateVeiculo
+        updateVeiculo,
+
+        /// Setor
+        setores,
+        // Locadoras
+        locadoras,
+        // Frotas,
+        tipoFrotas,
+
     } = useStore(state => state, shallow);
 
     const { register, handleSubmit, watch, formState: { errors }, setValue } = useForm();
@@ -47,8 +55,6 @@ const CadastroVeiculo = () => {
             })
         }
     }, [selectedVeiculo])
-
-
 
 
     return (
@@ -89,9 +95,9 @@ const CadastroVeiculo = () => {
                         </Form.Group>
                     </Col>
                     <Col>
-                        <Form.Group className="mb-3" controlId="formBasicQuilometragemFinal">
-                            <Form.Label>Quilometragem Final</Form.Label>
-                            <Form.Control {...register("quilometragemFinal", { required: "Por favor escreva o nome do motorista!" })} />
+                        <Form.Group className="mb-3" controlId="formBasicQuilometragemAtual">
+                            <Form.Label>Quilometragem Atual</Form.Label>
+                            <Form.Control {...register("quilometragemAtual", { required: "Por favor escreva o nome do motorista!" })} />
                         </Form.Group>
                     </Col>
                 </Row>
@@ -99,9 +105,11 @@ const CadastroVeiculo = () => {
                     <Col>
                         <Form.Group className="mb-3" controlId="formBasicTipoDeFotra">
                             <Form.Label>Tipo de Frotas</Form.Label>
-                            <Form.Select {...register("tipo_de_frota_id", { required: "Por favor escreva o nome do motorista!" })} >
-
-
+                            <Form.Select {...register("tipo_frota_id", { required: "Por favor escreva o nome do motorista!" })} >
+                                <option value="">Selecione</option>
+                                {tipoFrotas.map((tipoFrota) => (
+                                    <option key={tipoFrota.id} value={tipoFrota.id}>{tipoFrota.nome}</option>
+                                ))}
                             </Form.Select>
                         </Form.Group>
                     </Col>
@@ -109,8 +117,10 @@ const CadastroVeiculo = () => {
                         <Form.Group className="mb-3" controlId="formBasicLocadora">
                             <Form.Label>Locadora</Form.Label>
                             <Form.Select {...register("locadora_id", { required: "Por favor escreva o nome do motorista!" })} >
-
-
+                                <option value="">Selecione</option>
+                                {locadoras.map((locadora) => (
+                                    <option key={locadora.id} value={locadora.id}>{locadora.descricao}</option>
+                                ))}
                             </Form.Select>
                         </Form.Group>
                     </Col>
@@ -118,7 +128,11 @@ const CadastroVeiculo = () => {
                         <Form.Group className="mb-3" controlId="formBasicSetor">
                             <Form.Label>Setor</Form.Label>
                             <Form.Select {...register("setor_id", { required: "Por favor escreva o nome do motorista!" })} >
-
+                                <option value="">Selecione</option>
+                                {setores.map((setor) => (
+                                    <option key={setor.id} value={setor.id}>{setor.descricao}</option>
+                                ))}
+                                
 
                             </Form.Select>
                         </Form.Group>

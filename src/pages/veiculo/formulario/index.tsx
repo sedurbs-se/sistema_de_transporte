@@ -3,6 +3,9 @@ import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
 import { initializeStore } from "@domain/store/store";
 import CadastroVeiculo from "@components/Cadastros/CadastroVeiculo";
 import PageContainer from "@components/PageContainer";
+import fetchTipoFrotas from "@domain/fetch/fetchTipoFrotas";
+import fetchLocadoras from "@domain/fetch/fetchLocadoras";
+import fetchSetores from "@domain/fetch/fetchSetores";
 
 const Veiculos: NextPage = () => {
     return (
@@ -30,6 +33,21 @@ export const getServerSideProps: GetServerSideProps = async context => {
             },
         }
     };
+
+    // Pega setores e locadoras e tipo de frotas
+
+    try {
+        const { tipos } = await fetchTipoFrotas();
+        const { setores } = await fetchSetores();
+        const { locadoras } = await fetchLocadoras();
+
+        state.tipoFrotas = tipos;
+        state.setores = setores;
+        state.locadoras = locadoras;
+
+    } catch (error: any) {
+        console.log(error.message)
+    }
 
     return {
         props: {
