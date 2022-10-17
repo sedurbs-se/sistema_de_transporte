@@ -4,7 +4,7 @@ import axios from "axios";
 import { initializeStore } from "@domain/store/store";
 import ListaVeiculos from "@components/Listas/ListaVeículos";
 import PageContainer from '@components/PageContainer';
-import fetchVeiculos from "@domain/fetch/fetchVeiculos";
+import fetchVeiculos from "@domain/requests/fetch/fetchVeiculos";
 
 const Veiculo: NextPage = () => {
     return (

@@ -3,9 +3,9 @@ import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
 import { initializeStore } from "@domain/store/store";
 import CadastroVeiculo from "@components/Cadastros/CadastroVeiculo";
 import PageContainer from "@components/PageContainer";
-import fetchTipoFrotas from "@domain/fetch/fetchTipoFrotas";
-import fetchLocadoras from "@domain/fetch/fetchLocadoras";
-import fetchSetores from "@domain/fetch/fetchSetores";
+import fetchTipoFrotas from "@domain/requests/fetch/fetchTipoFrotas";
+import fetchLocadoras from "@domain/requests/fetch/fetchLocadoras";
+import fetchSetores from "@domain/requests/fetch/fetchSetores";
 
 const Veiculos: NextPage = () => {
     return (

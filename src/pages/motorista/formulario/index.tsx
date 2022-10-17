@@ -6,7 +6,7 @@ import axios from "axios";
 import { initializeStore } from "@domain/store/store";
 import PageContainer from "@components/PageContainer";
 import Link from "next/link";
-import fetchVinculos from "@domain/fetch/fetchVinculos";
+import fetchVinculos from "@domain/fetch/get/fetchVinculos";
 
 
 const CadastrarMotorista: NextPage = () => {

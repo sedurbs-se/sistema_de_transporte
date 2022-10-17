@@ -1,3 +1,5 @@
+import { createMotorista } from "@domain/requests/post/createMotorista";
+import { updateMotorista } from "@domain/requests/post/updateMotorista";
 import { Motorista } from "@prisma/client";
 import axios, { AxiosResponse } from "axios";
 import { useQuery, UseQueryResult } from "react-query";
@@ -14,7 +16,6 @@ interface ICreateMotoristaDTO {
     };
     onSuccess: (data: ICreateMotoristaResponse) => void;
     id?: string;
-
 }
 
 interface ICreateMotoristaResponse {
@@ -25,8 +26,7 @@ interface ICreateMotoristaResponse {
 function useCreateMotorista({ params, onSuccess, id }: ICreateMotoristaDTO): UseQueryResult<ICreateMotoristaResponse> {
     return useQuery('createMotorista', async () => {
         const { data }: AxiosResponse =
-            id ? await axios.put(`http://localhost:3000/api/motorista?id=${id}`, { ...params }) :
-                await axios.post(`http://localhost:3000/api/motorista`, { ...params });
+            id ? await updateMotorista({ params, id }) : await createMotorista({ params });
         return data;
     }, {
         enabled: false,
