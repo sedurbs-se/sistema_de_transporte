@@ -24,8 +24,9 @@ interface ICreateMotoristaResponse {
 
 function useCreateMotorista({ params, onSuccess, id }: ICreateMotoristaDTO): UseQueryResult<ICreateMotoristaResponse> {
     return useQuery('createMotorista', async () => {
-        const { data }: AxiosResponse =  await axios.post(`http://localhost:3000/api/motorista/${id || ''}`,
-            { ...params });
+        const { data }: AxiosResponse =
+            id ? await axios.put(`http://localhost:3000/api/motorista?id=${id}`, { ...params }) :
+                await axios.post(`http://localhost:3000/api/motorista`, { ...params });
         return data;
     }, {
         enabled: false,

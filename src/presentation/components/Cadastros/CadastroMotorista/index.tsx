@@ -5,20 +5,19 @@ import { useForm } from "react-hook-form";
 import shallow from "zustand/shallow";
 import { useCreateMotorista, ICreateMotoristaDTO, ICreateMotoristaResponse } from "@domain/query/createMotorista";
 import { useStore } from "@domain/store/store";
-import { setModalSuccess } from "@shared/utils/cadastroUtils";
 
 
 const CadastroMotorista = () => {
 
-    const {
-        addMotorista,
-        selectedMotorista,
-        setSelectedMotorista,
+    const { 
+        addMotorista, 
+        selectedMotorista, 
+        setSelectedMotorista, 
         updateMotorista,
 
         // Vinculo
         vinculos
-
+    
     } = useStore(state => state, shallow);
 
     const { register, handleSubmit, watch, formState: { errors }, setValue } = useForm();
@@ -28,24 +27,13 @@ const CadastroMotorista = () => {
             setSelectedMotorista()
             updateMotorista(motorista);
         } else {
-            addMotorista(motorista);
-            setModalSuccess();
-            clearFields();
-
+            addMotorista(motorista)
         }
     };
 
-    const clearFields = () => {
-        Object.keys(form).forEach(key => {
-            setValue(key, "")
-        })
-    }
-
-
-
     const form = watch() as ICreateMotoristaDTO['params'];
 
-    const { refetch, isError, isFetching } = useCreateMotorista({
+    const { refetch, isError } = useCreateMotorista({
         params: form,
         onSuccess,
         id: selectedMotorista?.id
@@ -111,13 +99,14 @@ const CadastroMotorista = () => {
                         {vinculos.map(vinculo => (
                             <option key={vinculo.id} value={vinculo.id}>{vinculo.nome}</option>
                         ))}
+
                     </Form.Select>
 
-
+               
                 </Form.Group>
 
-                <Button variant="primary" type="submit" disabled={isFetching}>
-                    {isFetching ? 'Aguarde...' : 'Salvar'}
+                <Button variant="primary" type="submit">
+                    Salvar
                 </Button>
             </Form>
         </fieldset>

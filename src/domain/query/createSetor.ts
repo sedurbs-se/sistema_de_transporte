@@ -22,7 +22,7 @@ interface ICreateSetorResponse {
 
 function useCreateSetor({ params, onSuccess, id }: ICreateSetorDTO): UseQueryResult<ICreateSetorResponse> {
     return useQuery('createSetor', async () => {
-        const { data }: AxiosResponse =  await axios.post(`http://localhost:3000/api/setor/${id || ''}`,
+        const { data }: AxiosResponse =  await axios.post(`http://localhost:3000/api/setor${id ? `?id=${id}` : ''}`,
             { ...params });
         return data;
     }, {
