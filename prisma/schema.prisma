@@ -29,8 +29,8 @@ model Motorista {
   data_nascimento DateTime
   bairro          String
   endereco        String
-  // vinculo         Vinculo  @relation(fields: [vinculo_id], references: [id])
-  // vinculo_id      String   @default("1")
+  vinculo         Vinculo  @relation(fields: [vinculo_id], references: [id])
+  vinculo_id      String   
 }
 
 model Setor {
@@ -102,5 +102,5 @@ model Vinculo {
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   nome      String
-  // motorista Motorista[]
+  motorista Motorista[]
 }

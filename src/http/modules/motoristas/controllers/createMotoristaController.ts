@@ -13,7 +13,8 @@ const createMotoristaController = catchAsyncErrors(async (req: NextApiRequest, r
         data_nascimento,
         bairro,
         endereco,
-        vinculo, } = req.body;
+        vinculo_id, 
+    } = req.body;
 
     const motorista = await prisma.motorista.create({
         data: {
@@ -23,7 +24,7 @@ const createMotoristaController = catchAsyncErrors(async (req: NextApiRequest, r
             data_nascimento:new Date(data_nascimento),
             bairro,
             endereco,
-            // vinculo,
+            vinculo_id
         }
     });
 

@@ -4,6 +4,7 @@ import axios from "axios";
 import { initializeStore } from "@domain/store/store";
 import ListaVeiculos from "@components/Listas/ListaVeículos";
 import PageContainer from '@components/PageContainer';
+import fetchVeiculos from "@domain/fetch/fetchVeiculos";
 
 const Veiculo: NextPage = () => {
     return (
@@ -33,9 +34,9 @@ export const getServerSideProps: GetServerSideProps = async context => {
     }
 
     try {
-        const veiculos = await axios.get("http://localhost:3000/api/veiculo/list");
+        const { veiculos } = await fetchVeiculos();
 
-        state.veiculos = veiculos.data.veiculos;
+        state.veiculos = veiculos;
     } catch (error) {
         // console.log(error);
     }

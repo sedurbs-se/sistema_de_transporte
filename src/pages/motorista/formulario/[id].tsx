@@ -5,6 +5,7 @@ import axios from "axios";
 import { initializeStore } from "@domain/store/store";
 import { ParsedUrlQuery } from "querystring";
 import PageContainer from "@components/PageContainer";
+import fetchVinculos from "@domain/fetch/fetchVinculos";
 
 
 const CadastrarMotorista: NextPage = () => {
@@ -47,6 +48,11 @@ export const getServerSideProps: GetServerSideProps<QParams> = async context => 
 
     state.selectedMotorista = data.motorista;
     
+    const { vinculos } = await fetchVinculos();
+
+    state.vinculos = vinculos;
+    
+
     return {
         props: {
             initialZustandState: JSON.parse(JSON.stringify(state)),

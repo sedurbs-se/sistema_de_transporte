@@ -9,7 +9,16 @@ import { useStore } from "@domain/store/store";
 
 const CadastroMotorista = () => {
 
-    const { addMotorista, selectedMotorista, setSelectedMotorista, updateMotorista } = useStore(state => state, shallow);
+    const {
+        addMotorista,
+        selectedMotorista,
+        setSelectedMotorista,
+        updateMotorista,
+
+        // Vinculo
+        vinculos
+
+    } = useStore(state => state, shallow);
 
     const { register, handleSubmit, watch, formState: { errors }, setValue } = useForm();
 
@@ -85,7 +94,14 @@ const CadastroMotorista = () => {
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Vínculo</Form.Label>
-                    <Form.Control type="text"  {...register("vinculo", { required: "Por favor escreva o endereço do motorista!" })} />
+                    <Form.Select  {...register("vinculo_id", { required: "Por favor escreva o endereço do motorista!" })} >
+                        <option value="">Selecione um vínculo</option>
+                        {vinculos.map(vinculo => (
+                            <option key={vinculo.id} value={vinculo.id}>{vinculo.nome}</option>
+                        ))}
+                    </Form.Select>
+
+
                 </Form.Group>
 
                 <Button variant="primary" type="submit">
