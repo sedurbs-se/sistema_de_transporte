@@ -21,7 +21,7 @@ const NavBarT = () => {
     });
 
     const { user } = useStore();
-
+    console.log(user)
 
     const showDropDown = (e: any) => {
         const {id} = e.target

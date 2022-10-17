@@ -5,6 +5,7 @@ import shallow from "zustand/shallow"
 import {useEffect} from "react"
 import { useStore } from "@domain/store/store"
 import TableComponent from "@components/Table"
+import Swal from "sweetalert2"
 
 export interface ListaLocadorasProps {
 }
@@ -21,15 +22,62 @@ const ListaLocadoras = (props: ListaLocadorasProps) => {
 
     const onDelete = async (id: string) => {
 
+
         const onDeleteSuccess = (id: string) => {
             removeLocadora(id)
         }
 
-        const data = await axios.delete(`http://localhost:3000/api/locadora?id=${id}`);
+        Swal.fire({
+            icon:'warning',
+            title: "Tem certeza?",
+            text:"Isso excluirá a locadora do sistema",
+            confirmButtonText:"Sim",
+            cancelButtonText:"Não",
+            cancelButtonColor:"red",
+            confirmButtonColor:"green",
+            focusCancel:true,
+            showCancelButton:true,
+            showCloseButton:true,
+        }).then( async (result) => {
+            if(result.isConfirmed) {
+                    var showLoading = function() {
+                        Swal.fire({
+                          title:'Aguarde..',
+                          allowOutsideClick:false,
+                          showConfirmButton:false,
+                          willOpen:() => {
+                            Swal.showLoading()
+                          },
+                        })
+                      }
+                      
+                    try {
+                        showLoading();
+                        const data = await axios.delete(`http://localhost:3000/api/locadora?id=${id}`);
+                        Swal.close()
+    
+                        if (data.status === 200) {
+                            onDeleteSuccess(id)
+                        }
+                    }
+    
+                    catch {
+                        Swal.fire({
+                            icon:'error',
+                            title:"Algo deu errado!",
+                            text:"Não foi possível realizar a exclusão.\nVerifique sua conexão e tente novamente!",
+                            confirmButtonColor:'gray',
+                            showCloseButton:true
+                        })
+                    }
+                   
+    
+                    
+                }
+            }
+        )
 
-        if (data.status === 200) {
-            onDeleteSuccess(id)
-        }
+
 
     }
 
@@ -54,7 +102,8 @@ const ListaLocadoras = (props: ListaLocadorasProps) => {
         tableHeaderData={tableColumns}
         tableBodyData={locadoras}
         onEdit={onEdit}
-        onDelete={onDelete}></TableComponent>
+        onDelete={onDelete}
+        onDetail={() => {}}></TableComponent>
 
         <Button variant="primary" onClick={onAdd}>Adicionar</Button>
         </>

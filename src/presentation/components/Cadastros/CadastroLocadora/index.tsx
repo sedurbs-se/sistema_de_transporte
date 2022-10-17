@@ -6,6 +6,7 @@ import { ICreateLocadoraDTO, ICreateLocadoraResponse, useCreateLocadora } from "
 import { useStore } from "@domain/store/store";
 import { Locadora } from "@prisma/client";
 import style from "./index.module.scss"
+import { setModalSuccess } from "@shared/utils/cadastroUtils";
 
 export interface CadastroLocadoraProps {
 }
@@ -23,12 +24,20 @@ const CadastroLocadoras = (props: CadastroLocadoraProps) => {
         updateLocadora(locadora);
     } else {
         addLocadora(locadora)
+        setModalSuccess();
+        clearFields();
     }
 };
 
+const clearFields = () => {
+  Object.keys(form).forEach(key => {
+      setValue(key, "")
+  })
+}
+
 const form = watch() as ICreateLocadoraDTO['params'];
 
-const { refetch, isError } = useCreateLocadora({
+const { refetch, isError, isFetching } = useCreateLocadora({
     params: form,
     onSuccess,
     id: selectedLocadora?.id
@@ -45,7 +54,8 @@ useEffect(() => {
         })
     }
 }, [selectedLocadora])
-  
+
+
   
     return (
       <Container
@@ -88,10 +98,10 @@ useEffect(() => {
         </Col>
       </Row>
 
-      <Button variant="primary" type="submit">
-        Salvar
+      <Button variant="primary" type="submit"  disabled={isFetching}>
+        {isFetching ? 'Aguarde..' : 'Salvar'}
       </Button>
-        </Form>
+        </Form>   
         </Container>
     )
 }

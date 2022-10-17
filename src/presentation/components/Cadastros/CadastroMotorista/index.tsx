@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import shallow from "zustand/shallow";
 import { useCreateMotorista, ICreateMotoristaDTO, ICreateMotoristaResponse } from "@domain/query/createMotorista";
 import { useStore } from "@domain/store/store";
+import { setModalSuccess } from "@shared/utils/cadastroUtils";
 
 
 const CadastroMotorista = () => {
@@ -27,13 +28,24 @@ const CadastroMotorista = () => {
             setSelectedMotorista()
             updateMotorista(motorista);
         } else {
-            addMotorista(motorista)
+            addMotorista(motorista);
+            setModalSuccess();
+            clearFields();
+
         }
     };
 
+    const clearFields = () => {
+        Object.keys(form).forEach(key => {
+            setValue(key, "")
+        })
+    }
+
+
+
     const form = watch() as ICreateMotoristaDTO['params'];
 
-    const { refetch, isError } = useCreateMotorista({
+    const { refetch, isError, isFetching } = useCreateMotorista({
         params: form,
         onSuccess,
         id: selectedMotorista?.id
@@ -104,8 +116,8 @@ const CadastroMotorista = () => {
 
                 </Form.Group>
 
-                <Button variant="primary" type="submit">
-                    Salvar
+                <Button variant="primary" type="submit" disabled={isFetching}>
+                    {isFetching ? 'Aguarde...' : 'Salvar'}
                 </Button>
             </Form>
         </fieldset>

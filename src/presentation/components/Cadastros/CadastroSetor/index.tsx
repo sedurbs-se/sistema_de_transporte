@@ -4,8 +4,9 @@ import { useForm } from "react-hook-form";
 import shallow from "zustand/shallow";
 import { ICreateSetorDTO, ICreateSetorResponse, useCreateSetor } from "@domain/query/createSetor";
 import { useStore } from "@domain/store/store";
-import { Setor } from "../../../../shared/types/Setor"
+import {Setor} from "@prisma/client"
 import style from "../CadastroLocadora/index.module.scss"
+import { setModalSuccess } from "@shared/utils/cadastroUtils";
 
 export interface CadastroSetorProps {
   setor?: Setor
@@ -27,13 +28,21 @@ const onSuccess = ({ setor }: ICreateSetorResponse) => {
         setSelectedSetor()
         updateSetor(setor);
     } else {
-        addSetor(setor)
+        addSetor(setor);
+        setModalSuccess();
+        clearFields();
     }
 };
 
+const clearFields = () => {
+  Object.keys(form).forEach(key => {
+      setValue(key, "")
+  })
+}
+
 const form = watch() as ICreateSetorDTO['params'];
 
-const { refetch, isError } = useCreateSetor({
+const { refetch, isError, isFetching } = useCreateSetor({
     params: form,
     onSuccess,
     id: selectedSetor?.id
@@ -79,8 +88,8 @@ useEffect(() => {
           <Form.Label>Ramal</Form.Label>
           <Form.Control type="text" placeholder="" {...register('ramal', {required:"Por favor, digite o codigo do setor"})}/>
         </Form.Group>
-        <Button variant="primary" type="submit">
-          Salvar
+        <Button variant="primary" type="submit" disabled={isFetching}>
+         {isFetching ? 'Aguarde...': 'Salvar'} 
         </Button>
       </Form>
     </Container>
