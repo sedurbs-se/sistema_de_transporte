@@ -1,8 +1,8 @@
 import Router from "next/router";
 import { Button, Table } from "react-bootstrap";
 import shallow from "zustand/shallow";
-import { useStore } from "../../../../domain/store/store";
-import TableComponent from "../../Table";
+import { useStore } from "@domain/store/store";
+import TableComponent from "@components/Table";
 
 
 const ListaVeiculos = () => {

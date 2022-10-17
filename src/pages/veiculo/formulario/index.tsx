@@ -1,15 +1,15 @@
 import { GetServerSideProps, NextPage } from "next";
-import { Container } from "react-bootstrap";
-import style from "../../../presentation/components/Cadastros/CadastroLocadora/index.module.scss"
-import { initializeStore } from "../../../domain/store/store";
-import CadastroVeiculo from "../../../presentation/components/Cadastros/CadastroVeiculo";
+import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
+import { initializeStore } from "@domain/store/store";
+import CadastroVeiculo from "@components/Cadastros/CadastroVeiculo";
+import PageContainer from "@components/PageContainer";
 
 const Veiculos: NextPage = () => {
     return (
-        <Container >
+        <PageContainer>
             <h2 className={style["title"]}>Veiculos</h2>
             <CadastroVeiculo />
-        </Container>
+        </PageContainer>
     )
 };
 

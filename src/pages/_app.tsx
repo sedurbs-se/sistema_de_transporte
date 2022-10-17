@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 import { useCreateStore, Provider } from '../domain/store/store';
 import type { AppProps } from 'next/app'
-import NavBarT from '../presentation/components/NavBar';
+import NavBarT from '@components/NavBar';
 import { SSRProvider } from 'react-bootstrap';
 
 interface pageProps {

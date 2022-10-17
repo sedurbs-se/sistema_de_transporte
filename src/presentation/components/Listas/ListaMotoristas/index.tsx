@@ -3,10 +3,8 @@ import Router from "next/router"
 import { useEffect } from "react"
 import { Button, Table } from "react-bootstrap"
 import shallow from "zustand/shallow"
-import { IMotoristasStore } from "../../../../domain/store/motoristas"
-import { useStore } from "../../../../domain/store/store"
-import { Motorista } from "../../../../shared/types/Motorista"
-import TableComponent from "../../Table"
+import { useStore } from "@domain/store/store"
+import TableComponent from "@components/Table"
 
 export interface ListaMotoristasProps {
 }
@@ -61,7 +59,7 @@ const ListaMotoristas = (props: ListaMotoristasProps) => {
                 onEdit={onEdit}
             />
 
-            <Button variant="primary" onClick={onAdd}>Adicionar Novo motorista</Button>
+            <Button variant="primary" onClick={onAdd}>Adicionar</Button>
         </>
 
     )

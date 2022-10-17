@@ -4,18 +4,26 @@ import { Container, Navbar, NavDropdown, Nav, Button } from "react-bootstrap"
 import DropdownLink from "../DropdownLink";
 import style from "./index.module.scss";
 import Swal from "sweetalert2";
+import { initializeStore, useStore } from "@domain/store/store";
+import shallow from "zustand/shallow";
+import { GetServerSideProps } from "next";
+
+
+
 
 
 const NavBarT = () => {
+
     const [show, setShow] = useState({
         "movimentacao": false,
         "gerencia": false,
         "relatorios": false
     });
 
+    const { user } = useStore();
+
 
     const showDropDown = (e: any) => {
-        console.log(e.target.id)
         const {id} = e.target
         switch(id) {
             case "movimentacao":
@@ -82,9 +90,9 @@ const NavBarT = () => {
             show={show.gerencia}
             title="Gerência" 
             id="gerencia">
-              <NavDropdown.Item text="Setor" href="/setores" as={DropdownLink}></NavDropdown.Item>
-              <NavDropdown.Item text="Veículo" href="/veiculos" as={DropdownLink}></NavDropdown.Item>
-              <NavDropdown.Item text="Locadora" href="/locadoras" as={DropdownLink}></NavDropdown.Item>
+              <NavDropdown.Item text="Setor" href="/setor" as={DropdownLink}></NavDropdown.Item>
+              <NavDropdown.Item text="Veículo" href="/veiculo" as={DropdownLink}></NavDropdown.Item>
+              <NavDropdown.Item text="Locadora" href="/locadora" as={DropdownLink}></NavDropdown.Item>
               <NavDropdown.Item text="Motorista" href="/motorista" as={DropdownLink}></NavDropdown.Item>
             </NavDropdown>
             <NavDropdown 
@@ -103,7 +111,7 @@ const NavBarT = () => {
           <Navbar.Toggle />
           <Navbar.Collapse >
             <Navbar.Text>
-                Bem vindo, <Button onClick={showModaLogout}>John Doe</Button>
+                Bem vindo, <Button onClick={showModaLogout}>{user?.nome || ''}</Button>
             </Navbar.Text>
           </Navbar.Collapse>
       </Navbar>

@@ -5,9 +5,12 @@ import { createUserStore, initialUserStoreState, IUserStore } from './user';
 import { createVeiculoStore, initialVeiculosStoreState, IVeiculosStore } from './veiculos';
 import { combine } from "zustand/middleware";
 import { createMotoristasStore, IMotoristasStore, initialMotoristasStoreState } from './motoristas';
+import { createLocadorasStore, ILocadorasStore, initialLocadorasStoreState } from './locadora';
+import { createSetoresStore, ISetoresStore, initialSetoresStoreState } from './setores';
 
 
-export  interface IInitialState extends IUserStore, IVeiculosStore, IMotoristasStore {
+
+export  interface IInitialState extends IUserStore, IVeiculosStore, IMotoristasStore, ILocadorasStore, ISetoresStore{
 };
 
 type useStoreState = typeof initializeStore extends (
@@ -21,7 +24,9 @@ let store: any;
 const getDefaultInitialState = (): IInitialState => ({
     ...initialVeiculosStoreState,
     ...initialUserStoreState,
-    ...initialMotoristasStoreState
+    ...initialMotoristasStoreState,
+    ...initialLocadorasStoreState,
+    ...initialSetoresStoreState
 })
 
 const zustandContext = createContext<useStoreState>()
@@ -38,6 +43,8 @@ export const initializeStore = (preloadedState = {}) => {
                 ...createVeiculoStore(set, get, api),
                 ...createUserStore(set, get, api),
                 ...createMotoristasStore(set, get, api),
+                ...createLocadorasStore(set, get, api),
+                ...createSetoresStore(set, get, api)
             }))
     )
 };

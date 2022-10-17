@@ -16,26 +16,30 @@ const TableComponent = ({
 
 }: TableComponentProps) => {
 
-    const generateTableHead =
-        (tableHeaderData: string[][]) => tableHeaderData.map((column) => (<th>{column[0]}</th>));
+    const generatedTableHead =
+        (tableHeaderData: string[][]) => tableHeaderData.map((column) => (<th key = {column[0]}>{column[0]}</th>));
 
-    const generateTableBody =
+    const generatedTableBody =
         (tableHeaderData: string[][], tableBodyData: any[]) => tableBodyData.map((data) =>
         (
-            <tr>
+            <tr key = {data}>
                 {tableHeaderData.map((column) => (
-                    column[1] && <td>{data[column[1]]}</td>
+                    column[1] && <td  >{data[column[1]]}</td>
                 ))}
 
+               {
+                (onDelete || onEdit) && 
+               
                 <td className={style["table-colunm-button-group"]}>
 
                     {onEdit &&
-                        <Button variant="primary" onClick={() => onEdit(data.id)}>Edit</Button>}
+                        <Button variant="primary" onClick={() => onEdit(data.id)}>Editar</Button>}
 
                     {onDelete &&
-                        <Button variant="danger" onClick={() => onDelete(data.id)}>Delete</Button>}
+                        <Button variant="danger" onClick={() => onDelete(data.id)}>Deletar</Button>}
 
                 </td>
+}
             </tr>
         )
         );
@@ -44,11 +48,11 @@ const TableComponent = ({
         <Table striped bordered>
             <thead>
                 <tr>
-                    {generateTableHead(tableHeaderData)}
+                    {generatedTableHead(tableHeaderData)}
                 </tr>
             </thead>
             <tbody>
-                {generateTableBody(tableHeaderData, tableBodyData)}
+                {generatedTableBody(tableHeaderData, tableBodyData)}
             </tbody>
         </Table>)
 }

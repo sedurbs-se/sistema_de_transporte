@@ -1,13 +1,14 @@
 import axios from "axios";
 import Router from "next/router";
 import { useState } from "react";
-import { useStore } from "../../../domain/store/store";
+import { useStore } from "@domain/store/store";
 import style from "./index.module.scss";
-import { authenticateUser, IAuthenticateUserResponse } from "../../../domain/query/authenticateUser";
+import { authenticateUser, IAuthenticateUserResponse } from "@domain/query/authenticateUser";
+import shallow from "zustand/shallow";
 
 const LoginContainer = () => {
 
-    const { createSession } = useStore();
+    const { createSession } = useStore((state) => state, shallow);
 
     const [loginForm, setLoginForm] = useState({
         login: "",
@@ -16,7 +17,7 @@ const LoginContainer = () => {
 
     const onSuccess = ({ token }: IAuthenticateUserResponse) => {
         createSession(token);
-        Router.push("/motorista");
+        Router.push("/solicitacao");
     };
 
     const { isLoading, isError, error, refetch } = authenticateUser(loginForm, onSuccess);
