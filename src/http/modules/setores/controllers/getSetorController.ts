@@ -19,6 +19,10 @@ const getSetorController = catchAsyncErrors(async (req: NextApiRequest, res: Nex
         },
     });
 
+    if(!setor) {
+        throw new AppError('Setor não encontrado', 404)
+    }
+
     res.status(200).json({
         setor
     });

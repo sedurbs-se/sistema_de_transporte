@@ -19,6 +19,10 @@ const getMotoristaController = catchAsyncErrors(async (req: NextApiRequest, res:
         },
     });
 
+    if(!motorista) {
+        throw new AppError('Motorista não encontrado', 404)
+    }
+    
     res.status(200).json({
         motorista
     });

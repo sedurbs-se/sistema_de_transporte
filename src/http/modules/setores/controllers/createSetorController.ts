@@ -7,11 +7,13 @@ import AppError from "../../../errors/AppError";
 // get one note from with a note id request dynamically
 const createSetorController = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
     
-    const { codigo,
+    const { 
+        codigo,
         descricao,
         sigla,
         responsavel,
-        ramal, } = req.body;
+        ramal, 
+    } = req.body;
 
     const setor = await prisma.setor.create({
         data: {
