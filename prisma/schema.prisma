@@ -29,6 +29,8 @@ model Motorista {
   data_nascimento DateTime
   bairro          String
   endereco        String
+  // vinculo         Vinculo  @relation(fields: [vinculo_id], references: [id])
+  // vinculo_id      String   @default("1")
 }
 
 model Setor {
@@ -93,4 +95,12 @@ model Solicitacao {
   observacao    String
   setor         String
   tipo          String
+}
+
+model Vinculo {
+  id        String      @id @default(uuid())
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  nome      String
+  // motorista Motorista[]
 }
