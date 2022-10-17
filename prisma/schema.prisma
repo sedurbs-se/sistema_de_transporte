@@ -31,53 +31,66 @@ model Motorista {
   endereco        String
 }
 
+model Setor {
+  id          String    @id @default(uuid())
+  codigo      String    @unique
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  descricao   String
+  sigla       String
+  responsavel String
+  ramal       String
+  Veiculo     Veiculo[]
+}
+
+model Locadora {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  descricao String
+  sigla     String
+  endereco  String
+  bairro    String
+  telefone  String
+  Veiculo   Veiculo[]
+}
+
+model TipoFrota {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  nome      String    @unique
+  Veiculo   Veiculo[]
+}
+
 model Veiculo {
-  id                   String   @id @default(uuid())
-  createdAt            DateTime @default(now())
-  updatedAt            DateTime @updatedAt
+  id                   String    @id @default(uuid())
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
   placa                String
   descricao            String
   componentes          String
   quilometragemInicial String
   quilometragemAtual   String
-  // tipo_frota_id: string;
-  // locadora_id: string;
-  // setor_id: string;
+  tipoFrota            TipoFrota @relation(fields: [tipo_frota_id], references: [id])
+  tipo_frota_id        String
+  locadora             Locadora  @relation(fields: [locadora_id], references: [id])
+  locadora_id          String
+  setor                Setor     @relation(fields: [setor_id], references: [id])
+  setor_id             String
   observacao           String
 }
 
-model Setor {
-  id        String   @id @default(uuid())
-  codigo    String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  descricao String
-  sigla     String
-  responsavel String
-  ramal     String
-}
-
-model Locadora {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  descricao String
-  sigla String
-  endereco String
-  bairro String
-  telefone String
-}
-
 model Solicitacao {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  ramal String
-  atividade String
-  municipio String
+  id            String   @id @default(uuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  ramal         String
+  atividade     String
+  municipio     String
   num_ocupantes Int
-  status String
-  observacao String
-  setor String
-  tipo String
+  status        String
+  observacao    String
+  setor         String
+  tipo          String
 }

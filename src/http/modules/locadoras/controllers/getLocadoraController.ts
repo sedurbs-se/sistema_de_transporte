@@ -19,6 +19,10 @@ const getLocadoraController = catchAsyncErrors(async (req: NextApiRequest, res: 
         },
     });
 
+    if(!locadora) {
+        throw new AppError('Locadora não encontrada', 404)
+    }
+
     res.status(200).json({
         locadora
     });

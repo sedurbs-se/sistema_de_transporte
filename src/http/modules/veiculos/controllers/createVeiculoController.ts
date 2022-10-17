@@ -11,29 +11,48 @@ const createVeiculoController = catchAsyncErrors(async (req: NextApiRequest, res
         componentes,
         quilometragemInicial,
         quilometragemAtual,
-        tipo_de_frota_id,
+        tipo_frota_id,
         locadora_id,
         setor_id,
         observacao,
 
 
-     } = req.body;
+    } = req.body;
 
-    const motorista = await prisma.veiculo.create({
+
+    // Não pode criar veiculos com mesma placa
+
+    const existVeiculos = await prisma.veiculo.findFirst({
+        where: {
+            placa
+        }
+    });
+
+    if (existVeiculos) {
+        throw new AppError('Veiculo já existe', 400)
+    };
+
+    // Quilometragem inicial não pode ser menor que a quilometragem atual
+
+    if (quilometragemInicial < quilometragemAtual) {
+        throw new AppError('Quilometragem inicial não pode ser menor que a quilometragem atual', 400)
+    }
+
+    const veiculo = await prisma.veiculo.create({
         data: {
             placa,
             descricao,
             componentes,
             quilometragemInicial,
             quilometragemAtual,
-            // tipo_de_frota_id,
-            // locadora_id,
-            // setor_id,
+            tipo_frota_id,
+            locadora_id,
+            setor_id,
             observacao,
         }
     });
 
-    res.status(200).json({ motorista });
+    res.status(200).json({ veiculo });
 });
 
 export { createVeiculoController }

@@ -1,7 +1,5 @@
 import { Setor } from "@prisma/client"
 
-
-
 export interface ISetoresStore {
     setores: Setor[] | [];
     selectedSetor: Setor | null;

@@ -9,11 +9,13 @@ export default async function onError(
 ) {
 
     if (error instanceof AppError) {
-        res.status(error.statusCode).end(error.message);
+        res.status(error.statusCode).json({
+            status: error.statusCode,
+            message: error.message
+        });
     } else {
         res.status(500).end('Internal server error', error);
     }
-
-
+    
     next();
 }
