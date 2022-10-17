@@ -34,6 +34,8 @@ export const getServerSideProps: GetServerSideProps = async context => {
         }
     }
 
+    state.user = isAuthenticated;
+
     try {
         const setores = await axios.get("http://localhost:3000/api/setor/list");
 

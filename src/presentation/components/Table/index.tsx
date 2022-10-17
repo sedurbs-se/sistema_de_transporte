@@ -5,14 +5,16 @@ export interface TableComponentProps {
     tableHeaderData: string[][],
     tableBodyData: any[],
     onDelete?: (id: string) => void,
-    onEdit?: (id: string) => void
+    onEdit?: (id: string) => void,
+    onDetail?: (id: string) => void,
 }
 
 const TableComponent = ({
     tableHeaderData,
     tableBodyData,
     onDelete,
-    onEdit
+    onEdit,
+    onDetail
 
 }: TableComponentProps) => {
 
@@ -28,7 +30,7 @@ const TableComponent = ({
                 ))}
 
                {
-                (onDelete || onEdit) && 
+                (onDelete || onEdit || onDetail) && 
                
                 <td className={style["table-colunm-button-group"]}>
 
@@ -37,6 +39,9 @@ const TableComponent = ({
 
                     {onDelete &&
                         <Button variant="danger" onClick={() => onDelete(data.id)}>Deletar</Button>}
+
+                    {onDetail &&
+                        <Button variant="secondary" onClick={() => onDetail(data.id)}>Detalhes</Button>}
 
                 </td>
 }

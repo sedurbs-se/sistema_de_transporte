@@ -1,7 +1,8 @@
 import axios from 'axios'
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-import { initializeStore } from '@domain/store/store'
+
+import { initializeStore } from '../domain/store/store'
 import styles from '../styles/Home.module.css'
 
 interface Props {
@@ -19,7 +20,6 @@ const Home: NextPage<Props> = ({ isAuthenticated }) => {
                 <h2>
                     SISTEMA DE TRANSPORTE
                 </h2>
- 
             </main>
 
         </div>
