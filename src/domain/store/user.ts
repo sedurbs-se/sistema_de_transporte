@@ -41,12 +41,12 @@ export const createUserStore = (set: any, get: any, api: any) => ({
 
             set({ user, isAuthenticated: true })
 
-            return true;
+            return user;
         }
 
         set({ user: {}, isAuthenticated: false })
 
-        return false;
+        return null;
     },
 })
 
