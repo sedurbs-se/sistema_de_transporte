@@ -7,10 +7,11 @@ import { combine } from "zustand/middleware";
 import { createMotoristasStore, IMotoristasStore, initialMotoristasStoreState } from './motoristas';
 import { createLocadorasStore, ILocadorasStore, initialLocadorasStoreState } from './locadora';
 import { createSetoresStore, ISetoresStore, initialSetoresStoreState } from './setores';
+import { createTipoFrotaStore, initialTipoFrotaState, ITipoFrotaStore } from './tipoFrotas';
 
 
 
-export  interface IInitialState extends IUserStore, IVeiculosStore, IMotoristasStore, ILocadorasStore, ISetoresStore{
+export interface IInitialState extends IUserStore, IVeiculosStore, IMotoristasStore, ILocadorasStore, ISetoresStore, ITipoFrotaStore {
 };
 
 type useStoreState = typeof initializeStore extends (
@@ -26,7 +27,8 @@ const getDefaultInitialState = (): IInitialState => ({
     ...initialUserStoreState,
     ...initialMotoristasStoreState,
     ...initialLocadorasStoreState,
-    ...initialSetoresStoreState
+    ...initialSetoresStoreState,
+    ...initialTipoFrotaState
 })
 
 const zustandContext = createContext<useStoreState>()
@@ -44,7 +46,8 @@ export const initializeStore = (preloadedState = {}) => {
                 ...createUserStore(set, get, api),
                 ...createMotoristasStore(set, get, api),
                 ...createLocadorasStore(set, get, api),
-                ...createSetoresStore(set, get, api)
+                ...createSetoresStore(set, get, api),
+                ...createTipoFrotaStore(set, get, api)
             }))
     )
 };

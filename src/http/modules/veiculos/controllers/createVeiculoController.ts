@@ -11,29 +11,34 @@ const createVeiculoController = catchAsyncErrors(async (req: NextApiRequest, res
         componentes,
         quilometragemInicial,
         quilometragemAtual,
-        tipo_de_frota_id,
+        tipo_frota_id,
         locadora_id,
         setor_id,
         observacao,
 
 
-     } = req.body;
+    } = req.body;
 
-    const motorista = await prisma.veiculo.create({
-        data: {
-            placa,
-            descricao,
-            componentes,
-            quilometragemInicial,
-            quilometragemAtual,
-            // tipo_de_frota_id,
-            // locadora_id,
-            // setor_id,
-            observacao,
-        }
-    });
+    try {
+        const veiculo = await prisma.veiculo.create({
+            data: {
+                placa,
+                descricao,
+                componentes,
+                quilometragemInicial,
+                quilometragemAtual,
+                tipo_frota_id,
+                locadora_id,
+                setor_id,
+                observacao,
+            }
+        });
 
-    res.status(200).json({ motorista });
+        res.status(200).json({ veiculo });
+    } catch (err: any) {
+        throw new AppError("Erro ao criar veiculo" + err.message, 400);
+    }
+
 });
 
 export { createVeiculoController }
