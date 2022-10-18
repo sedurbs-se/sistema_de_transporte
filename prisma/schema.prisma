@@ -30,19 +30,20 @@ model Motorista {
   bairro          String
   endereco        String
   vinculo         Vinculo  @relation(fields: [vinculo_id], references: [id])
-  vinculo_id      String   
+  vinculo_id      String
 }
 
 model Setor {
-  id          String    @id @default(uuid())
-  codigo      String    @unique
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id          String        @id @default(uuid())
+  codigo      String        @unique
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
   descricao   String
   sigla       String
   responsavel String
   ramal       String
   Veiculo     Veiculo[]
+  Solicitacao Solicitacao[]
 }
 
 model Locadora {
@@ -93,14 +94,38 @@ model Solicitacao {
   num_ocupantes Int
   status        String
   observacao    String
-  setor         String
-  tipo          String
+  usuario       String
+
+  setor    Setor  @relation(fields: [setor_id], references: [id])
+  setor_id String
+
+  statusSolicitacao     StatusSolicitacao @relation(fields: [status_solicitacao_id], references: [id])
+  status_solicitacao_id String
+
+  tipoSolicitacao     TipoSolicitacao @relation(fields: [tipo_solicitacao_id], references: [id])
+  tipo_solicitacao_id String
 }
 
 model Vinculo {
   id        String      @id @default(uuid())
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
-  nome      String
+  nome      String      @unique
   motorista Motorista[]
+}
+
+model TipoSolicitacao {
+  id          String        @id @default(uuid())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  nome        String        @unique
+  solicitacao Solicitacao[]
+}
+
+model StatusSolicitacao {
+  id          String        @id @default(uuid())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  nome        String        @unique
+  solicitacao Solicitacao[]
 }
