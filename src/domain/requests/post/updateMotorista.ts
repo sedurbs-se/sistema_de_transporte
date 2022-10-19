@@ -1,7 +1,7 @@
 import { api } from "@domain/config/api";
-import { ICreateMotoristaDTO } from "@domain/query/createMotorista";
+import { ICreateMotoristaDTO, IUpdateMotoristaParams } from "@domain/query/createMotorista";
 
-const updateMotorista = ({ params, id }: ICreateMotoristaDTO) => {
+const updateMotorista = ({ params, id }: IUpdateMotoristaParams) => {
     return api.put(`/motorista?id=${id}`, { data: { ...params } });
 };
 

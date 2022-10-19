@@ -4,6 +4,29 @@ import { Motorista } from "@prisma/client";
 import axios, { AxiosResponse } from "axios";
 import { useQuery, UseQueryResult } from "react-query";
 
+interface ICreateMotoristaParams {
+        nome: string;
+        celular: string;
+        telefone: string;
+        data_nascimento: string;
+        bairro: string;
+        endereco: string;
+        vinculo_id: string;
+}
+
+interface IUpdateMotoristaParams {
+    params: {
+        nome: string;
+        celular: string;
+        telefone: string;
+        data_nascimento: string;
+        bairro: string;
+        endereco: string;
+        vinculo_id: string;
+    };
+    id?: string;
+}
+
 interface ICreateMotoristaDTO {
     params: {
         nome: string;
@@ -12,7 +35,7 @@ interface ICreateMotoristaDTO {
         data_nascimento: string;
         bairro: string;
         endereco: string;
-        vinculo: string;
+        vinculo_id: string;
     };
     onSuccess: (data: ICreateMotoristaResponse) => void;
     id?: string;
@@ -24,9 +47,10 @@ interface ICreateMotoristaResponse {
 
 
 function useCreateMotorista({ params, onSuccess, id }: ICreateMotoristaDTO): UseQueryResult<ICreateMotoristaResponse> {
+    console.log('useCreateMotorista', params)
     return useQuery('createMotorista', async () => {
         const { data }: AxiosResponse =
-            id ? await updateMotorista({ params, id }) : await createMotorista({ params });
+            id ? await updateMotorista({ params, id }) : await createMotorista({ ...params });
         return data;
     }, {
         enabled: false,
@@ -35,4 +59,4 @@ function useCreateMotorista({ params, onSuccess, id }: ICreateMotoristaDTO): Use
 }
 
 export { useCreateMotorista };
-export type { ICreateMotoristaDTO, ICreateMotoristaResponse }
+export type { ICreateMotoristaDTO, ICreateMotoristaResponse, ICreateMotoristaParams, IUpdateMotoristaParams}

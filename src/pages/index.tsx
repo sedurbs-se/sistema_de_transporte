@@ -33,11 +33,11 @@ export const getServerSideProps: GetServerSideProps<Props> = async context => {
 
     const state = zustandStore.getState();
 
-    console.log(state)
-
     const { verifySession } = state;
 
     const isAuthenticated = await verifySession(context);
+
+    state.user = isAuthenticated;
 
   if (isAuthenticated!== null) {
     return {

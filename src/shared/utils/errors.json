@@ -1,0 +1,25 @@
+{
+    "codigo": {
+        "required":"Código é obrigatório*"
+    },
+    "descricao": {
+        "required":"Descrição é obrigatória*"
+    },
+    "sigla": {
+        "required":"Sigla é obrigatória*"
+    },
+    "responsavel": {
+        "required":"Responsável é obrigatório*"
+    },
+    "ramal": {
+        "required":"Ramal é obrigatório*"
+    },
+    "login": {
+        "required":"Você deve informar o login!*"
+    },
+    "password": {
+        "required":"Informe a senha!*"
+    }
+
+    
+}

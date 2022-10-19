@@ -5,7 +5,7 @@ import axios from "axios";
 import { initializeStore } from "@domain/store/store";
 import { ParsedUrlQuery } from "querystring";
 import PageContainer from "@components/PageContainer";
-import fetchVinculos from "@domain/fetch/get/fetchVinculos";
+import fetchVinculos from "@domain/requests/fetch/fetchVinculos";
 
 
 const CadastrarMotorista: NextPage = () => {
@@ -31,6 +31,8 @@ export const getServerSideProps: GetServerSideProps<QParams> = async context => 
     const { verifySession } = state;
 
     const isAuthenticated = await verifySession(context);
+
+    state.user = isAuthenticated;
 
     // Get Motorista pela URL id
     const { id } = context.query;

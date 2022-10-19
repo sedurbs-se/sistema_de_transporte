@@ -15,6 +15,16 @@ const createSetorController = catchAsyncErrors(async (req: NextApiRequest, res: 
         ramal, 
     } = req.body;
 
+    const setorJaCadastardo = await prisma.setor.findUnique({
+        where: {
+            codigo
+        }
+    })
+
+    if(setorJaCadastardo) {
+        return res.status(409).json({msg: "Setor já cadastrado"})
+    }
+
     const setor = await prisma.setor.create({
         data: {
             codigo,
