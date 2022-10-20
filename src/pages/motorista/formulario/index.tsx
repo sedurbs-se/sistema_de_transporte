@@ -6,7 +6,7 @@ import axios from "axios";
 import { initializeStore } from "@domain/store/store";
 import PageContainer from "@components/PageContainer";
 import Link from "next/link";
-import fetchVinculos from "@domain/fetch/get/fetchVinculos";
+import fetchVinculos from "@domain/requests/fetch/fetchVinculos";
 
 
 const CadastrarMotorista: NextPage = () => {
@@ -37,6 +37,8 @@ export const getServerSideProps: GetServerSideProps = async context => {
     const { verifySession } = state;
 
     const isAuthenticated = await verifySession(context);
+
+    state.user = isAuthenticated;
 
     if (!isAuthenticated) {
         return {

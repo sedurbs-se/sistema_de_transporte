@@ -31,6 +31,8 @@ export const getServerSideProps: GetServerSideProps = async context => {
         }
     };
 
+    state.user = isAuthenticated;
+
     return {
         props: {
             initialZustandState: JSON.parse(JSON.stringify(state)),

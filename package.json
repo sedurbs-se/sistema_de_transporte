@@ -12,6 +12,7 @@
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.9.9",
     "@prisma/client": "^4.4.0",
     "@radix-ui/react-slot": "^1.0.0",
     "add": "^2.0.6",
@@ -29,6 +30,7 @@
     "react-query": "^3.39.2",
     "sass": "^1.55.0",
     "sweetalert2": "^11.5.1",
+    "yup": "^0.32.11",
     "zustand": "^4.1.2"
   },
   "devDependencies": {

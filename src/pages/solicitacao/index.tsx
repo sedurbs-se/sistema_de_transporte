@@ -73,6 +73,8 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     const { verifySession } = state;
 
+    console.log(state)
+
     const isAuthenticated = await verifySession(context);
 
     if (!isAuthenticated) {

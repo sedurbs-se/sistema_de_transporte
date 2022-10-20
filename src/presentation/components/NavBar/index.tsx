@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { initializeStore, useStore } from "@domain/store/store";
 import shallow from "zustand/shallow";
 import { GetServerSideProps } from "next";
+import Router from "next/router";
 
 
 
@@ -20,7 +21,8 @@ const NavBarT = () => {
         "relatorios": false
     });
 
-    const { user } = useStore();
+    const { deleteSession, user } = useStore(state => state, shallow);
+
     console.log(user)
 
     const showDropDown = (e: any) => {
@@ -61,9 +63,20 @@ const NavBarT = () => {
             cancelButtonColor:'#7c7c8a',
             confirmButtonText:'Sim'}).then((res) => {
                 if(res.isConfirmed) {
-                    Swal.fire('OK')
+                    deleteSession();
+                    Router.push('/');
                 }
             })}
+    }
+
+    const handleOnClick = (e: any) => {
+        e.preventDefault();
+        if(user) {
+            showModaLogout(e);
+        }
+        else {
+            Router.push('/')
+        }
     }
 
 
@@ -111,7 +124,17 @@ const NavBarT = () => {
           <Navbar.Toggle />
           <Navbar.Collapse >
             <Navbar.Text>
-                Bem vindo, <Button onClick={showModaLogout}>{user?.nome || ''}</Button>
+                {
+                    user ? 
+                    (
+                        <a 
+                        style={{color: 'white', cursor: 'pointer', fontSize:'1.2rem'}}
+                        onClick={handleOnClick}>Olá,<span className={style["name-label"]}>{user?.nome}</span> 
+                        </a>
+                    ):
+                    <></>
+                }
+                 
             </Navbar.Text>
           </Navbar.Collapse>
       </Navbar>

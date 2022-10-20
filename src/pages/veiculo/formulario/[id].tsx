@@ -4,7 +4,9 @@ import { initializeStore } from "@domain/store/store";
 import CadastroVeiculo from "@components/Cadastros/CadastroVeiculo";
 import PageContainer from "@components/PageContainer";
 import fetchTipoFrotas from "@domain/requests/fetch/fetchTipoFrotas";
+import fetchVeiculos from "@domain/requests/fetch/fetchVeiculos";
 import fetchLocadoras from "@domain/requests/fetch/fetchLocadoras";
+import axios from "axios";
 import fetchSetores from "@domain/requests/fetch/fetchSetores";
 
 const Veiculos: NextPage = () => {
@@ -25,7 +27,9 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     const isAuthenticated = await verifySession(context);
 
-    if (!isAuthenticated) {
+    const { id } = context.query;
+
+    if (!isAuthenticated && !id) {
         return {
             redirect: {
                 destination: '/',
@@ -33,19 +37,33 @@ export const getServerSideProps: GetServerSideProps = async context => {
             },
         }
     };
-    
+
     state.user = isAuthenticated;
 
     // Pega setores e locadoras e tipo de frotas
 
     try {
+        const { data } = await axios.get(`http://localhost:3000/api/veiculo?id=${id}`)
+
+        state.selectedVeiculo = data.veiculo;
+    
+
         const { tipos } = await fetchTipoFrotas();
-        const { setores } = await fetchSetores();
-        const { locadoras } = await fetchLocadoras();
 
         state.tipoFrotas = tipos;
-        state.setores = setores;
+
+        const { locadoras } = await fetchLocadoras();
+
         state.locadoras = locadoras;
+
+        const { setores } = await fetchSetores();
+
+        state.setores = setores;
+
+    
+        
+        
+        
 
     } catch (error: any) {
         console.log(error.message)

@@ -11,11 +11,20 @@ const getVeiculoController = catchAsyncErrors(async (req: NextApiRequest, res: N
         throw new AppError('Id não informado', 400)
     }
 
-    const veiculo = await prisma.veiculo.findUnique({
+    const veiculoQuery = await prisma.veiculo.findUnique({
         where: {
             id: id as string
         },
+        include:{
+            tipoFrota:true
+        }
     });
+
+    
+
+
+    const veiculo = {...veiculoQuery, tipoFrota: veiculoQuery!.tipoFrota.nome}
+
 
     res.status(200).json({
         veiculo

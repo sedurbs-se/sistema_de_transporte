@@ -32,6 +32,8 @@ export const getServerSideProps: GetServerSideProps<QParams> = async context => 
 
     const isAuthenticated = await verifySession(context);
 
+    state.user = isAuthenticated;
+
     // Get Motorista pela URL id
     const { id } = context.query;
 

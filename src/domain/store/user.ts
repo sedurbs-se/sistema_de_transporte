@@ -8,6 +8,7 @@ export interface IUserStore {
     user: Usuario | null;
     setUser: (user: Usuario) => void;
     createSession: (token: string) => Promise<void>;
+    deleteSession: () => void;
     verifySession: (context: GetServerSidePropsContext) => boolean;
     isAuthenticated: boolean;
 }
@@ -16,6 +17,7 @@ export const initialUserStoreState: IUserStore = {
     user: null,
     setUser: (user: Usuario) => { },
     createSession: async (token: string) => { },
+    deleteSession: async () => { },
     verifySession: (context: GetServerSidePropsContext) => false,
     isAuthenticated: false,
 }
@@ -32,6 +34,13 @@ export const createUserStore = (set: any, get: any, api: any) => ({
         const { user } = decode(token) as { user: Usuario };
 
         set({ user, isAuthenticated: true })
+    },
+    deleteSession: async () => {
+        nookies.destroy(undefined, 'token', {
+            path: "/",
+        })
+
+        set({ user: {}, isAuthenticated: false })
     },
     verifySession: async (context: GetServerSidePropsContext) => {
         const { token } = nookies.get(context, "token")
