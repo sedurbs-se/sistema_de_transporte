@@ -90,7 +90,6 @@ model Solicitacao {
   updatedAt     DateTime @updatedAt
   ramal         String
   atividade     String
-  municipio     String
   num_ocupantes Int
   status        String
   observacao    String
@@ -102,8 +101,9 @@ model Solicitacao {
   statusSolicitacao     StatusSolicitacao @relation(fields: [status_solicitacao_id], references: [id])
   status_solicitacao_id String
 
-  tipoSolicitacao     TipoSolicitacao @relation(fields: [tipo_solicitacao_id], references: [id])
-  tipo_solicitacao_id String
+  tipoSolicitacao      TipoSolicitacao        @relation(fields: [tipo_solicitacao_id], references: [id])
+  tipo_solicitacao_id  String
+  MunicipioSolicitacao MunicipioSolicitacao[]
 }
 
 model Vinculo {
@@ -128,4 +128,22 @@ model StatusSolicitacao {
   updatedAt   DateTime      @updatedAt
   nome        String        @unique
   solicitacao Solicitacao[]
+}
+
+model MunicipioSolicitacao {
+  id             String      @id @default(uuid())
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  solicitacao    Solicitacao @relation(fields: [solicitacao_id], references: [id])
+  solicitacao_id String
+  municipio      Municipio   @relation(fields: [municipio_id], references: [id])
+  municipio_id   String
+}
+
+model Municipio {
+  id                   String                 @id @default(uuid())
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+  nome                 String                 @unique
+  MunicipioSolicitacao MunicipioSolicitacao[]
 }

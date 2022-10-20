@@ -10,11 +10,12 @@ import { createSetoresStore, ISetoresStore, initialSetoresStoreState } from './s
 import { createTipoFrotaStore, initialTipoFrotaState, ITipoFrotaStore } from './tipoFrotas';
 import { createVinculoStore, initialVinculoState, IVinculoStore } from './vinculos';
 import { createSolicitacaoStore, initialSolicitacaoState, ISolicitacaoStore } from './solicitacao';
+import { IMunicipiosStore, municipiosState } from './municipios';
 
 
 
 export interface IInitialState extends
-    IUserStore, IVeiculosStore, IMotoristasStore, ILocadorasStore, ISetoresStore, ITipoFrotaStore, IVinculoStore, ISolicitacaoStore {
+    IUserStore, IVeiculosStore, IMotoristasStore, ILocadorasStore, ISetoresStore, ITipoFrotaStore, IVinculoStore, ISolicitacaoStore, IMunicipiosStore {
 };
 
 type useStoreState = typeof initializeStore extends (
@@ -33,7 +34,8 @@ const getDefaultInitialState = (): IInitialState => ({
     ...initialSetoresStoreState,
     ...initialTipoFrotaState,
     ...initialVinculoState,
-    ...initialSolicitacaoState
+    ...initialSolicitacaoState,
+    ...municipiosState
 })
 
 const zustandContext = createContext<useStoreState>()
