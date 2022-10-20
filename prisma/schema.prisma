@@ -31,6 +31,8 @@ model Motorista {
   endereco        String
   vinculo         Vinculo  @relation(fields: [vinculo_id], references: [id])
   vinculo_id      String
+
+  ocupado Boolean @default(false)
 }
 
 model Setor {
@@ -38,7 +40,7 @@ model Setor {
   codigo      String        @unique
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
-  descricao   String
+  nome        String
   sigla       String
   responsavel String
   ramal       String
@@ -50,10 +52,10 @@ model Locadora {
   id        String    @id @default(uuid())
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  descricao String
+  nome      String    @unique
   sigla     String
-  endereco  String
   bairro    String
+  endereco  String
   telefone  String
   Veiculo   Veiculo[]
 }
@@ -70,18 +72,19 @@ model Veiculo {
   id                   String    @id @default(uuid())
   createdAt            DateTime  @default(now())
   updatedAt            DateTime  @updatedAt
-  placa                String
-  descricao            String
+  placa                String    @unique
+  nome                 String
   componentes          String
-  quilometragemInicial String
-  quilometragemAtual   String
+  quilometragemInicial Int
+  quilometragemAtual   Int
   tipoFrota            TipoFrota @relation(fields: [tipo_frota_id], references: [id])
   tipo_frota_id        String
   locadora             Locadora  @relation(fields: [locadora_id], references: [id])
   locadora_id          String
   setor                Setor     @relation(fields: [setor_id], references: [id])
   setor_id             String
-  observacao           String
+  observacao           String    @default("")
+  ocupado              Boolean   @default(false)
 }
 
 model Solicitacao {
