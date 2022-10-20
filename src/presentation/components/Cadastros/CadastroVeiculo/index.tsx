@@ -6,6 +6,7 @@ import shallow from "zustand/shallow";
 import { useCreateVeiculo, ICreateVeiculoDTO, ICreateVeiculoResponse } from "@domain/query/createVeiculo";
 import { useStore } from "@domain/store/store";
 import style from "../CadastroLocadora/index.module.scss"
+import { setModalSuccess } from "@shared/utils/cadastroUtils";
 
 
 const CadastroVeiculo = () => {
@@ -33,12 +34,13 @@ const CadastroVeiculo = () => {
             updateVeiculo(veiculo);
         } else {
             addVeiculo(veiculo)
+            setModalSuccess();
         }
     };
 
     const form = watch() as ICreateVeiculoDTO['params'];
 
-    const { refetch, isError } = useCreateVeiculo({
+    const { refetch, isError, isFetching } = useCreateVeiculo({
         params: form,
         onSuccess,
         id: selectedVeiculo?.id
@@ -147,8 +149,8 @@ const CadastroVeiculo = () => {
                     </Col>
                 </Row>
 
-                <Button variant="primary" type="submit">
-                    Confirmar
+                <Button variant="primary" type="submit" disabled={isFetching}>
+                    {isFetching ? 'Aguarde...' : 'Confirmar'}
                 </Button>
 
             </Form>

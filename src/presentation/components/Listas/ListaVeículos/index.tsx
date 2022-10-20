@@ -7,13 +7,13 @@ import TableComponent from "@components/Table";
 
 const ListaVeiculos = () => {
 
-    const { veiculos } = useStore(state => state, shallow);
+    const { veiculos } = useStore((state) => state, shallow);
 
     const tableColumns = [
         ["Placa", "placa"],
         ["Descrição", "descricao"],
         ["Km Atual", "quilometragemAtual"],
-        ["Tipo", "tipo_frota_id"],
+        ["Tipo", "tipoFrota"],
         ["", ""]
     ];
 
@@ -23,6 +23,7 @@ const ListaVeiculos = () => {
     }
 
     const onEdit = (id: string) => {
+        Router.push(`/veiculo/formulario/${id}`)
     }
 
     const onAdd = () => {

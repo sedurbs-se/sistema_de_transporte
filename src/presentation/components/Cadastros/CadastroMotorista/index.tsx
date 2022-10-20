@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import shallow from "zustand/shallow";
 import { useCreateMotorista, ICreateMotoristaDTO, ICreateMotoristaResponse } from "@domain/query/createMotorista";
 import { useStore } from "@domain/store/store";
+import { setModalSuccess } from "@shared/utils/cadastroUtils";
 
 
 const CadastroMotorista = () => {
@@ -28,10 +29,15 @@ const CadastroMotorista = () => {
             updateMotorista(motorista);
         } else {
             addMotorista(motorista)
+            setModalSuccess();
         }
     };
 
     const form = watch() as ICreateMotoristaDTO['params'];
+
+    useEffect(() => {
+        console.log(form)
+    }, [form])
 
     const { refetch, isError } = useCreateMotorista({
         params: form,
@@ -40,8 +46,13 @@ const CadastroMotorista = () => {
     });
 
     const onSubmit = async () => {
+        console.log('e')
         refetch();
     };
+
+    const onError = (errors: any) => {
+        console.log(errors);
+    }
 
     useEffect(() => {
         if (selectedMotorista) {

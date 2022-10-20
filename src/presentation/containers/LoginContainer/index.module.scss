@@ -1,5 +1,5 @@
 .login-container {
-    span {
+    >span {
         font-family: Inter;
         font-size: 26px;
         color:white;
@@ -15,7 +15,7 @@
     min-height: 260px;
     border-radius: 10px;
     max-width: 420px;
-    padding: 0 30px;
+    padding: 30px 30px 30px 30px;
     input  {
         width: 100%;
         border-radius: 4px;
@@ -48,4 +48,9 @@
         font-size: 12px;
         margin-top: 10px;
     }
+}
+
+
+.error-input {
+    border: 2px solid rgb(252, 105, 105)!important;
 }
