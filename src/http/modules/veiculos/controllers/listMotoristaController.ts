@@ -6,12 +6,17 @@ const listVeiculoController = catchAsyncErrors(async (req: NextApiRequest, res: 
 
     const { page, limit } = req.query;
 
-    const veiculosQuery = await prisma.veiculo.findMany({
-        include: {
-            tipoFrota: true
-        },
-        skip: (Number(page) - 1) * Number(limit),  take: Number(limit),
-    });
+    const veiculosQuery = await prisma.veiculo.findMany(
+        {
+            include: {
+                tipoFrota: {
+                    select: {
+                        nome: true
+                    }
+                }
+            },
+            skip: (Number(page) - 1) * Number(limit), take: Number(limit),
+        });
 
     const veiculos = veiculosQuery.map(veiculo => {
         return {

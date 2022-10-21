@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import shallow from "zustand/shallow";
 import { useCreateMotorista, ICreateMotoristaDTO, ICreateMotoristaResponse } from "@domain/query/createMotorista";
 import { useStore } from "@domain/store/store";
-import { setModalSuccess } from "@shared/utils/cadastroUtils";
+import { setModalSuccess } from "@shared/utils/modalUtils";
 
 
 const CadastroMotorista = () => {

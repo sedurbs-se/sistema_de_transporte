@@ -9,6 +9,13 @@ const listMotoristaController = catchAsyncErrors(async (req: NextApiRequest, res
     const { page, limit } = req.query;
 
     const motoristas = await prisma.motorista.findMany({
+        include: {
+            vinculo: {
+                select: {
+                    nome: true
+                }
+            }
+        },
         skip: (Number(page) - 1) * Number(limit), take: Number(limit),
     })
 

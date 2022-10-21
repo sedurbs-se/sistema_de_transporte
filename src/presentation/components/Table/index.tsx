@@ -1,5 +1,6 @@
 import { Button, Table } from "react-bootstrap"
 import style from "./index.module.scss"
+import { BsPencilSquare, BsTrash, BsList } from "react-icons/bs"
 
 export interface TableComponentProps {
     tableHeaderData: string[][],
@@ -35,13 +36,36 @@ const TableComponent = ({
                 <td className={style["table-colunm-button-group"]}>
 
                     {onEdit &&
-                        <Button variant="primary" onClick={() => onEdit(data.id)}>Editar</Button>}
+                        <Button  
+                        variant="primary"
+                         onClick={() => onEdit(data.id)}>
+                        <div className="d-inline-flex align-items-center">
+                        <BsPencilSquare style={{marginRight:'2px'}}/>
+                        <span>Editar</span>
+                        </div>
+                        </Button>}
 
                     {onDelete &&
-                        <Button variant="danger" onClick={() => onDelete(data.id)}>Deletar</Button>}
+                        <Button 
+                        variant="danger" 
+                        onClick={() => onDelete(data.id)}>
+                             <div className="d-inline-flex align-items-center" style={
+                                {gap:'4px'} 
+                             }>
+                        <BsTrash />
+                        <span>Excluir</span>
+                        </div>
+                            </Button>}
 
                     {onDetail &&
-                        <Button variant="secondary" onClick={() => onDetail(data.id)}>Detalhes</Button>}
+                        <Button 
+                        variant="secondary" 
+                        onClick={() => onDetail(data.id)}>
+                             <div className="d-inline-flex align-items-center">
+                            <BsList style={{marginRight:'2px'}}></BsList>
+                            <span>Detalhes</span>
+                            </div>
+                           </Button>}
 
                 </td>
 }
@@ -50,7 +74,7 @@ const TableComponent = ({
         );
 
     return (
-        <Table striped bordered>
+        <Table striped bordered responsive>
             <thead>
                 <tr>
                     {generatedTableHead(tableHeaderData)}
