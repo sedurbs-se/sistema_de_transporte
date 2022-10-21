@@ -1,25 +1,75 @@
 {
-    "codigo": {
-        "required":"Código é obrigatório*"
-    },
-    "descricao": {
-        "required":"Descrição é obrigatória*"
-    },
-    "sigla": {
-        "required":"Sigla é obrigatória*"
-    },
-    "responsavel": {
-        "required":"Responsável é obrigatório*"
-    },
-    "ramal": {
-        "required":"Ramal é obrigatório*"
+    "setor": {
+        "codigo": {
+            "required":"Código é obrigatório*"
+        },
+        "descricao": {
+            "required":"Descrição é obrigatória*"
+        },
+        "sigla": {
+            "required":"Sigla é obrigatória*"
+        },
+        "responsavel": {
+            "required":"Responsável é obrigatório*"
+        },
+        "ramal": {
+            "required":"Ramal é obrigatório*"
+        }
     },
     "login": {
-        "required":"Você deve informar o login!*"
+        "login": {
+            "required":"Você deve informar o login!*"
+        },
+        "password": {
+            "required":"Informe a senha!*"
+        }
     },
-    "password": {
-        "required":"Informe a senha!*"
+    "veiculo": {
+        "placa": {
+            "required":"Informe a placa do veículo!",
+            "matches": "Informe uma placa válida!"
+        },
+        "descricao": {
+            "required":"Informe a descrição do veículo!"
+        },
+        "componentes": {
+            "required": "Informe os componentes do veículo!"
+        },
+        "quilometragemAtual": {
+            "required": "Informe a quilometragem atual!"
+        },
+        "quilometragemInicial": {
+            "required": "Informe a quilometragem inicial!",
+            "min": "Quilometragem inicial não pode ser menor que a quilometragem atual"
+        },
+        "tipo_frota_id": {
+            "required": "Selecione um tipo de frota!"
+        },
+        "locadora_id": {
+            "required": "Selecione uma locadora!"
+        },
+        "setor_id": {
+            "required": "Selecione um setor!"
+        },
+        "observacao": {
+            "required": "Informe a observação!"
+        }
+    },
+    "locadora": {
+        "descricao": {
+            "required":"Informe a descrição da locadora!"
+        },
+        "sigla": {
+            "required":"Informe a sigla da locadora!"
+        },
+        "endereco": {
+            "required": "Informe o endereço da locadora!"
+        },
+        "bairro": {
+            "required": "Informe o bairro da locadora!"
+        },
+        "telefone": {
+            "required": "Informe o telefone da locadora!"
+        }
     }
-
-    
 }

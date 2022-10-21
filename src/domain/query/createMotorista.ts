@@ -50,7 +50,7 @@ function useCreateMotorista({ params, onSuccess, id }: ICreateMotoristaDTO): Use
     console.log('useCreateMotorista', params)
     return useQuery('createMotorista', async () => {
         const { data }: AxiosResponse =
-            id ? await updateMotorista({ params, id }) : await createMotorista({ ...params });
+            id ? await updateMotorista({params, id }) : await createMotorista({...params});
         return data;
     }, {
         enabled: false,
