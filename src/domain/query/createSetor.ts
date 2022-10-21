@@ -5,7 +5,7 @@ import { useQuery, UseQueryResult } from "react-query";
 
 interface ICreateSetorDTO {
     params: {
-        descricao: string;
+        nome: string;
         sigla: string;
         codigo: string;
         responsavel: string;

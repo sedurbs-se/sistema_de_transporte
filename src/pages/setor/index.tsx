@@ -4,6 +4,7 @@ import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
 import PageContainer from "@components/PageContainer";
 import { initializeStore } from "@domain/store/store";
 import axios from "axios";
+import fetchSetores from "@domain/requests/fetch/fetchSetores";
 
 const Teste: NextPage  = () => {
     return (
@@ -37,9 +38,10 @@ export const getServerSideProps: GetServerSideProps = async context => {
     state.user = isAuthenticated;
 
     try {
-        const setores = await axios.get("http://localhost:3000/api/setor/list");
+        const { setores } = await fetchSetores(1,80);
 
-        state.setores = setores.data.setores;
+        state.setores = setores;
+
     } catch (error) {
         // console.log(error);
     }

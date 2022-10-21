@@ -32,7 +32,7 @@ const CadastroVeiculo = () => {
 
     const validationSchema = yup.object().shape({
         placa: yup.string().required().matches(placaVeiculoRegex),
-        descricao: yup.string().required(),
+        nome: yup.string().required(),
         componentes: yup.string().required(),
         quilometragemAtual: yup.number().transform(value => (isNaN(value) ? undefined : value)).required(),
         quilometragemInicial: yup.number().transform(value => (isNaN(value) ? undefined : value)).min(yup.ref("quilometragemAtual")).required(),
@@ -104,12 +104,12 @@ const CadastroVeiculo = () => {
                     </Col>
                     <Col>
                         <Form.Group className="mb-3" controlId="formBasicDesc">
-                            <Form.Label>Descrição</Form.Label>
+                            <Form.Label>Nome</Form.Label>
                             <Form.Control 
-                             isValid={!errors.descricao && form.descricao !== ""}
-                             isInvalid={errors.descricao != undefined}
-                            {...register("descricao")} />
-                            {errors?.descricao?.type && <InputError type={errors.descricao.type} form="veiculo" field='descricao'/>}
+                             isValid={!errors.nome && form.nome !== ""}
+                             isInvalid={errors.nome != undefined}
+                            {...register("nome")} />
+                            {errors?.nome?.type && <InputError type={errors.nome.type} form="veiculo" field='nome'/>}
                         </Form.Group>
                     </Col>
                 </Row>
@@ -173,7 +173,7 @@ const CadastroVeiculo = () => {
                             {...register("locadora_id")} >
                                 <option value="">Selecione</option>
                                 {locadoras.map((locadora) => (
-                                    <option key={locadora.id} value={locadora.id}>{locadora.descricao}</option>
+                                    <option key={locadora.id} value={locadora.id}>{locadora.nome}</option>
                                 ))}
                             </Form.Select>
                             {errors?.locadora_id?.type && <InputError type={errors.locadora_id.type} form="veiculo" field='locadora_id'/>}
@@ -188,7 +188,7 @@ const CadastroVeiculo = () => {
                             {...register("setor_id")} >
                                 <option value="">Selecione</option>
                                 {setores.map((setor) => (
-                                    <option key={setor.id} value={setor.id}>{setor.descricao}</option>
+                                    <option key={setor.id} value={setor.id}>{setor.nome}</option>
                                 ))}
                             </Form.Select>
                             {errors?.setor_id?.type && <InputError type={errors.setor_id.type} form="veiculo" field='setor_id'/>}

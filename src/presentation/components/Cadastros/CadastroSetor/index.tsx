@@ -27,7 +27,7 @@ const CadastroSetor = (props: CadastroSetorProps) => {
 
 const validationSchema = yup.object().shape({
   codigo: yup.string().required('Código é obrigatório'),
-  descricao: yup.string().required('Descrição é obrigatório'),
+  nome: yup.string().required('Descrição é obrigatório'),
   sigla: yup.string().required('Sigla é obrigatório'),
   responsavel: yup.string().required('Responsável é obrigatório'),
   ramal: yup.string().required('Ramal é obrigatório'),
@@ -107,15 +107,15 @@ useEffect(() => {
           {errors?.codigo?.type && <InputError type={errors.codigo.type} form="setor" field='codigo' />}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Descrição</Form.Label>
+          <Form.Label>Nome</Form.Label>
           <Form.Control 
           type="text" 
           as="textarea" 
           placeholder="" 
-          isValid={!errors.descricao && form.descricao !== ""}
-          isInvalid={errors.descricao != undefined}
-          {...register('descricao')}/>
-          {errors?.descricao?.type && <InputError type={errors.descricao.type} form="setor" field='descricao' />}
+          isValid={!errors.nome && form.nome !== ""}
+          isInvalid={errors.nome != undefined}
+          {...register('nome')}/>
+          {errors?.nome?.type && <InputError type={errors.nome.type} form="setor" field='nome' />}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword" >
           <Form.Label>Sigla</Form.Label>

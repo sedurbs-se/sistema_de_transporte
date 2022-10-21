@@ -3,7 +3,7 @@
         "codigo": {
             "required":"Código é obrigatório*"
         },
-        "descricao": {
+        "nome": {
             "required":"Descrição é obrigatória*"
         },
         "sigla": {
@@ -29,8 +29,8 @@
             "required":"Informe a placa do veículo!",
             "matches": "Informe uma placa válida!"
         },
-        "descricao": {
-            "required":"Informe a descrição do veículo!"
+        "nome": {
+            "required":"Informe o nome do veículo!"
         },
         "componentes": {
             "required": "Informe os componentes do veículo!"
@@ -56,8 +56,8 @@
         }
     },
     "locadora": {
-        "descricao": {
-            "required":"Informe a descrição da locadora!"
+        "nome": {
+            "required":"Informe o nome da locadora!"
         },
         "sigla": {
             "required":"Informe a sigla da locadora!"

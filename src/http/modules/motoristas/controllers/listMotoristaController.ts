@@ -8,7 +8,7 @@ const listMotoristaController = catchAsyncErrors(async (req: NextApiRequest, res
 
     const { page, limit } = req.query;
 
-    const motoristas = await prisma.motorista.findMany({
+    const motoristasQuery = await prisma.motorista.findMany({
         include: {
             vinculo: {
                 select: {
@@ -18,6 +18,9 @@ const listMotoristaController = catchAsyncErrors(async (req: NextApiRequest, res
         },
         skip: (Number(page) - 1) * Number(limit), take: Number(limit),
     })
+
+    const motoristas = motoristasQuery.map((motorista) => ({...motorista, vinculo: motorista.vinculo.nome}))
+
 
     const count = await prisma.motorista.count();
     res.status(200).json({

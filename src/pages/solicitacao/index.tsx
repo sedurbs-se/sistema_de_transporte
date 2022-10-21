@@ -1,6 +1,5 @@
 import { GetServerSideProps, NextPage } from "next";
 import ListaSolicitacoes from "@components/Listas/ListaSolicitacoes";
-import { Solicitacao } from "../../shared/types/Solicitação";
 import PageContainer from "@components/PageContainer";
 import { initializeStore } from "@domain/store/store";
 import fetchSolicitacao from "@domain/requests/fetch/fetchSolicitacoes";
@@ -9,58 +8,7 @@ const Solicitacao: NextPage = () => {
     return (
         <>
             <PageContainer>
-                <ListaSolicitacoes
-                    Solicitacoes=
-                    {[{
-                        usuario_id: "Sr. Enoque",
-                        ramal_id: 5306,
-                        atividade: 'DIVERSOS',
-                        municipio_id: 'Aracaju',
-                        num_ocupantes: 1,
-                        data: '11/10/2022',
-                        hora: '11:00',
-                        status_id: 'ESPERA'
-                    },
-                    {
-                        usuario_id: "Sr. Enoque",
-                        ramal_id: 5306,
-                        atividade: 'DIVERSOS',
-                        municipio_id: 'Aracaju',
-                        num_ocupantes: 1,
-                        data: '11/10/2022',
-                        hora: '11:00',
-                        status_id: 'ESPERA'
-                    },
-                    {
-                        usuario_id: "Sr. Enoque",
-                        ramal_id: 5306,
-                        atividade: 'DIVERSOS',
-                        municipio_id: 'Aracaju',
-                        num_ocupantes: 1,
-                        data: '11/10/2022',
-                        hora: '11:00',
-                        status_id: 'ESPERA'
-                    },
-                    {
-                        usuario_id: "Sr. Enoque",
-                        ramal_id: 5306,
-                        atividade: 'DIVERSOS',
-                        municipio_id: 'Aracaju',
-                        num_ocupantes: 1,
-                        data: '11/10/2022',
-                        hora: '11:00',
-                        status_id: 'AUTORIZADO'
-                    },
-                    {
-                        usuario_id: "Sr. Enoque",
-                        ramal_id: 5306,
-                        atividade: 'DIVERSOS',
-                        municipio_id: 'Aracaju',
-                        num_ocupantes: 1,
-                        data: '11/10/2022',
-                        hora: '11:00',
-                        status_id: 'ESPERA'
-                    }] as Solicitacao[]}></ListaSolicitacoes>
+                <ListaSolicitacoes></ListaSolicitacoes>
             </PageContainer>
         </>
     )
@@ -89,7 +37,9 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     state.user = isAuthenticated;
 
-    const { Solicitacoes } = await fetchSolicitacao();
+    const { Solicitacoes } = await fetchSolicitacao(1,10);
+
+    console.log(await fetchSolicitacao(1,10))
 
     state.solicitacoes = Solicitacoes;
 

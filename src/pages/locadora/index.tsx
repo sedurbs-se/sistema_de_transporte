@@ -36,7 +36,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     state.user = isAuthenticated;
     
-    const locadoras = await axios.get("http://localhost:3000/api/locadora/list");
+    const locadoras = await axios.get("http://localhost:3000/api/locadora/list?page=1&limit=10");
 
     state.locadoras = locadoras.data.locadoras;
     
