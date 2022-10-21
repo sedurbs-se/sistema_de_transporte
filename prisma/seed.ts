@@ -7,6 +7,7 @@ import statusSolicitacao from './seeds/insert/statusSolicitacao';
 import tipoSolicitacao from './seeds/insert/tipoSolicitacao';
 import setor from './seeds/insert/setor';
 import veiculo from './seeds/insert/veiculo';
+import motorista from './seeds/insert/motorista';
 
 const prisma = new PrismaClient()
 
@@ -28,6 +29,8 @@ async function main() {
     await tipoSolicitacao(prisma);
 
     await veiculo(prisma);
+
+    await motorista(prisma);
 
 }
 

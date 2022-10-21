@@ -24,8 +24,8 @@ model Motorista {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   nome            String
-  celular         String
-  telefone        String
+  celular         String  @default("00000000000")
+  telefone        String  @default("00000000000")
   data_nascimento DateTime
   bairro          String
   endereco        String

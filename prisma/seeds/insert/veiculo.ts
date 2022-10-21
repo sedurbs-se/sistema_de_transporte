@@ -8,8 +8,6 @@ export default async (prisma: PrismaClient) => {
     const locadoras = await prisma.locadora.findMany();
     const tipoFrota = await prisma.tipoFrota.findMany();
 
-
-
     const veiculoSeed: Veiculo[] | null = veiculoDataSeed.map(veiculo => {
 
         const { setorNome, locadoraNome, tipoFrotaNome, ...veiculoData } = veiculo;
