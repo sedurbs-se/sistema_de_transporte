@@ -4,7 +4,15 @@ import { useQuery, UseQueryResult } from "react-query";
 
 interface ICreateVeiculoDTO {
     params: {
-
+        placa: string,
+        descricao: string,
+        componentes: string,
+        quilometragemAtual: number
+        quilometragemInicial: number,
+        tipo_frota_id: string,
+        locadora_id: string,
+        setor_id: string,
+        observacao: string
     };
     onSuccess: (data: ICreateVeiculoResponse) => void;
     id?: string;

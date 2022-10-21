@@ -3,9 +3,16 @@ import catchAsyncErrors from "../../../middlewares/catchAsyncErrors";
 import prisma from "../../../../shared/prisma.index";
 
 const listVeiculoController = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
-    const veiculosQuery = await prisma.veiculo.findMany({include:{
-        tipoFrota:true
-    }});
+    const veiculosQuery = await prisma.veiculo.findMany(
+        {
+            include:{
+                tipoFrota: {
+                    select: {
+                        nome:true
+                    }
+                }
+            }
+});
 
     const veiculos = veiculosQuery.map(veiculo => {
         return {

@@ -1,11 +1,12 @@
 import axios from "axios"
 import Router from "next/router"
-import { useEffect } from "react"
-import { Button, Table } from "react-bootstrap"
+import { useEffect, useState } from "react"
+import { Button, Modal, Table } from "react-bootstrap"
 import shallow from "zustand/shallow"
 import { useStore } from "@domain/store/store"
 import TableComponent from "@components/Table"
 import Swal from "sweetalert2"
+import { api } from "@domain/config/api"
 
 export interface ListaMotoristasProps {
 }
@@ -14,6 +15,9 @@ export interface ListaMotoristasProps {
 const ListaMotoristas = (props: ListaMotoristasProps) => {
 
     const { motoristas, removeMotorista, selectedMotorista ,setSelectedMotorista } = useStore((state) => state, shallow);
+
+    const [motorista,setMotorista] = useState([{nome:"", celular: "", data_nascimento:"",vinculo:"", bairro:"", endereco:"",createdAt:"", updatedAt:""}]);
+    const [show, setShow] = useState(false); 
 
     const tableColumns = [
         ["Nome", "nome"],
@@ -89,6 +93,14 @@ const ListaMotoristas = (props: ListaMotoristasProps) => {
         Router.push(`/motorista/formulario`)
     }
 
+
+
+    const onDetail = async (id: string) => {
+        const motorista = await api.get(`/motorista?id=${id}`)
+        setMotorista([motorista.data.motorista])
+        setShow(true)
+    }
+
     useEffect(() => {
         if (selectedMotorista) {
             setSelectedMotorista()
@@ -102,7 +114,29 @@ const ListaMotoristas = (props: ListaMotoristasProps) => {
                 tableBodyData={motoristas}
                 onDelete={onDelete}
                 onEdit={onEdit}
+                onDetail={onDetail}
             />
+
+<Modal show={show} fullscreen={true} onHide={() => setShow(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>{motorista[0].nome}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            <TableComponent
+            tableHeaderData={[
+                ["Nome", "nome"],
+                ["Celular", "celular"],
+                ["Data de nascimento", "data_nascimento"],
+                ["Vínculo", "vinculo"],
+                ["Bairro", "bairro"],
+                ["Endereço", "endereco"],
+                ["Criado em", "createdAt"],
+                ["Editado em", "updatedAt"]
+            ]}
+            tableBodyData={motorista}
+            />
+        </Modal.Body>
+      </Modal>
 
             <Button variant="primary" onClick={onAdd}>Adicionar</Button>
         </>

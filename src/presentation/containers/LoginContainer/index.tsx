@@ -48,10 +48,10 @@ const LoginContainer = () => {
             <span>sistema de transporte</span>
             <form onSubmit={handleSubmit(onSubmit)}>
             <input className={ errors?.login ? style['error-input']: ''} placeholder="Login" type="text" {...register('login')}/>
-            {errors?.login?.type && <InputError type={errors.login.type} field='login' />}
+            {errors?.login?.type && <InputError type={errors.login.type} form="login" field='login' />}
 
             <input className={ errors?.password ? style['error-input']: ''} placeholder="Senha" type="password" {...register('password')} />
-            {errors?.password?.type && <InputError type={errors.password.type} field='password' />}
+            {errors?.password?.type && <InputError type={errors.password.type} form="login" field='password' />}
 
             <div className={style["error-message"]}
                 style={{ visibility: isError ? "visible" : "hidden" }}

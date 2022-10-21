@@ -6,7 +6,7 @@ import { ICreateSetorDTO, ICreateSetorResponse, useCreateSetor } from "@domain/q
 import { useStore } from "@domain/store/store";
 import {Setor} from "@prisma/client"
 import style from "../CadastroLocadora/index.module.scss"
-import { setModalSuccess } from "@shared/utils/cadastroUtils";
+import { setModalSuccess } from "@shared/utils/modalUtils";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { InputError } from "@components/InputError";
@@ -103,8 +103,8 @@ useEffect(() => {
           placeholder="Insira o código do setor"
           isValid={!errors.codigo && form.codigo !== ""}
           isInvalid={errors.codigo != undefined}
-           {...register('codigo', {required:"Por favor, digite o codigo do setor"})} />
-          {errors?.codigo?.type && <InputError type={errors.codigo.type} field='codigo' />}
+           {...register('codigo')} />
+          {errors?.codigo?.type && <InputError type={errors.codigo.type} form="setor" field='codigo' />}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Descrição</Form.Label>
@@ -114,8 +114,8 @@ useEffect(() => {
           placeholder="" 
           isValid={!errors.descricao && form.descricao !== ""}
           isInvalid={errors.descricao != undefined}
-          {...register('descricao', {required:"Por favor, digite o codigo do setor"})}/>
-          {errors?.descricao?.type && <InputError type={errors.descricao.type} field='descricao' />}
+          {...register('descricao')}/>
+          {errors?.descricao?.type && <InputError type={errors.descricao.type} form="setor" field='descricao' />}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword" >
           <Form.Label>Sigla</Form.Label>
@@ -124,8 +124,8 @@ useEffect(() => {
           placeholder="" 
           isValid={!errors.sigla && form.sigla !== ""}
           isInvalid={errors.sigla != undefined}
-          {...register('sigla', {required:"Por favor, digite o codigo do setor"})}/>
-          {errors?.sigla?.type && <InputError type={errors.sigla.type} field='sigla' />}
+          {...register('sigla')}/>
+          {errors?.sigla?.type && <InputError type={errors.sigla.type} form="setor" field='sigla' />}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword" >
           <Form.Label>Responsável</Form.Label>
@@ -134,8 +134,8 @@ useEffect(() => {
           placeholder="" 
           isValid={!errors.responsavel && form.responsavel !== ""}
           isInvalid={errors.responsavel != undefined}
-          {...register('responsavel', {required:"Por favor, digite o codigo do setor"})}/>
-          {errors?.responsavel?.type && <InputError type={errors.responsavel.type} field='responsavel' />}
+          {...register('responsavel')}/>
+          {errors?.responsavel?.type && <InputError type={errors.responsavel.type} form="setor" field='responsavel' />}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword" >
           <Form.Label>Ramal</Form.Label>
@@ -144,8 +144,8 @@ useEffect(() => {
            placeholder="" 
            isValid={!errors.ramal && form.ramal !== ""}
            isInvalid={errors.ramal != undefined}
-           {...register('ramal', {required:"Por favor, digite o codigo do setor"})}/>
-          {errors?.ramal?.type && <InputError type={errors.ramal.type} field='ramal' />}
+           {...register('ramal')}/>
+          {errors?.ramal?.type && <InputError type={errors.ramal.type} form="setor" field='ramal' />}
         </Form.Group>
         <Button variant="primary" type="submit" disabled={isFetching}>
          {isFetching ? 'Aguarde...': 'Salvar'} 
