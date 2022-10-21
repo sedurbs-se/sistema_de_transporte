@@ -24,13 +24,15 @@ model Motorista {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   nome            String
-  celular         String
-  telefone        String
+  celular         String  @default("00000000000")
+  telefone        String  @default("00000000000")
   data_nascimento DateTime
   bairro          String
   endereco        String
   vinculo         Vinculo  @relation(fields: [vinculo_id], references: [id])
   vinculo_id      String
+
+  ocupado Boolean @default(false)
 }
 
 model Setor {
@@ -38,7 +40,7 @@ model Setor {
   codigo      String        @unique
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
-  descricao   String
+  nome        String
   sigla       String
   responsavel String
   ramal       String
@@ -50,10 +52,10 @@ model Locadora {
   id        String    @id @default(uuid())
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  descricao String
+  nome      String    @unique
   sigla     String
-  endereco  String
   bairro    String
+  endereco  String
   telefone  String
   Veiculo   Veiculo[]
 }
@@ -70,18 +72,19 @@ model Veiculo {
   id                   String    @id @default(uuid())
   createdAt            DateTime  @default(now())
   updatedAt            DateTime  @updatedAt
-  placa                String
-  descricao            String
+  placa                String    @unique
+  nome                 String
   componentes          String
-  quilometragemInicial String
-  quilometragemAtual   String
+  quilometragemInicial Int
+  quilometragemAtual   Int
   tipoFrota            TipoFrota @relation(fields: [tipo_frota_id], references: [id])
   tipo_frota_id        String
   locadora             Locadora  @relation(fields: [locadora_id], references: [id])
   locadora_id          String
   setor                Setor     @relation(fields: [setor_id], references: [id])
   setor_id             String
-  observacao           String
+  observacao           String    @default("")
+  ocupado              Boolean   @default(false)
 }
 
 model Solicitacao {
@@ -90,7 +93,6 @@ model Solicitacao {
   updatedAt     DateTime @updatedAt
   ramal         String
   atividade     String
-  municipio     String
   num_ocupantes Int
   status        String
   observacao    String
@@ -102,8 +104,9 @@ model Solicitacao {
   statusSolicitacao     StatusSolicitacao @relation(fields: [status_solicitacao_id], references: [id])
   status_solicitacao_id String
 
-  tipoSolicitacao     TipoSolicitacao @relation(fields: [tipo_solicitacao_id], references: [id])
-  tipo_solicitacao_id String
+  tipoSolicitacao      TipoSolicitacao        @relation(fields: [tipo_solicitacao_id], references: [id])
+  tipo_solicitacao_id  String
+  MunicipioSolicitacao MunicipioSolicitacao[]
 }
 
 model Vinculo {
@@ -128,4 +131,22 @@ model StatusSolicitacao {
   updatedAt   DateTime      @updatedAt
   nome        String        @unique
   solicitacao Solicitacao[]
+}
+
+model MunicipioSolicitacao {
+  id             String      @id @default(uuid())
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  solicitacao    Solicitacao @relation(fields: [solicitacao_id], references: [id])
+  solicitacao_id String
+  municipio      Municipio   @relation(fields: [municipio_id], references: [id])
+  municipio_id   String
+}
+
+model Municipio {
+  id                   String                 @id @default(uuid())
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+  nome                 String                 @unique
+  MunicipioSolicitacao MunicipioSolicitacao[]
 }

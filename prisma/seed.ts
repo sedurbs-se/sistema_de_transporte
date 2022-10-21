@@ -1,57 +1,39 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client';
+import vinculos from './seeds/insert/vinculo';
+import municipios from './seeds/insert/municipio';
+import locadora from './seeds/insert/locadora';
+import tipoFrota from './seeds/insert/tipoFrota';
+import statusSolicitacao from './seeds/insert/statusSolicitacao';
+import tipoSolicitacao from './seeds/insert/tipoSolicitacao';
+import setor from './seeds/insert/setor';
+import veiculo from './seeds/insert/veiculo';
+import motorista from './seeds/insert/motorista';
+
 const prisma = new PrismaClient()
 
 async function main() {
-    const vinculos = await prisma.vinculo.createMany({
-        skipDuplicates: true,
-        data: [
-            { nome: 'Efetivo' },
-            { nome: 'Comissionado' },
-            { nome: 'Terceirizado' },
-            { nome: 'Afastado' },
-        ]
-    })
-
-    const tipo_frotas = await prisma.tipoFrota.createMany({
-        skipDuplicates: true,
-        data: [
-
-            { nome: 'TITULAR' },
-            { nome: 'REVERSA' },
-            { nome: 'DEVOLUÇÃO' },
-            { nome: 'MANUTENÇÃO' },
-        ]
-    });
-
-    const status_solicitacao = await prisma.statusSolicitacao.createMany({
-        skipDuplicates: true,
-        data: [
-            { nome: 'ESPERA' },
-            { nome: 'CANCELADO' },
-            { nome: 'AUTORIZADO' },
-            { nome: 'SEM CARRO' },
-        ]
-    });
-
-    const tipo_solicitacao = await prisma.tipoSolicitacao.createMany({
-        skipDuplicates: true,
-        data: [
-            { nome: 'FISCALIZAÇÂO' },
-            { nome: 'VIAGEM' },
-            { nome: 'REUNIÃO' },
-            { nome: 'ENTREGAR DOC.' },
-            { nome: 'EVENTO' },
-            { nome: 'SERVIÇO BANCARIO' },
-            { nome: 'MANUTENÇÂO' },
-            { nome: 'ALMOÇO' },
-            { nome: 'PLANTÂO' },
-            { nome: 'DIVERSOS' },
-        ]
-    });
 
 
-    console.log({ vinculos, tipo_frotas, status_solicitacao, tipo_solicitacao })
+    await vinculos(prisma);
+
+    await municipios(prisma);
+
+    await locadora(prisma);
+
+    await tipoFrota(prisma);
+
+    await setor(prisma);
+
+    await statusSolicitacao(prisma);
+
+    await tipoSolicitacao(prisma);
+
+    await veiculo(prisma);
+
+    await motorista(prisma);
+
 }
+
 main().then(async () => {
     await prisma.$disconnect()
 })
