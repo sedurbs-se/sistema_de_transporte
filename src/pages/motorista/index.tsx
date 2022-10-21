@@ -37,7 +37,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     const { motoristas, count } = await fetchMotoristas(1, 10);
 
-    console.log(motoristas.length);
 
     state.motoristas = motoristas
 
