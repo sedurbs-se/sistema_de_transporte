@@ -1,8 +1,8 @@
 import { api } from "@domain/config/api";
 
 
-const fetchMotoristas = async () => {
-    const { data } = await api.get(`/motorista/list`);
+const fetchMotoristas = async (page: number, limit: number) => {
+    const { data } = await api.get(`/motorista/list?page=${page}&limit=${limit}`); 
     return data;
 }
 

@@ -3,6 +3,7 @@ import { Motorista } from '@prisma/client';
 
 export interface IMotoristasStore {
     motoristas: Motorista[] | [];
+    motoristaPages: number;
     selectedMotorista: Motorista | null;
     setSelectedMotorista: (selectedMotorista?: Motorista | string) => void;
     setMotoristas: (motoristas: Motorista[]) => void;
@@ -14,6 +15,7 @@ export interface IMotoristasStore {
 
 export const initialMotoristasStoreState: IMotoristasStore = {
     motoristas: [],
+    motoristaPages: 0,
     selectedMotorista: null,
     setSelectedMotorista: (selectedMotorista?: Motorista | string) => { },
     setMotoristas: (motoristas: Motorista[]) => { },

@@ -4,6 +4,7 @@ import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
 import axios from "axios";
 import { initializeStore } from "@domain/store/store";
 import PageContainer from "@components/PageContainer";
+import fetchMotoristas from "@domain/requests/fetch/fetchMotoristas";
 
 const Teste: NextPage = () => {
     return (
@@ -33,10 +34,14 @@ export const getServerSideProps: GetServerSideProps = async context => {
     }
 
     state.user = isAuthenticated;
-    
-    const motoristas = await axios.get("http://localhost:3000/api/motorista/list");
 
-    state.motoristas = motoristas.data.motoristas;
+    const { motoristas, count } = await fetchMotoristas(1, 10);
+
+    console.log(motoristas.length);
+
+    state.motoristas = motoristas
+
+    state.motoristaPages = count;
 
     return {
         props: {
