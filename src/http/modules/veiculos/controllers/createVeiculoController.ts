@@ -32,10 +32,10 @@ const createVeiculoController = catchAsyncErrors(async (req: NextApiRequest, res
         throw new AppError('Veiculo já existe', 400)
     };
 
-    // Quilometragem inicial não pode ser menor que a quilometragem atual
+    // Quilometragem atual não pode ser menor que a quilometragem inicial
 
-    if (quilometragemInicial < quilometragemAtual) {
-        throw new AppError('Quilometragem inicial não pode ser menor que a quilometragem atual', 400)
+    if (quilometragemAtual < quilometragemInicial) {
+        throw new AppError('Quilometragem atual não pode ser menor que a quilometragem inicial', 400)
     }
 
     const veiculo = await prisma.veiculo.create({

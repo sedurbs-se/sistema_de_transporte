@@ -1,8 +1,8 @@
 import Swal from "sweetalert2"
 
-export const setModalSuccess = () => {
+export const setModalSuccess = (isEdit = false) => {
     Swal.fire({
-        text:'Cadastro efetuado com sucesso', 
+        text:`${isEdit ? 'Edição efetuada com sucesso': 'Cadastro efetuado com sucesso'} `, 
         icon:'success',
         showConfirmButton:false,
         timer:1500,

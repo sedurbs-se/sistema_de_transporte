@@ -39,6 +39,7 @@ const onSuccess = ({ setor }: ICreateSetorResponse) => {
     if (selectedSetor) {
         setSelectedSetor()
         updateSetor(setor);
+        setModalSuccess(true);
     } else {
         addSetor(setor);
         setModalSuccess();

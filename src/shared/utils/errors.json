@@ -36,11 +36,11 @@
             "required": "Informe os componentes do veículo!"
         },
         "quilometragemAtual": {
-            "required": "Informe a quilometragem atual!"
+            "required": "Informe a quilometragem atual!",
+            "min": "Quilometragem atual não pode ser menor que a quilometragem inicial"
         },
         "quilometragemInicial": {
-            "required": "Informe a quilometragem inicial!",
-            "min": "Quilometragem inicial não pode ser menor que a quilometragem atual"
+            "required": "Informe a quilometragem inicial!"
         },
         "tipo_frota_id": {
             "required": "Selecione um tipo de frota!"
@@ -70,6 +70,29 @@
         },
         "telefone": {
             "required": "Informe o telefone da locadora!"
+        }
+    },
+    "motorista": {
+        "nome": {
+            "required":"Informe o nome do motorista!"
+        },
+        "celular": {
+            "required":"Informe o celular do motorista!"
+        },
+        "telefone":{
+            "required":"Informe o telefone do motorista!"
+        },
+        "data_nascimento": {
+            "required": "Informe a data de nascimento do motorista!"
+        },
+        "bairro": {
+            "required": "Informe o bairro do motorista!"
+        },
+        "endereco": {
+            "required": "Informe o endereço do motorista!"
+        },
+        "vinculo_id":{
+            "required": "Informe o vínculo do motorista!"
         }
     }
 }

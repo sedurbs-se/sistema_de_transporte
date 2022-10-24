@@ -33,6 +33,7 @@ const CadastroLocadoras = (props: CadastroLocadoraProps) => {
     if (selectedLocadora) {
         setSelectedLocadora()
         updateLocadora(locadora);
+        setModalSuccess(true);
     } else {
         addLocadora(locadora)
         setModalSuccess();
