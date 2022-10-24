@@ -8,22 +8,41 @@ interface PaginationProps {
 
 const PaginationComponent = ({ page, totalPages, onPageChange }: PaginationProps) => {
 
-
     const generatePaginationItems = () => {
         const items = [];
-        for (let number = 1; number <= totalPages; number++) {
-            items.push(
-                <Pagination.Item key={number} active={number === page} onClick={() => onPageChange(number)}>
-                    {number}
-                </Pagination.Item>,
-            );
+
+        const paginationCount = 167 / 10
+
+        for (let number = 1; number <= paginationCount; number++) {
+
+
+            // Elipse na metade da paginação
+
+            if (number > 3 && number < paginationCount - 3) {
+                
+                if (items[items.length - 1].type.render.displayName != 'Ellipsis') {
+                    items.push(<Pagination.Ellipsis></Pagination.Ellipsis>)
+                };
+
+            } else {
+                items.push(
+                    <Pagination.Item
+                        key={number}
+                        active={number === page}
+                        onClick={() => onPageChange(number)}>
+                        {number}
+                    </Pagination.Item>,
+                );
+            }
         }
         return items;
     };
 
     return (
         <Pagination>
-            {generatePaginationItems()}
+            {generatePaginationItems().map((item) => item)}
         </Pagination>
     )
-}
+};
+
+export default PaginationComponent;

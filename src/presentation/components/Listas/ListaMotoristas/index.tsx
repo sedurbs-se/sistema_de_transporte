@@ -7,6 +7,7 @@ import { useStore } from "@domain/store/store"
 import TableComponent from "@components/Table"
 import Swal from "sweetalert2"
 import { api } from "@domain/config/api"
+import PaginationComponent from "@components/Pagination"
 
 export interface ListaMotoristasProps {
 }
@@ -14,7 +15,7 @@ export interface ListaMotoristasProps {
 
 const ListaMotoristas = (props: ListaMotoristasProps) => {
 
-    const { motoristas, removeMotorista, selectedMotorista, setSelectedMotorista } = useStore((state) => state, shallow);
+    const { motoristas, motoristaPages, removeMotorista, selectedMotorista, setSelectedMotorista } = useStore((state) => state, shallow);
 
     const [motorista, setMotorista] = useState([{ nome: "", celular: "", data_nascimento: "", vinculo: "", bairro: "", endereco: "", createdAt: "", updatedAt: "" }]);
     const [show, setShow] = useState(false);
@@ -93,8 +94,6 @@ const ListaMotoristas = (props: ListaMotoristasProps) => {
         Router.push(`/motorista/formulario`)
     }
 
-
-
     const onDetail = async (id: string) => {
         const motorista = await api.get(`/motorista?id=${id}`)
         setMotorista([motorista.data.motorista])
@@ -106,6 +105,8 @@ const ListaMotoristas = (props: ListaMotoristasProps) => {
             setSelectedMotorista()
         }
     }, [selectedMotorista])
+
+    const [page, setPage] = useState(1);
 
     return (
         <>
@@ -138,6 +139,11 @@ const ListaMotoristas = (props: ListaMotoristasProps) => {
                 </Modal.Body>
             </Modal>
 
+            <PaginationComponent
+                page={page}
+                totalPages={motoristaPages}
+                onPageChange={setPage}
+            />
             <Button variant="primary" onClick={onAdd}>Adicionar</Button>
         </>
 

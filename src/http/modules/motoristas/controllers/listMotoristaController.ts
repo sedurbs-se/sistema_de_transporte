@@ -13,18 +13,24 @@ const listMotoristaController = catchAsyncErrors(async (req: NextApiRequest, res
             vinculo: {
                 select: {
                     nome: true
-                }
+                },
             }
         },
         skip: (Number(page) - 1) * Number(limit), take: Number(limit),
     })
 
-    const motoristas = motoristasQuery.map((motorista) => ({...motorista, vinculo: motorista.vinculo.nome}))
+
+    const mappedMotoristas = motoristas.map(motorista => {
+        return {
+            ...motorista,
+            vinculo: motorista.vinculo.nome
+        }
+    })
 
 
     const count = await prisma.motorista.count();
     res.status(200).json({
-        motoristas,
+        motoristas:mappedMotoristas,
         count
     });
 });
