@@ -38,7 +38,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     state.user = isAuthenticated;
 
     try {
-        const { setores } = await fetchSetores(1,80);
+        const { setores } = await fetchSetores(1,10);
 
         state.setores = setores;
 

@@ -1,4 +1,4 @@
-export default [
+const setores =  [
     {
         "nome": "COMISS�O PERMANENTE DE LICITA��O",
         "sigla": "CPL",
@@ -203,3 +203,5 @@ export default [
         "responsavel": "."
     }
 ]
+
+export default setores;

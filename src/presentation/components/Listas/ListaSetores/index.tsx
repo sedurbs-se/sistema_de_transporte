@@ -1,10 +1,11 @@
 import axios from "axios"
 import Router from "next/router"
-import { useEffect } from "react"
-import { Button, Table } from "react-bootstrap"
+import { useEffect, useState } from "react"
+import { Button, Modal, Table } from "react-bootstrap"
 import shallow from "zustand/shallow"
 import { useStore } from "@domain/store/store"
 import TableComponent from "@components/Table"
+import { api } from "@domain/config/api"
 
 export interface ListaSetoresProps {
 }
@@ -13,6 +14,9 @@ export interface ListaSetoresProps {
 const ListaSetores = (props: ListaSetoresProps) => {
 
     const { setores , removeSetor, selectedSetor ,setSelectedSetor } = useStore((state) => state, shallow);
+
+    const [setor, setSetor] = useState([{ nome: "", codigo: "", sigla: "", responsavel: "", ramal: "", createdAt: "", updatedAt: "" }]);
+    const [show, setShow] = useState(false);
 
     const tableColumns = [
         ["Código","codigo"],
@@ -44,6 +48,12 @@ const ListaSetores = (props: ListaSetoresProps) => {
         Router.push(`/setor/formulario`)
     }
 
+    const onDetail = async (id: string) => {
+        const setor = await api.get(`/setor?id=${id}`)
+        setSetor([setor.data.setor])
+        setShow(true)
+    }
+
     useEffect(() => {
         if (selectedSetor) {
             setSelectedSetor()
@@ -57,7 +67,28 @@ const ListaSetores = (props: ListaSetoresProps) => {
         tableBodyData={setores}
         onDelete={onDelete}
         onEdit={onEdit}
+        onDetail={onDetail}
         ></TableComponent>
+
+<Modal show={show} fullscreen={true} onHide={() => setShow(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{setor[0].nome}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <TableComponent
+                        tableHeaderData={[
+                            ["Código", "codigo"],
+                            ["Nome", "nome"],
+                            ["Sigla", "sigla"],
+                            ["Responsável", "responsavel"],
+                            ["Ramal", "ramal"],
+                            ["Criado em", "createdAt"],
+                            ["Editado em", "updatedAt"]
+                        ]}
+                        tableBodyData={setor}
+                    />
+                </Modal.Body>
+            </Modal>
 
         <Button onClick={onAdd}>Adicionar</Button>
         </>

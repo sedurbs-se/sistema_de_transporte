@@ -8,7 +8,7 @@ const listMotoristaController = catchAsyncErrors(async (req: NextApiRequest, res
 
     const { page, limit } = req.query;
 
-    const motoristasQuery = await prisma.motorista.findMany({
+    const motoristas = await prisma.motorista.findMany({
         include: {
             vinculo: {
                 select: {
