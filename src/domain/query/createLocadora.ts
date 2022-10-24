@@ -22,8 +22,9 @@ interface ICreateLocadoraResponse {
 
 function useCreateLocadora({ params, onSuccess, id }: ICreateLocadoraDTO): UseQueryResult<ICreateLocadoraResponse> {
     return useQuery('createLocadora', async () => {
-        const { data }: AxiosResponse =  await axios.post(`http://localhost:3000/api/locadora${id ? `?id=${id}` : ''}`,
-            { ...params });
+        const { data }: AxiosResponse =  id?
+        await axios.put(`http://localhost:3000/api/locadora?id=${id}`, { ...params }) : 
+        await axios.post(`http://localhost:3000/api/locadora`, { ...params });
         return data;
     }, {
         enabled: false,

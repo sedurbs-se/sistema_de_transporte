@@ -28,7 +28,7 @@ export const createLocadorasStore = (set: any, get: any, api: any) => ({
         selectedLocadora: typeof selectedLocadora === 'string' ? get().locadoras.find((m: Locadora) => m.id === selectedLocadora) : selectedLocadora
     }),
     updateLocadora: (locadora: Locadora) => {
-        const locadoras = get().Locadoras;
+        const locadoras = get().locadoras;
         const index = locadoras.findIndex((m: Locadora) => m.id === locadora.id);
         locadoras[index] = locadora;
         set({ locadoras });

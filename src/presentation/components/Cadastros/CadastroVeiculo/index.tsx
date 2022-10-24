@@ -34,8 +34,8 @@ const CadastroVeiculo = () => {
         placa: yup.string().required().matches(placaVeiculoRegex),
         nome: yup.string().required(),
         componentes: yup.string().required(),
-        quilometragemAtual: yup.number().transform(value => (isNaN(value) ? undefined : value)).required(),
-        quilometragemInicial: yup.number().transform(value => (isNaN(value) ? undefined : value)).min(yup.ref("quilometragemAtual")).required(),
+        quilometragemAtual: yup.number().transform(value => (isNaN(value) ? undefined : value)).min(yup.ref("quilometragemInicial")).required(),
+        quilometragemInicial: yup.number().transform(value => (isNaN(value) ? undefined : value)).required(),
         tipo_frota_id: yup.string().required(),
         locadora_id: yup.string().required(),
         setor_id: yup.string().required(),
@@ -51,6 +51,7 @@ const CadastroVeiculo = () => {
         if (selectedVeiculo) {
             setSelectedVeiculo()
             updateVeiculo(veiculo);
+            setModalSuccess(true);
         } else {
             addVeiculo(veiculo)
             setModalSuccess();

@@ -27,6 +27,7 @@ const CadastroMotorista = () => {
         if (selectedMotorista) {
             setSelectedMotorista()
             updateMotorista(motorista);
+            setModalSuccess(true);
         } else {
             addMotorista(motorista)
             setModalSuccess();
@@ -70,27 +71,32 @@ const CadastroMotorista = () => {
 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Nome</Form.Label>
-                    <Form.Control {...register("nome", { required: "Por favor escreva o nome do motorista!" })} />
+                    <Form.Control 
+                    {...register("nome")} />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicDataNascimento">
                     <Form.Label>Data de Nascimento</Form.Label>
-                    <Form.Control type="date"  {...register("data_nascimento", { required: "Por favor selecione uma data de nascimento!" })} />
+                    <Form.Control type="date" 
+                    {...register("data_nascimento")} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicBairro">
                     <Form.Label>Bairro</Form.Label>
-                    <Form.Control  {...register("bairro", { required: "Por favor escreva o bairro do motorista!" })} />
+                    <Form.Control  
+                    {...register("bairro")} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEndereco">
                     <Form.Label>Endereço</Form.Label>
-                    <Form.Control {...register("endereco", { required: "Por favor escreva o endereço do motorista!" })} />
+                    <Form.Control
+                     {...register("endereco")} />
                 </Form.Group>
 
                 <Row>
                     <Col md={6} xs={6} xl={6} xls={6}>
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Celular</Form.Label>
-                            <Form.Control  {...register("celular", { required: "Por favor escreva o celular do motorista!" })} />
+                            <Form.Control  
+                            {...register("celular")} />
                         </Form.Group>
 
 
@@ -98,14 +104,16 @@ const CadastroMotorista = () => {
                     <Col md={6} xs={6} xl={6} xls={6}>
                         <Form.Group className="mb-3" controlId="formBasicTelefone">
                             <Form.Label>Telefone</Form.Label>
-                            <Form.Control  {...register("telefone",)} />
+                            <Form.Control  
+                            {...register("telefone")} />
                         </Form.Group>
                     </Col>
                 </Row>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Vínculo</Form.Label>
-                    <Form.Select  {...register("vinculo_id", { required: "Por favor escreva o endereço do motorista!" })} >
+                    <Form.Select 
+                     {...register("vinculo_id")} >
                         <option value="">Selecione um vínculo</option>
                         {vinculos.map(vinculo => (
                             <option key={vinculo.id} value={vinculo.id}>{vinculo.nome}</option>
