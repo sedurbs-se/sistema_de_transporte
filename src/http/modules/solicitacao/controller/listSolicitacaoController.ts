@@ -9,6 +9,8 @@ import prisma from "../../../../shared/prisma.index";
 const listSolicitacaoController = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
 
     const { page, limit } = req.query;
+    console.log('pagina', page)
+    console.log('limite', limit)
 
     const solicitacoes = await prisma.solicitacao.findMany({
         skip: (Number(page) - 1) * Number(limit),  take: Number(limit),

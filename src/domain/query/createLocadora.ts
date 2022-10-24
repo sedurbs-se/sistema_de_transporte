@@ -4,7 +4,7 @@ import { useQuery, UseQueryResult } from "react-query";
 
 interface ICreateLocadoraDTO {
     params: {
-        descricao: string;
+        nome: string;
         sigla: string;
         telefone: string;
         bairro: string;

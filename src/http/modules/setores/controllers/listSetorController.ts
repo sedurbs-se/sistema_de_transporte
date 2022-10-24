@@ -8,8 +8,10 @@ const listSetorController = catchAsyncErrors(async (req: NextApiRequest, res: Ne
 
     const { page, limit } = req.query;
 
-    const setores = await prisma.setor.findMany({
+    const setores = !isNaN(Number(limit)) ? await prisma.setor.findMany({
         skip: (Number(page) - 1) * Number(limit),  take: Number(limit),
+    }): await prisma.setor.findMany({
+        skip: Number(page) - 1
     });
     
     res.status(200).json({

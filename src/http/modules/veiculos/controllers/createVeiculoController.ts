@@ -7,7 +7,7 @@ const createVeiculoController = catchAsyncErrors(async (req: NextApiRequest, res
 
     const {
         placa,
-        descricao,
+        nome,
         componentes,
         quilometragemInicial,
         quilometragemAtual,
@@ -41,10 +41,10 @@ const createVeiculoController = catchAsyncErrors(async (req: NextApiRequest, res
     const veiculo = await prisma.veiculo.create({
         data: {
             placa,
-            descricao,
+            nome,
             componentes,
-            quilometragemInicial,
-            quilometragemAtual,
+            quilometragemInicial: parseFloat(quilometragemInicial),
+            quilometragemAtual: parseFloat(quilometragemAtual),
             tipo_frota_id,
             locadora_id,
             setor_id,

@@ -19,7 +19,7 @@ const CadastroLocadoras = (props: CadastroLocadoraProps) => {
   const { addLocadora, selectedLocadora, setSelectedLocadora, updateLocadora } = useStore(state => state, shallow);
 
   const validationSchema = yup.object().shape({
-    descricao: yup.string().required(),
+    nome: yup.string().required(),
     sigla: yup.string().required(),
     endereco: yup.string().required(),
     bairro: yup.string().required(),
@@ -79,14 +79,14 @@ useEffect(() => {
           <Row>
             <Col>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Descrição</Form.Label>
+        <Form.Label>Nome</Form.Label>
         <Form.Control 
         type="text" 
         placeholder="" 
-        isValid={!errors.descricao && form.descricao !== ""}
-        isInvalid={errors.descricao != undefined}
-        {...register('descricao')}  />
-        {errors?.descricao?.type && <InputError type={errors.descricao.type} form="locadora" field='descricao' />}
+        isValid={!errors.nome && form.nome !== ""}
+        isInvalid={errors.nome != undefined}
+        {...register('nome')}  />
+        {errors?.nome?.type && <InputError type={errors.nome.type} form="locadora" field='nome' />}
       </Form.Group>
             </Col>
             <Col>

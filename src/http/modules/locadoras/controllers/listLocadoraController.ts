@@ -7,10 +7,13 @@ import prisma from "../../../../shared/prisma.index";
 const listLocadoraController = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
     
     const { page, limit } = req.query;
-    
-    const locadoras = await prisma.locadora.findMany({
+
+
+    const locadoras = !isNaN(Number(limit)) ? await prisma.locadora.findMany({
         skip: (Number(page) - 1) * Number(limit),  take: Number(limit),
-    });
+    }) : await prisma.locadora.findMany({
+        skip: Number(page) - 1
+    })
 
     res.status(200).json({
         locadoras

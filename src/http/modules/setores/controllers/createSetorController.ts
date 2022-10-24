@@ -9,7 +9,7 @@ const createSetorController = catchAsyncErrors(async (req: NextApiRequest, res: 
     
     const { 
         codigo,
-        descricao,
+        nome,
         sigla,
         responsavel,
         ramal, 
@@ -28,7 +28,7 @@ const createSetorController = catchAsyncErrors(async (req: NextApiRequest, res: 
     const setor = await prisma.setor.create({
         data: {
             codigo,
-            descricao,
+            nome,
             sigla,
             responsavel,
             ramal,
