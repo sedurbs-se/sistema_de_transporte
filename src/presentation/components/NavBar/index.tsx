@@ -23,6 +23,7 @@ const NavBarT = () => {
 
     const { deleteSession, user } = useStore(state => state, shallow);
 
+    console.log(user)
 
     const showDropDown = (e: any) => {
         const {id} = e.target
@@ -127,7 +128,7 @@ const NavBarT = () => {
                     user ? 
                     (
                         <a 
-                        style={{color: 'white', cursor: 'pointer', fontSize:'1.2rem', display: user ? 'block': 'none'}}
+                        style={{color: 'white', cursor: 'pointer', fontSize:'1.2rem'}}  
                         onClick={handleOnClick}>Olá,<span className={style["name-label"]}>{user?.nome}</span> 
                         </a>
                     ):

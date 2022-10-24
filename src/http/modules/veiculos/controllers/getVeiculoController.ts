@@ -16,14 +16,19 @@ const getVeiculoController = catchAsyncErrors(async (req: NextApiRequest, res: N
             id: id as string
         },
         include:{
-            tipoFrota:true
+            tipoFrota:true,
+            setor:true,
+            locadora:true,
         }
     });
 
     
 
 
-    const veiculo = {...veiculoQuery, tipoFrota: veiculoQuery!.tipoFrota.nome}
+    const veiculo = {...veiculoQuery, 
+    tipoFrota: veiculoQuery!.tipoFrota.nome,
+    setor: veiculoQuery!.setor.nome,
+    locadora: veiculoQuery!.locadora.nome}
 
 
     res.status(200).json({

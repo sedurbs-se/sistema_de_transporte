@@ -1,4 +1,4 @@
-export default [
+const motoristas = [
     {
         "nome": "MARCOS ANTONIO DE MENEZES SANTOS",
         "telefone": "7999680968",
@@ -13,7 +13,7 @@ export default [
         "telefone": "7998875100",
         "celular": "7998875100",
         "bairro": "COROA DO MEIO",
-        "endereco": "RUA. CORONEL JOS� FIGUEIREDO DE ALBUQUERQUE, 1869",
+        "endereco": "RUA. CORONEL JOSÉ FIGUEIREDO DE ALBUQUERQUE, 1869",
         "data_nascimento": "1979-06-19T03:00:00.000Z",
         "vinculoNome": "AFASTADO"
     },
@@ -22,7 +22,7 @@ export default [
         "telefone": "798818355",
         "celular": "7988183553",
         "bairro": "ROSA MARIA",
-        "endereco": "rUA. MANOEL RODRIGUES NETO, 38 S�O CRISTOV�O",
+        "endereco": "rUA. MANOEL RODRIGUES NETO, 38 SÃO CRISTOVÃO",
         "data_nascimento": "1976-02-20T03:00:00.000Z",
         "vinculoNome": "AFASTADO"
     },
@@ -30,7 +30,7 @@ export default [
         "nome": "GLAUBER ANSELMO LEITE VIEIRA DA SILVA",
         "telefone": "7932546706",
         "celular": "81635205",
-        "bairro": "JO�O ALVES FILHO",
+        "bairro": "JOÃO ALVES FILHO",
         "endereco": "RUA. 23 NUMERO 121",
         "data_nascimento": "1988-07-20T03:00:00.000Z",
         "vinculoNome": "AFASTADO"
@@ -48,7 +48,7 @@ export default [
         "nome": "JOSE CARLOS DOS SANTOS",
         "celular": "7998893038",
         "bairro": "SANTOS DUMONT/TAMADARE",
-        "endereco": "AV. AYRTON SENA N� 626",
+        "endereco": "AV. AYRTON SENA N° 626",
         "data_nascimento": "1983-09-27T03:00:00.000Z",
         "vinculoNome": "AFASTADO"
     },
@@ -62,11 +62,11 @@ export default [
         "vinculoNome": "AFASTADO"
     },
     {
-        "nome": "JOS� BISPO DOS SANTOS",
+        "nome": "JOSÉ BISPO DOS SANTOS",
         "telefone": "7988141360",
         "celular": "7999414588",
         "bairro": "CONJ. ALVARO FRANCO",
-        "endereco": "RUA 90 CASA N� 09",
+        "endereco": "RUA 90 CASA N° 09",
         "data_nascimento": "1967-05-30T03:00:00.000Z",
         "vinculoNome": "AFASTADO"
     },
@@ -75,7 +75,7 @@ export default [
         "telefone": "7998825815",
         "celular": "7998825815",
         "bairro": "AMERICA",
-        "endereco": "RUA. MEM E S�, 232 BAIRRO AMERICA",
+        "endereco": "RUA. MEM E SÁ, 232 BAIRRO AMERICA",
         "data_nascimento": "1974-04-20T03:00:00.000Z",
         "vinculoNome": "AFASTADO"
     },
@@ -83,13 +83,13 @@ export default [
         "nome": "VALTER CRISTIANO DE JESUS SANTOS",
         "telefone": "7998659559",
         "celular": "7998659559",
-        "bairro": "JO�O ALVES FILHO",
+        "bairro": "JOÃO ALVES FILHO",
         "endereco": "AV. E NUMERO 31 CONH. JOAO ALVES",
         "data_nascimento": "1986-06-25T03:00:00.000Z",
         "vinculoNome": "AFASTADO"
     },
     {
-        "nome": "HELDER MENEZES GON�ALVES",
+        "nome": "HELDER MENEZES GONÇALVES",
         "telefone": "7999798899",
         "celular": "7999798899",
         "bairro": "AEROPORTO",
@@ -98,7 +98,7 @@ export default [
         "vinculoNome": "EFETIVO"
     },
     {
-        "nome": "JOS� HORACIO VIEIRA",
+        "nome": "JOSÉ HORACIO VIEIRA",
         "telefone": "7999694354",
         "celular": "7999694354",
         "bairro": "FAROLANDIA",
@@ -116,11 +116,11 @@ export default [
         "vinculoNome": "TERCEIRIZADO"
     },
     {
-        "nome": "EVERTON PAIX�O C. DE SANTANA GGTGG",
+        "nome": "EVERTON PAIXÃO C. DE SANTANA GGTGG",
         "telefone": "7998573663",
         "celular": "7999228573",
         "bairro": "Sol Nascente",
-        "endereco": "Rua Ant�nio Alves Arag�o n�77",
+        "endereco": "Rua Antônio Alves Aragão n°77",
         "data_nascimento": "1986-04-28T03:00:00.000Z",
         "vinculoNome": "AFASTADO"
     },
@@ -128,7 +128,7 @@ export default [
         "nome": "ALDOMIRO ACIOLE DO NASCIMENTO NETO",
         "celular": "7999130274",
         "bairro": "Matadouro",
-        "endereco": "Rua K-2 n� 81 Conj. Bugio",
+        "endereco": "Rua K-2 n° 81 Conj. Bugio",
         "data_nascimento": "1986-12-17T02:00:00.000Z",
         "vinculoNome": "TERCEIRIZADO"
     },
@@ -151,7 +151,7 @@ export default [
         "vinculoNome": "TERCEIRIZADO"
     },
     {
-        "nome": "SERGIO MENDON�A FONTES",
+        "nome": "SERGIO MENDONÇA FONTES",
         "telefone": "7998456844",
         "celular": "7998456844",
         "bairro": "JABOTIANA",
@@ -795,3 +795,5 @@ export default [
         "vinculoNome": "COMISSIONAVEL"
     }
 ]
+
+export default motoristas;

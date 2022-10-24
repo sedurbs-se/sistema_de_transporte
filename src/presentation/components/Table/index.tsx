@@ -37,6 +37,7 @@ const TableComponent = ({
 
                     {onEdit &&
                         <Button  
+                        style={{borderRadius:'24px'}}
                         variant="primary"
                          onClick={() => onEdit(data.id)}>
                         <div className="d-inline-flex align-items-center">
@@ -47,6 +48,7 @@ const TableComponent = ({
 
                     {onDelete &&
                         <Button 
+                        style={{borderRadius:'24px'}}
                         variant="danger" 
                         onClick={() => onDelete(data.id)}>
                              <div className="d-inline-flex align-items-center" style={
@@ -59,6 +61,7 @@ const TableComponent = ({
 
                     {onDetail &&
                         <Button 
+                        style={{borderRadius:'24px'}}
                         variant="secondary" 
                         onClick={() => onDetail(data.id)}>
                              <div className="d-inline-flex align-items-center">

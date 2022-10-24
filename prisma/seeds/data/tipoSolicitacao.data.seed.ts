@@ -1,5 +1,5 @@
 
-export default [
+const tipos_solicitacao = [
     { nome: 'FISCALIZAÇÂO' },
     { nome: 'VIAGEM' },
     { nome: 'REUNIÃO' },
@@ -10,3 +10,5 @@ export default [
     { nome: 'ALMOÇO' },
     { nome: 'PLANTÂO' },
     { nome: 'DIVERSOS' },]
+
+export default tipos_solicitacao;

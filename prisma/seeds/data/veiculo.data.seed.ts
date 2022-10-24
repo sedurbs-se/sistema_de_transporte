@@ -1,4 +1,4 @@
-export default [
+ const veiculos = [
     {
       "placa": "OEN-3202",
       "nome": "CAMIONETE AMAROK 4X4",
@@ -841,3 +841,5 @@ export default [
       "setorNome": "SUPERINTENDENCIA DE POLITICAS  DE DESENV"
     }
   ]
+
+export default veiculos;

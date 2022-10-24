@@ -1,8 +1,8 @@
 
 
-export default [
+const locadoras = [
     {
-        "nome": "VIA��O LITORAL SUL LTDA",
+        "nome": "VIAÇÃO LITORAL SUL LTDA",
         "sigla": "VLS",
         "bairro": "ESTANCIA",
         "endereco": "ESTANCIA",
@@ -19,13 +19,13 @@ export default [
         "nome": "SENCONSULT",
         "sigla": "S",
         "bairro": "SIQUEIRA CAMPOS",
-        "endereco": "TRAV. IGUA�U, 55",
+        "endereco": "TRAV. IGUAÇU, 55",
         "telefone": "7981021773"
     },
     {
         "nome": "LOCADORA LOC",
         "sigla": "LOC",
-        "bairro": "S�O JOSE",
+        "bairro": "SÃO JOSE",
         "endereco": "RUA JOSE DOS SANTOS",
         "telefone": "(79)32171545"
     },
@@ -54,7 +54,9 @@ export default [
         "nome": "LOCALYNE",
         "sigla": "ST",
         "bairro": "CENTRO CNPJ- 03.551.401/0001-28",
-        "endereco": "AV. BAR�O DE MARUIM, 870 SALA 02",
+        "endereco": "AV. BARÃO DE MARUIM, 870 SALA 02",
         "telefone": "7988336165"
     }
 ]
+
+export default locadoras;
