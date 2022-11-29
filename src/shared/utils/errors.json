@@ -94,5 +94,37 @@
         "vinculo_id":{
             "required": "Informe o vínculo do motorista!"
         }
+    },
+    "solicitacao": {
+        "usuario": {
+            "required":"Informe o usuário!"
+        },
+        "ramal":{ 
+            "required":"Informe o ramal!"
+        },
+        "num_ocupantes": {
+            "required":"Informe o número de ocupantes!"
+        },
+        "atividade": {
+            "required":"Informe a atividade!"
+        },
+        "data_saida": {
+            "required":"Informe a data de saída!"
+        },
+        "tipo_solicitacao": {
+            "required":"Informe o tipo de solicitação!"
+        },
+        "status_solicitacao" : {
+            "required":"Informe o status da solicitação!"
+        },
+        "setor": {
+            "required":"Informe o setor!"
+        },
+        "municipios": {
+            "required":"Selecione algum município!"
+        },
+        "observacao": {
+            "required":"Informe a observação!"
+        }
     }
 }

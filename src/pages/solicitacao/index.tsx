@@ -2,6 +2,7 @@ import { GetServerSideProps, NextPage } from "next";
 import ListaSolicitacoes from "@components/Listas/ListaSolicitacoes";
 import PageContainer from "@components/PageContainer";
 import { initializeStore } from "@domain/store/store";
+import fetchSolicitacao from "@domain/requests/fetch/fetchSolicitacoes";
 
 const Solicitacao: NextPage  = () => {
     return (
@@ -20,7 +21,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     const { verifySession } = state;
 
-
     const isAuthenticated = await verifySession(context);
 
     if (!isAuthenticated) {
@@ -32,9 +32,9 @@ export const getServerSideProps: GetServerSideProps = async context => {
         }
     }
 
+    const { solicitacoes } = await fetchSolicitacao()
 
     state.user = isAuthenticated;
-
 
     return {
         props: {

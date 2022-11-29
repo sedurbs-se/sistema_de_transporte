@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,143 +7,152 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Usuario {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  login     String   @unique
-  password  String   @default("abcd1234")
-  nome      String
-}
-
-model Motorista {
-  id              String   @id @default(uuid())
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  nome            String
-  celular         String  @default("00000000000")
-  telefone        String  @default("00000000000")
-  data_nascimento DateTime
-  bairro          String
-  endereco        String
-  vinculo         Vinculo  @relation(fields: [vinculo_id], references: [id])
-  vinculo_id      String
-
-  ocupado Boolean @default(false)
-}
-
-model Setor {
-  id          String        @id @default(uuid())
-  codigo      String        @unique
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  nome        String
-  sigla       String
-  responsavel String
-  ramal       String
-  Veiculo     Veiculo[]
-  Solicitacao Solicitacao[]
-}
-
-model Locadora {
-  id        String    @id @default(uuid())
+model locadora {
+  id        String    @id
   createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  nome      String    @unique
+  updatedAt DateTime
+  nome      String    @unique(map: "Locadora_nome_key")
   sigla     String
   bairro    String
   endereco  String
   telefone  String
-  Veiculo   Veiculo[]
+  veiculo   veiculo[]
 }
 
-model TipoFrota {
-  id        String    @id @default(uuid())
+model motorista {
+  id              String   @id
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime
+  nome            String
+  celular         String   @default("00000000000")
+  telefone        String   @default("00000000000")
+  data_nascimento DateTime
+  bairro          String
+  endereco        String
+  vinculo_id      String
+  ocupado         Boolean  @default(false)
+  vinculo         vinculo  @relation(fields: [vinculo_id], references: [id], map: "Motorista_vinculo_id_fkey")
+
+  @@index([vinculo_id], map: "Motorista_vinculo_id_fkey")
+}
+
+model municipio {
+  id                   String                 @id
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime
+  nome                 String                 @unique(map: "Municipio_nome_key")
+  municipiosolicitacao municipiosolicitacao[]
+}
+
+model municipiosolicitacao {
+  id             String      @id
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime
+  solicitacao_id String
+  municipio_id   String
+  municipio      municipio   @relation(fields: [municipio_id], references: [id], map: "MunicipioSolicitacao_municipio_id_fkey")
+  solicitacao    solicitacao @relation(fields: [solicitacao_id], references: [id], map: "MunicipioSolicitacao_solicitacao_id_fkey")
+
+  @@index([municipio_id], map: "MunicipioSolicitacao_municipio_id_fkey")
+  @@index([solicitacao_id], map: "MunicipioSolicitacao_solicitacao_id_fkey")
+}
+
+model setor {
+  id          String        @id
+  codigo      String        @unique(map: "Setor_codigo_key")
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime
+  nome        String
+  sigla       String
+  responsavel String
+  ramal       String
+  solicitacao solicitacao[]
+  veiculo     veiculo[]
+}
+
+model solicitacao {
+  id                    String                 @id
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime
+  ramal                 String
+  atividade             String
+  num_ocupantes         Int
+  status                String
+  observacao            String
+  usuario               String
+  setor_id              String
+  status_solicitacao_id String
+  tipo_solicitacao_id   String
+  setor                 setor                  @relation(fields: [setor_id], references: [id], map: "Solicitacao_setor_id_fkey")
+  statussolicitacao     statussolicitacao      @relation(fields: [status_solicitacao_id], references: [id], map: "Solicitacao_status_solicitacao_id_fkey")
+  tiposolicitacao       tiposolicitacao        @relation(fields: [tipo_solicitacao_id], references: [id], map: "Solicitacao_tipo_solicitacao_id_fkey")
+  municipiosolicitacao  municipiosolicitacao[]
+
+  @@index([setor_id], map: "Solicitacao_setor_id_fkey")
+  @@index([status_solicitacao_id], map: "Solicitacao_status_solicitacao_id_fkey")
+  @@index([tipo_solicitacao_id], map: "Solicitacao_tipo_solicitacao_id_fkey")
+}
+
+model statussolicitacao {
+  id          String        @id
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime
+  nome        String        @unique(map: "StatusSolicitacao_nome_key")
+  solicitacao solicitacao[]
+}
+
+model tipofrota {
+  id        String    @id
   createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  nome      String    @unique
-  Veiculo   Veiculo[]
+  updatedAt DateTime
+  nome      String    @unique(map: "TipoFrota_nome_key")
+  veiculo   veiculo[]
 }
 
-model Veiculo {
-  id                   String    @id @default(uuid())
+model tiposolicitacao {
+  id          String        @id
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime
+  nome        String        @unique(map: "TipoSolicitacao_nome_key")
+  solicitacao solicitacao[]
+}
+
+model usuario {
+  id        String   @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  login     String   @unique(map: "Usuario_login_key")
+  password  String   @default("abcd1234")
+  nome      String
+}
+
+model veiculo {
+  id                   String    @id
   createdAt            DateTime  @default(now())
-  updatedAt            DateTime  @updatedAt
-  placa                String    @unique
+  updatedAt            DateTime
+  placa                String    @unique(map: "Veiculo_placa_key")
   nome                 String
   componentes          String
   quilometragemInicial Int
   quilometragemAtual   Int
-  tipoFrota            TipoFrota @relation(fields: [tipo_frota_id], references: [id])
   tipo_frota_id        String
-  locadora             Locadora  @relation(fields: [locadora_id], references: [id])
   locadora_id          String
-  setor                Setor     @relation(fields: [setor_id], references: [id])
   setor_id             String
   observacao           String    @default("")
   ocupado              Boolean   @default(false)
+  locadora             locadora  @relation(fields: [locadora_id], references: [id], map: "Veiculo_locadora_id_fkey")
+  setor                setor     @relation(fields: [setor_id], references: [id], map: "Veiculo_setor_id_fkey")
+  tipofrota            tipofrota @relation(fields: [tipo_frota_id], references: [id], map: "Veiculo_tipo_frota_id_fkey")
+
+  @@index([locadora_id], map: "Veiculo_locadora_id_fkey")
+  @@index([setor_id], map: "Veiculo_setor_id_fkey")
+  @@index([tipo_frota_id], map: "Veiculo_tipo_frota_id_fkey")
 }
 
-model Solicitacao {
-  id            String   @id @default(uuid())
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  ramal         String
-  atividade     String
-  num_ocupantes Int
-  status        String
-  observacao    String
-  usuario       String
-
-  setor    Setor  @relation(fields: [setor_id], references: [id])
-  setor_id String
-
-  statusSolicitacao     StatusSolicitacao @relation(fields: [status_solicitacao_id], references: [id])
-  status_solicitacao_id String
-
-  tipoSolicitacao      TipoSolicitacao        @relation(fields: [tipo_solicitacao_id], references: [id])
-  tipo_solicitacao_id  String
-  MunicipioSolicitacao MunicipioSolicitacao[]
-}
-
-model Vinculo {
-  id        String      @id @default(uuid())
+model vinculo {
+  id        String      @id
   createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  nome      String      @unique
-  motorista Motorista[]
-}
-
-model TipoSolicitacao {
-  id          String        @id @default(uuid())
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  nome        String        @unique
-  solicitacao Solicitacao[]
-}
-
-model StatusSolicitacao {
-  id          String        @id @default(uuid())
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  nome        String        @unique
-  solicitacao Solicitacao[]
-}
-
-model MunicipioSolicitacao {
-  id             String      @id @default(uuid())
-  createdAt      DateTime    @default(now())
-  updatedAt      DateTime    @updatedAt
-  solicitacao    Solicitacao @relation(fields: [solicitacao_id], references: [id])
-  solicitacao_id String
-  municipio      Municipio   @relation(fields: [municipio_id], references: [id])
-  municipio_id   String
-}
-
-model Municipio {
-  id                   String                 @id @default(uuid())
-  createdAt            DateTime               @default(now())
-  updatedAt            DateTime               @updatedAt
-  nome                 String                 @unique
-  MunicipioSolicitacao MunicipioSolicitacao[]
+  updatedAt DateTime
+  nome      String      @unique(map: "Vinculo_nome_key")
+  motorista motorista[]
 }

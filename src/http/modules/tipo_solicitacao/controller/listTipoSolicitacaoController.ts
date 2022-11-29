@@ -7,10 +7,11 @@ import prisma from "../../../../shared/prisma.index";
 
 // get one note from with a note id request dynamically
 const listTipoSolicitacaoController = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
-    const tipoSolicitacoes = await prisma.tipoSolicitacao.findMany();
+    const tiposSolicitacoes = await prisma.tipoSolicitacao.findMany();
 
+    
     res.status(200).json({
-        tipoSolicitacoes
+        tiposSolicitacoes
     });
 });
 

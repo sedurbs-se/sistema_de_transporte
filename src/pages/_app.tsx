@@ -8,23 +8,27 @@ import NavBarT from '@components/NavBar';
 import { SSRProvider } from 'react-bootstrap';
 
 interface pageProps {
-  initialZustandState: any
+  initialZustandState: any,
+  isAuthenticated: boolean,
+  isLoginPage: boolean,
 }
 
 function MyApp({ Component, pageProps }: AppProps<pageProps>) {
   const [queryClient] = useState(() => new QueryClient());
   const createStore = useCreateStore(pageProps.initialZustandState)
 
+  const { user } = pageProps.initialZustandState;
+
+  console.log(pageProps)
   // Validade if logged here
   return (
     <SSRProvider>
       <Provider createStore={createStore}>
         <QueryClientProvider client={queryClient}>
-          <NavBarT />
+          {!!user && <NavBarT />}
           <Component {...pageProps} />
         </QueryClientProvider>
       </Provider>
-
     </SSRProvider>
 
   )

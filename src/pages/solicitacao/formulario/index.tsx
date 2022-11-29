@@ -5,7 +5,7 @@ import PageContainer from "@components/PageContainer";
 import fetchTiposSolicitacao from "@domain/requests/fetch/fetchTiposSolicitacao";
 import fetchStatusSolicitacao from "@domain/requests/fetch/fetchStatusSolicitacao";
 import CadastroSolicitacao from "@components/Cadastros/CadastroSolicitacao";
-
+import fetchSetores from "@domain/requests/fetch/fetchSetores";
 
 const Solicitacao: NextPage = () => {
     return (
@@ -34,11 +34,15 @@ export const getServerSideProps: GetServerSideProps = async context => {
         }
     };
 
-    const { tipos } = await fetchTiposSolicitacao();
-    const { status } = await fetchStatusSolicitacao()
+    state.user = isAuthenticated;
 
-    state.tiposSolcitacao = tipos;
-    state.statusSolicitacao = status;
+    const { tiposSolicitacoes } = await fetchTiposSolicitacao();
+    const { statusSolicitacoes } = await fetchStatusSolicitacao();
+    const { setores } = await fetchSetores(1);
+    state.tiposSolcitacao = tiposSolicitacoes;
+    state.statusSolicitacao = statusSolicitacoes;
+    state.setores = setores;
+
 
     return {
         props: {

@@ -31,20 +31,18 @@ const LoginContainer = () => {
 
     const { isLoading, isError, error, refetch } = authenticateUser(loginForm, onSuccess);
 
-    const errorMessage = axios.isAxiosError(error) && error.response?.data.error;
+    const errorMessage = axios.isAxiosError(error) && error.response?.data.message;
 
     const onSubmit = () => {
- 
         refetch()
     };
 
-
-    if (isLoading) {
-        return <div>Carregando...</div>
-    }
+    console.log(error,axios.isAxiosError(error),errorMessage)
 
     return (
         <div className={style["login-container"]}>
+
+            {isLoading ? <div>Carregando...</div> : null}
             <span>sistema de transporte</span>
             <form onSubmit={handleSubmit(onSubmit)}>
             <input className={ errors?.login ? style['error-input']: ''} placeholder="Login" type="text" {...register('login')}/>

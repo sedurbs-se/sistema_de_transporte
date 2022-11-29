@@ -39,7 +39,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async context => {
 
     state.user = isAuthenticated;
 
-  if (isAuthenticated!== null) {
+  if (isAuthenticated !== null) {
     return {
       redirect: {
         destination: '/solicitacao',
@@ -50,7 +50,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async context => {
 
   return {
     props: {
-        isAuthenticated: isAuthenticated !== null,
         initialZustandState: JSON.parse(JSON.stringify(state)),
     }
 }
