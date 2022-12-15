@@ -5,8 +5,13 @@ import PageContainer from "@components/PageContainer";
 import { initializeStore } from "@domain/store/store";
 import axios from "axios";
 import fetchSetores from "@domain/requests/fetch/fetchSetores";
+import LoadingBar from "react-top-loading-bar"
+import { useStore } from "zustand";
+import shallow from "zustand/shallow";
 
 const Teste: NextPage  = () => {
+
+   
     return (
         <>
         <PageContainer>

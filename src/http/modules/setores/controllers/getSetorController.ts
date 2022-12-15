@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import catchAsyncErrors from "../../../middlewares/catchAsyncErrors";
 import prisma from "../../../../shared/prisma.index";
 import AppError from "../../../errors/AppError";
+import { getFormatedDateTimeString } from "@shared/utils/dateUtils";
 
 
 // get one note from with a note id request dynamically
@@ -24,7 +25,9 @@ const getSetorController = catchAsyncErrors(async (req: NextApiRequest, res: Nex
     }
 
     res.status(200).json({
-        setor
+        setor: {...setor,
+        createdAt: getFormatedDateTimeString(setor.createdAt),
+        updatedAt: getFormatedDateTimeString(setor.updatedAt)}
     });
 });
 

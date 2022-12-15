@@ -30,6 +30,7 @@
     "react-hook-form": "^7.37.0",
     "react-icons": "^4.6.0",
     "react-query": "^3.39.2",
+    "react-top-loading-bar": "^2.3.1",
     "sass": "^1.55.0",
     "sweetalert2": "^11.5.1",
     "yup": "^0.32.11",

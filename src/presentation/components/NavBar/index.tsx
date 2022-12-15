@@ -8,6 +8,7 @@ import { initializeStore, useStore } from "@domain/store/store";
 import shallow from "zustand/shallow";
 import { GetServerSideProps } from "next";
 import Router from "next/router";
+import {MdEmojiTransportation} from "react-icons/md"
 
 
 
@@ -83,7 +84,7 @@ const NavBarT = () => {
     return (
         <Navbar variant="dark" bg="dark" sticky="top">
             <Container>
-          <Navbar.Brand href="/">Sistema de transporte</Navbar.Brand>
+            <Link href="/"><Navbar.Brand>Sistema de Transporte<MdEmojiTransportation style={{marginLeft:'4px'}}/></Navbar.Brand></Link>
           <Nav className="me-auto">
           <NavDropdown 
           className={style['dropdown-box']}

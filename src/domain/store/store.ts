@@ -11,6 +11,7 @@ import { createTipoFrotaStore, initialTipoFrotaState, ITipoFrotaStore } from './
 import { createVinculoStore, initialVinculoState, IVinculoStore } from './vinculos';
 import { createSolicitacaoStore, initialSolicitacaoState, ISolicitacaoStore } from './solicitacao';
 import { IMunicipiosStore, municipiosState } from './municipios';
+import { loadingState } from './loading';
 
 
 
@@ -35,7 +36,8 @@ const getDefaultInitialState = (): IInitialState => ({
     ...initialTipoFrotaState,
     ...initialVinculoState,
     ...initialSolicitacaoState,
-    ...municipiosState
+    ...municipiosState,
+    ...loadingState
 })
 
 const zustandContext = createContext<useStoreState>()

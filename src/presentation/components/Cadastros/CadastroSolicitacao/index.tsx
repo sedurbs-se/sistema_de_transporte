@@ -54,7 +54,7 @@ const CadastroSolicitacao = () => {
                             <Form.Select {...register("setor", { required: true })}>
                                 <option value="">Selecione um setor</option>
                                 {setores.map(setor => (
-                                    <option key={setor.id} value={setor.id}>{setor.descricao}</option>
+                                    <option key={setor.id} value={setor.id}>{setor.nome}</option>
                                 ))}
                             </Form.Select>
                         </Form.Group>
