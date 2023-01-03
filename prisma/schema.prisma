@@ -70,6 +70,20 @@ model setor {
   veiculo     veiculo[]
 }
 
+model movimentacao {
+  id         String @id
+  motorista
+  dtsaida
+  dtretorno
+  kminicial
+  kmfinal
+  flsituacao
+  flstatus
+  usuario
+
+  placa
+}
+
 model solicitacao {
   id                    String                 @id
   createdAt             DateTime               @default(now())

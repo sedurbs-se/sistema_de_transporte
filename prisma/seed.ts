@@ -13,7 +13,6 @@ const prisma = new PrismaClient()
 
 async function main() {
 
-
     await vinculos(prisma);
 
     await municipios(prisma);
