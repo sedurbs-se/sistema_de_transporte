@@ -30,7 +30,6 @@ function useCreateVeiculo({ params, onSuccess, id }: ICreateVeiculoDTO): UseQuer
         await axios.post(`http://localhost:3000/api/veiculo`, { ...params });
         return data;
     }, {
-        enabled: false,
         onSuccess
     });
 }

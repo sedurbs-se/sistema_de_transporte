@@ -3,7 +3,7 @@ import catchAsyncErrors from "../../../middlewares/catchAsyncErrors";
 import prisma from "../../../../shared/prisma.index";
 import AppError from "../../../errors/AppError";
 import 'dayjs/locale/pt-br'
-import {  getFormatedDateTimeString } from "@shared/utils/dateUtils";
+import { getFormatedDateTimeString } from "@shared/utils/dateUtils";
 
 
 // get one note from with a note id request dynamically
@@ -20,10 +20,20 @@ const getSolicitacaoController = catchAsyncErrors(async (req: NextApiRequest, re
             id: id as string
         },
         include: {
-            MunicipioSolicitacao: true,
-            tipoSolicitacao: true,
+            municipiosolicitacao: true,
+            tiposolicitacao: true,
             setor: true,
-            statusSolicitacao: true
+            statussolicitacao: true,
+        }
+    });
+
+    const municiopiosId = solicitacao?.municipiosolicitacao.map(municipio => municipio.id);
+
+    const municipios = await prisma.municipio.findMany({
+        where: {
+            id: {
+                in: municiopiosId
+            }
         }
     });
 
@@ -35,6 +45,7 @@ const getSolicitacaoController = catchAsyncErrors(async (req: NextApiRequest, re
     res.status(200).json({
         motorista: {
             ...solicitacao,
+            municipios,
             createdAt: getFormatedDateTimeString(solicitacao.createdAt),
             updatedAt: getFormatedDateTimeString(solicitacao.updatedAt)
         }

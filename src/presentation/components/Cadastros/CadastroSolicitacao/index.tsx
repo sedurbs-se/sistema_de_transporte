@@ -25,7 +25,7 @@ const CadastroSolicitacao = () => {
         municipios
     } = useStore(state => state, shallow);
 
-
+    console.log(selectedSolicitacao)
     const validationSchema = yup.object().shape({
         usuario: yup.string().required(),
         ramal: yup.string().required(),
