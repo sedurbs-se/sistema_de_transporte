@@ -11,7 +11,7 @@ interface ICreateSolicitacaoDTO {
         ramal: string;
         num_ocupantes: number;
         atividade: string;
-        data_hora_saida: Date;
+        data_hora_saida: string;
         tipo_solicitacao: string;
         status_solicitacao: string;
         setor: string;
@@ -29,8 +29,10 @@ interface ICreateSolicitacaoResponse {
 }
 
 function useCreateSolicitacao({ params, onSuccess, onError, id }: ICreateSolicitacaoDTO): UseQueryResult<ICreateSolicitacaoResponse> {
+   
+    
     return useQuery('createSolicitacao', async () => {
-        const { data }: AxiosResponse = id ?
+        const { data }: AxiosResponse = !id ?
             await createSolicitacao(params) :
             await updateSolicitacao({ params, id })
         return data;

@@ -47,7 +47,6 @@ interface ICreateMotoristaResponse {
 
 
 function useCreateMotorista({ params, onSuccess, id }: ICreateMotoristaDTO): UseQueryResult<ICreateMotoristaResponse> {
-    console.log('useCreateMotorista', params)
     return useQuery('createMotorista', async () => {
         const { data }: AxiosResponse =
             id ? await updateMotorista({params, id }) : await createMotorista({...params});

@@ -13,7 +13,6 @@ const createLocadoraController = catchAsyncErrors(async (req: NextApiRequest, re
         bairro,
         telefone, } = req.body;
 
-    console.log('LOCADORA', req.body)
 
     const locadora = await prisma.locadora.create({
         data: {

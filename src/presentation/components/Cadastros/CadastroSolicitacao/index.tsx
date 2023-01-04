@@ -11,12 +11,11 @@ import { ICreateSolicitacaoDTO, ICreateSolicitacaoResponse, useCreateSolicitacao
 const CadastroSolicitacao = () => {
 
     const {
-        // selectedSolicitacao,
-        // setSelectedSolicitacao,
+        selectedSolicitacao,
+        setSelectedSolicitacao,
 
-        // addSolictacao,
-        // updateSolicitacao,
-
+        addSolictacao,
+        updateSolicitacao,
 
         tiposSolcitacao,
         statusSolicitacao,
@@ -26,7 +25,7 @@ const CadastroSolicitacao = () => {
         municipios
     } = useStore(state => state, shallow);
 
-    const selectedSolicitacao = {id:""}
+
     const validationSchema = yup.object().shape({
         usuario: yup.string().required(),
         ramal: yup.string().required(),
@@ -46,11 +45,11 @@ const CadastroSolicitacao = () => {
 
     const onSuccess = ({ solicitacao }: ICreateSolicitacaoResponse) => {
         if (selectedSolicitacao) {
-            // setSelectedMotorista()
-            // updateSolicitacao(solicitacao);
+            setSelectedSolicitacao()
+            updateSolicitacao(solicitacao);
             setModalSuccess(true);
         } else {
-            // addSolicitacao(solicitacao)
+            addSolictacao(solicitacao)
             setModalSuccess();
         }
     };
@@ -66,7 +65,7 @@ const CadastroSolicitacao = () => {
     const onSubmit = async () => {
         refetch();
     };
-
+    console.log(form)
     return (
         <Container
             style={{ border: '1px solid gray', borderRadius: '4px', padding: '15px', marginBottom: '15px' }}
@@ -85,7 +84,7 @@ const CadastroSolicitacao = () => {
                                     isValid={!errors.usuario && form.usuario != ""}
                                     isInvalid={errors.usuario != undefined}
                                     {...register("usuario")}
-                                /> 
+                                />
                                 {errors?.usuario?.type &&
                                     <InputError type={errors.usuario.type} form="solicitacao" field='usuario' />}
                             </Form.Group>
@@ -131,7 +130,10 @@ const CadastroSolicitacao = () => {
                                 <Form.Control
                                     type="number"
                                     placeholder="N. Ocupates"
-                                    {...register("num_ocupantes")}
+                                    {...register("num_ocupantes",
+                                        {
+                                            valueAsNumber: true,
+                                        })}
                                     isValid={!errors.num_ocupantes && form.num_ocupantes <= 0}
                                     isInvalid={errors.num_ocupantes != undefined}
                                 />

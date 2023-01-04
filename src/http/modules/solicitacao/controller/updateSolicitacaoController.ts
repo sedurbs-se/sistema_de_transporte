@@ -5,7 +5,19 @@ import { ICreateSolicitacaoDTO } from "@domain/query/createSolicitacao";
 import AppError from "src/http/errors/AppError";
 
 
-const createSolicitacaoController = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
+const updateSolicitacaoController = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
+
+    const { id } = req.query;
+
+    if (!id) {
+        throw new AppError('Id não informado', 400)
+    }
+
+    const existSolicitacao = await prisma.solicitacao.findUnique({ where: { id: id as string } })
+
+    if (!existSolicitacao) {
+        throw new AppError('Solicitação não encontrada', 400)
+    }
 
     const {
         usuario,
@@ -21,7 +33,8 @@ const createSolicitacaoController = catchAsyncErrors(async (req: NextApiRequest,
     } = req.body as ICreateSolicitacaoDTO["params"];
 
 
-    const solicitacao = await prisma.solicitacao.create({
+    const solicitacao = await prisma.solicitacao.update({
+        where: { id: id as string },
         data: {
             usuario,
             ramal,
@@ -33,7 +46,16 @@ const createSolicitacaoController = catchAsyncErrors(async (req: NextApiRequest,
             setor_id: setor,
             observacao,
         }
-    })
+    });
+
+
+    // Deleta todos os municipios da solicitacao
+    await prisma.municipiosolicitacao.deleteMany({
+        where: {
+            solicitacao_id: solicitacao.id
+        }
+    });
+
     const municipiosInDB = await prisma.municipio.findMany({
         where: {
             nome: {
@@ -69,4 +91,4 @@ const createSolicitacaoController = catchAsyncErrors(async (req: NextApiRequest,
     });
 });
 
-export { createSolicitacaoController }
+export { updateSolicitacaoController }

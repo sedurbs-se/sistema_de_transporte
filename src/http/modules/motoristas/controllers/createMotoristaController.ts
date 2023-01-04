@@ -20,7 +20,6 @@ const createMotoristaController = catchAsyncErrors(async (req: NextApiRequest, r
         vinculo_id, 
     } = req.body;
 
-    console.log('CREATE MOTORISTA', req.body)
 
 
     const motorista = await prisma.motorista.create({

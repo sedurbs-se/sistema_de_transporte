@@ -19,7 +19,6 @@ function MyApp({ Component, pageProps }: AppProps<pageProps>) {
 
   const { user } = pageProps.initialZustandState;
 
-  console.log(pageProps)
   // Validade if logged here
   return (
     <SSRProvider>

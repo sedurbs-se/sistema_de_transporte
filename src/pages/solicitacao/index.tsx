@@ -4,13 +4,13 @@ import PageContainer from "@components/PageContainer";
 import { initializeStore } from "@domain/store/store";
 import fetchSolicitacao from "@domain/requests/fetch/fetchSolicitacoes";
 
-const Solicitacao: NextPage  = () => {
+const Solicitacao: NextPage = () => {
     return (
         <>
-        <PageContainer>
-            <ListaSolicitacoes></ListaSolicitacoes>
-      </PageContainer>
-      </>
+            <PageContainer>
+                <ListaSolicitacoes></ListaSolicitacoes>
+            </PageContainer>
+        </>
     )
 }
 
@@ -35,6 +35,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     const { solicitacoes } = await fetchSolicitacao()
 
     state.user = isAuthenticated;
+    state.solicitacoes = solicitacoes;
 
     return {
         props: {
