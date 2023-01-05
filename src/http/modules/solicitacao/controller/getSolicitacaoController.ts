@@ -43,7 +43,7 @@ const getSolicitacaoController = catchAsyncErrors(async (req: NextApiRequest, re
     }
 
     res.status(200).json({
-        motorista: {
+        solicitacao: {
             ...solicitacao,
             municipios,
             createdAt: getFormatedDateTimeString(solicitacao.createdAt),

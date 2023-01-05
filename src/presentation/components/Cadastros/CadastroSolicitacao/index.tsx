@@ -7,6 +7,8 @@ import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { InputError } from "@components/InputError";
 import { ICreateSolicitacaoDTO, ICreateSolicitacaoResponse, useCreateSolicitacao } from "@domain/query/createSolicitacao";
+import { useEffect } from "react";
+import { Solicitacao } from "@prisma/client";
 
 const CadastroSolicitacao = () => {
 
@@ -25,7 +27,6 @@ const CadastroSolicitacao = () => {
         municipios
     } = useStore(state => state, shallow);
 
-    console.log(selectedSolicitacao)
     const validationSchema = yup.object().shape({
         usuario: yup.string().required(),
         ramal: yup.string().required(),
@@ -65,6 +66,15 @@ const CadastroSolicitacao = () => {
     const onSubmit = async () => {
         refetch();
     };
+    
+    useEffect(() => {
+        if (selectedSolicitacao) {
+            Object.keys(form).forEach(key => {
+                setValue(key, selectedSolicitacao[key as keyof Solicitacao])
+            })
+        }
+    }, [selectedSolicitacao])
+    console.log(selectedSolicitacao)
     console.log(form)
     return (
         <Container
