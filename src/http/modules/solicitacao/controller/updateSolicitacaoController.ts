@@ -32,6 +32,8 @@ const updateSolicitacaoController = catchAsyncErrors(async (req: NextApiRequest,
         observacao,
     } = req.body as ICreateSolicitacaoDTO["params"];
 
+    // valida body params
+
 
     const solicitacao = await prisma.solicitacao.update({
         where: { id: id as string },

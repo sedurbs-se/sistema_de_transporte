@@ -40,6 +40,7 @@ function useCreateSolicitacao({ params, onSuccess, onError, id }: ICreateSolicit
         enabled: false,
         onSuccess,
         onError,
+        refetchOnMount: false,
     });
 }
 

@@ -6,11 +6,11 @@ import fetchSolicitacoes from "@domain/requests/fetch/fetchSolicitacoes";
 
 const Solicitacao: NextPage = () => {
     return (
-        <>
-            <PageContainer>
-                <ListaSolicitacoes></ListaSolicitacoes>
-            </PageContainer>
-        </>
+
+        <PageContainer>
+            <ListaSolicitacoes></ListaSolicitacoes>
+        </PageContainer>
+
     )
 }
 

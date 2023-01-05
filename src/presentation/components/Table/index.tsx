@@ -25,7 +25,7 @@ const TableComponent = ({
     const generatedTableBody =
         (tableHeaderData: string[][], tableBodyData: any[]) => tableBodyData.map((data) =>
         (
-            <tr key = {data}>
+            <tr key={data}>
                 {tableHeaderData.map((column) => (
                     column[1] && <td  >{data[column[1]]}</td>
                 ))}

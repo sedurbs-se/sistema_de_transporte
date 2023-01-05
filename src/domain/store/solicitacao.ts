@@ -1,4 +1,5 @@
-import { Solicitacao, StatusSolicitacao, TipoSolicitacao } from "@prisma/client"
+import {  StatusSolicitacao, TipoSolicitacao } from "@prisma/client"
+import { Solicitacao } from "@shared/types/Solicitação"
 
 export interface ISolicitacaoStore {
     solicitacoes: Solicitacao[]
@@ -41,9 +42,7 @@ export const createSolicitacaoStore = (set: any, get: any, api: any) => ({
         set({ solicitacoes });
     },
     removeSolicitacao: (id: string) => {
-        const solicitacoes = get().solicitacoes;
-        const index = solicitacoes.findIndex((s: Solicitacao) => s.id === id);
-        solicitacoes.splice(index, 1);
+        const solicitacoes = get().solicitacoes.filter((s: Solicitacao) => s.id !== id);
         set({ solicitacoes });
     },
     setSelectedSolicitacao: (solicitacao?: Solicitacao) => set({ selectedSolicitacao: solicitacao }),

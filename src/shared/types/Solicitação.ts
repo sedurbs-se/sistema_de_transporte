@@ -1,14 +1,8 @@
-export interface Solicitacao {
-    usuario_id: string;
-    ramal_id: number;
-    atividade: string;
-    municipio_id: string;
-    num_ocupantes: number;
-    data:string;
-    hora:string;
-    status_id: string;
-    observacao:string;
-    setor_id: string;
-    tipo_id: string;
+import { Municipio, Solicitacao as SolicitacaoPrisma, StatusSolicitacao, TipoSolicitacao } from "@prisma/client"
 
+
+export interface Solicitacao extends  SolicitacaoPrisma{
+    municipiosolicitacao: Municipio[]
+    statussolicitacao: StatusSolicitacao
+    tiposolicitacao: TipoSolicitacao
 }

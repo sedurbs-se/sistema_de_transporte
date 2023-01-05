@@ -10,7 +10,14 @@ const deleteSolicitacaoController = catchAsyncErrors(async (req: NextApiRequest,
 
     if (!id) {
         throw new AppError('Id não informado', 400)
+    };
+
+    const existSolicitacao = await prisma.solicitacao.findUnique({ where: { id: id as string } })
+
+    if (!existSolicitacao) {
+        throw new AppError('Solicitação não encontrada', 400)
     }
+
     // Deleta todos os municipios da solicitacao
     await prisma.municipiosolicitacao.deleteMany({
         where: {

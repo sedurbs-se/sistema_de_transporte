@@ -74,8 +74,7 @@ const CadastroSolicitacao = () => {
             })
         }
     }, [selectedSolicitacao])
-    console.log(selectedSolicitacao)
-    console.log(form)
+
     return (
         <Container
             style={{ border: '1px solid gray', borderRadius: '4px', padding: '15px', marginBottom: '15px' }}

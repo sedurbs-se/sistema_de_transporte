@@ -9,13 +9,46 @@ import prisma from "../../../../shared/prisma.index";
 const listSolicitacaoController = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
 
     const { page, limit } = req.query;
-    
+
     const solicitacoes = await prisma.solicitacao.findMany({
-        skip: (Number(page) - 1) * Number(limit),  take: Number(limit),
+        skip: (Number(page) - 1) * Number(limit), take: Number(limit),
+        include: {
+            municipiosolicitacao: {
+                select: {
+                    municipio: {
+                        select: {
+                            nome: true,
+                            id: true
+                        }
+                    }
+                }
+            },
+            statussolicitacao: {
+                select: {
+                    nome: true,
+                    id: true
+                }
+            },
+            tiposolicitacao: {
+                select: {
+                    nome: true,
+                    id: true
+                }
+            }
+            
+        }
+    })
+
+
+    const mappedSolicitacoes = solicitacoes.map(solicitacao => {
+        return {
+            ...solicitacao,
+            municipiosolicitacao: solicitacao.municipiosolicitacao.map(municipio => municipio.municipio)
+        }
     })
 
     res.status(200).json({
-        solicitacoes
+        solicitacoes: mappedSolicitacoes
     });
 });
 

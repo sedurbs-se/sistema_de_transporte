@@ -7,7 +7,7 @@ interface IUpdateSolicitacaoRequest {
 }
 
 const updateSolicitacao = ({ params, id }: IUpdateSolicitacaoRequest) => {
-    return api.post(`/solicitacao?id=${id}`, params);
+    return api.put(`/solicitacao?id=${id}`, params);
 };
 
 export { updateSolicitacao };
