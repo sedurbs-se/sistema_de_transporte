@@ -1,13 +1,10 @@
-import { Badge, Button, Container, Table } from "react-bootstrap"
-import { Solicitacao } from "@shared/types/Solicitação"
+import { Badge, Button} from "react-bootstrap"
 import getBadgeTypeByStatus from "@shared/utils/getBadgeTypeByStatus"
 import TableComponent from "@components/Table"
 import { useStore } from "@domain/store/store"
 import shallow from "zustand/shallow"
 import Router from "next/router"
 import { deleteSolicitacao } from "@domain/requests/delete/deleteSolicitacao"
-import { useState } from "react"
-import Swal from "sweetalert2"
 import { WarningPopUp } from "@shared/swal"
 
 const ListaSolicitacoes = () => {
@@ -92,3 +89,15 @@ const ListaSolicitacoes = () => {
 }
 
 export default ListaSolicitacoes;
+
+// Todo List
+
+// validação de campos no end-point
+
+// fazer Tipagem de front-end
+
+// Fazer tabela de Ramal
+
+// Fazer telas de movimentacao
+
+// Thiago fará Saida e eu Retorno
