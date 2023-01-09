@@ -94,18 +94,6 @@ model MovimentacaoStatus {
   movimentacao Movimentacao[]
 }
 
-// model movimentacao {
-//   id         String @id @default(uuid())
-//   motorista  motorista
-//   dtsaida   DateTime
-//   dtretorno DateTime
-//   kminicial Int
-//   kmfinal  Int
-//   flsituacao String
-//   flstatus String
-//   usuario String
-//   placa String
-// }
 
 model Solicitacao {
   id                    String                 @id @default(uuid())
