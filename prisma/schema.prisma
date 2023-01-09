@@ -20,18 +20,19 @@ model Locadora {
 }
 
 model Motorista {
-  id              String   @id @default(uuid())
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id              String         @id @default(uuid())
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
   nome            String
-  celular         String   @default("00000000000")
-  telefone        String   @default("00000000000")
+  celular         String         @default("00000000000")
+  telefone        String         @default("00000000000")
   data_nascimento DateTime
   bairro          String
   endereco        String
   vinculo_id      String
-  ocupado         Boolean  @default(false)
-  vinculo         Vinculo  @relation(fields: [vinculo_id], references: [id], map: "Motorista_vinculo_id_fkey")
+  ocupado         Boolean        @default(false)
+  vinculo         Vinculo        @relation(fields: [vinculo_id], references: [id], map: "Motorista_vinculo_id_fkey")
+  Movimentacao    Movimentacao[]
 
   @@index([vinculo_id], map: "Motorista_vinculo_id_fkey")
 }
@@ -70,6 +71,29 @@ model Setor {
   veiculo     Veiculo[]
 }
 
+model Movimentacao {
+  id           String        @id @default(uuid())
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  motorista_id String
+  motorista    Motorista     @relation(fields: [motorista_id], references: [id], map: "Movimentacao_motorista_id_fkey")
+  dtsaida      DateTime
+  dtretorno    DateTime
+  kminicial    Int
+  kmfinal      Int
+  status_id    String
+  status       MovimentacaoStatus @relation(fields: [status_id], references: [id], map: "Movimentacao_status_id_fkey")
+  Solicitacao  Solicitacao[]
+}
+
+model MovimentacaoStatus {
+  id           String        @id @default(uuid())
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  nome         String        @unique(map: "MovimentacaoStatus_nome_key")
+  movimentacao Movimentacao[]
+}
+
 // model movimentacao {
 //   id         String @id @default(uuid())
 //   motorista  motorista
@@ -84,9 +108,9 @@ model Setor {
 // }
 
 model Solicitacao {
-  id                    String   @id @default(uuid())
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
+  id                    String                 @id @default(uuid())
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
   data_hora_saida       DateTime
   ramal                 String
   atividade             String
@@ -96,11 +120,12 @@ model Solicitacao {
   setor_id              String
   status_solicitacao_id String
   tipo_solicitacao_id   String
-
-  setor                Setor                  @relation(fields: [setor_id], references: [id], map: "Solicitacao_setor_id_fkey")
-  statussolicitacao    StatusSolicitacao      @relation(fields: [status_solicitacao_id], references: [id], map: "Solicitacao_status_solicitacao_id_fkey")
-  tiposolicitacao      TipoSolicitacao        @relation(fields: [tipo_solicitacao_id], references: [id], map: "Solicitacao_tipo_solicitacao_id_fkey")
-  municipiosolicitacao Municipiosolicitacao[]
+  movimentacao_id       String?                
+  setor                 Setor                  @relation(fields: [setor_id], references: [id], map: "Solicitacao_setor_id_fkey")
+  statussolicitacao     StatusSolicitacao      @relation(fields: [status_solicitacao_id], references: [id], map: "Solicitacao_status_solicitacao_id_fkey")
+  tiposolicitacao       TipoSolicitacao        @relation(fields: [tipo_solicitacao_id], references: [id], map: "Solicitacao_tipo_solicitacao_id_fkey")
+  movimentacao          Movimentacao?           @relation(fields: [movimentacao_id], references: [id], map: "Movimentacao_id_fkey")
+  municipiosolicitacao  Municipiosolicitacao[]
 
   @@index([setor_id], map: "Solicitacao_setor_id_fkey")
   @@index([status_solicitacao_id], map: "Solicitacao_status_solicitacao_id_fkey")

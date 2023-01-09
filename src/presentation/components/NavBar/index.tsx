@@ -23,7 +23,6 @@ const NavBarT = () => {
 
     const { deleteSession, user } = useStore(state => state, shallow);
 
-    console.log(user)
 
     const showDropDown = (e: any) => {
         const {id} = e.target
@@ -93,8 +92,8 @@ const NavBarT = () => {
           title="Movimentação" 
           id="movimentacao">
               <NavDropdown.Item text="Solicitação" href="/solicitacao" as={DropdownLink}></NavDropdown.Item>
-              <NavDropdown.Item text="Saída" href="/saida" as={DropdownLink}></NavDropdown.Item>
-              <NavDropdown.Item text="Retorno" href="/retorno" as={DropdownLink}></NavDropdown.Item>
+              <NavDropdown.Item text="Saída" href="/movimentacao" as={DropdownLink}></NavDropdown.Item>
+              <NavDropdown.Item text="Retorno" href="/movimentacao/retorno" as={DropdownLink}></NavDropdown.Item>
             </NavDropdown>
             <NavDropdown 
             className={style['dropdown-box']}
