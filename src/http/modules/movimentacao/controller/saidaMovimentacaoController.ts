@@ -7,6 +7,7 @@ const saidaMovimentacaoController = catchAsyncErrors(async (req: NextApiRequest,
 
     const {
         solicitacao_id,
+        veiculos_id,
         motorista_id,
         dtsaida,
         dtretorno,
@@ -18,6 +19,7 @@ const saidaMovimentacaoController = catchAsyncErrors(async (req: NextApiRequest,
     const movimentacao = await prisma.movimentacao.create({
         data: {
             motorista_id,
+            veiculos_id,
             dtsaida,
             dtretorno,
             kminicial,

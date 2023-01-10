@@ -72,11 +72,13 @@ model Setor {
 }
 
 model Movimentacao {
-  id           String        @id @default(uuid())
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
+  id           String             @id @default(uuid())
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
   motorista_id String
-  motorista    Motorista     @relation(fields: [motorista_id], references: [id], map: "Movimentacao_motorista_id_fkey")
+  motorista    Motorista          @relation(fields: [motorista_id], references: [id], map: "Movimentacao_motorista_id_fkey")
+  veiculos_id  String
+  veiculo      Veiculo            @relation(fields: [veiculos_id], references: [id], map: "Movimentacao_veiculos_id_fkey")
   dtsaida      DateTime
   dtretorno    DateTime
   kminicial    Int
@@ -87,13 +89,12 @@ model Movimentacao {
 }
 
 model MovimentacaoStatus {
-  id           String        @id @default(uuid())
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  nome         String        @unique(map: "MovimentacaoStatus_nome_key")
+  id           String         @id @default(uuid())
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  nome         String         @unique(map: "MovimentacaoStatus_nome_key")
   movimentacao Movimentacao[]
 }
-
 
 model Solicitacao {
   id                    String                 @id @default(uuid())
@@ -108,11 +109,11 @@ model Solicitacao {
   setor_id              String
   status_solicitacao_id String
   tipo_solicitacao_id   String
-  movimentacao_id       String?                
+  movimentacao_id       String?
   setor                 Setor                  @relation(fields: [setor_id], references: [id], map: "Solicitacao_setor_id_fkey")
   statussolicitacao     StatusSolicitacao      @relation(fields: [status_solicitacao_id], references: [id], map: "Solicitacao_status_solicitacao_id_fkey")
   tiposolicitacao       TipoSolicitacao        @relation(fields: [tipo_solicitacao_id], references: [id], map: "Solicitacao_tipo_solicitacao_id_fkey")
-  movimentacao          Movimentacao?           @relation(fields: [movimentacao_id], references: [id], map: "Movimentacao_id_fkey")
+  movimentacao          Movimentacao?          @relation(fields: [movimentacao_id], references: [id], map: "Movimentacao_id_fkey")
   municipiosolicitacao  Municipiosolicitacao[]
 
   @@index([setor_id], map: "Solicitacao_setor_id_fkey")
@@ -128,7 +129,7 @@ model StatusSolicitacao {
   solicitacao Solicitacao[]
 }
 
-model Tipofrota {
+model TipoFrota {
   id        String    @id @default(uuid())
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -154,10 +155,10 @@ model Usuario {
 }
 
 model Veiculo {
-  id                   String    @id @default(uuid())
-  createdAt            DateTime  @default(now())
-  updatedAt            DateTime  @updatedAt
-  placa                String    @unique(map: "Veiculo_placa_key")
+  id                   String         @id @default(uuid())
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt
+  placa                String         @unique(map: "Veiculo_placa_key")
   nome                 String
   componentes          String
   quilometragemInicial Int
@@ -165,11 +166,12 @@ model Veiculo {
   tipo_frota_id        String
   locadora_id          String
   setor_id             String
-  observacao           String    @default("")
-  ocupado              Boolean   @default(false)
-  locadora             Locadora  @relation(fields: [locadora_id], references: [id], map: "Veiculo_locadora_id_fkey")
-  setor                Setor     @relation(fields: [setor_id], references: [id], map: "Veiculo_setor_id_fkey")
-  tipofrota            Tipofrota @relation(fields: [tipo_frota_id], references: [id], map: "Veiculo_tipo_frota_id_fkey")
+  observacao           String         @default("")
+  ocupado              Boolean        @default(false)
+  locadora             Locadora       @relation(fields: [locadora_id], references: [id], map: "Veiculo_locadora_id_fkey")
+  setor                Setor          @relation(fields: [setor_id], references: [id], map: "Veiculo_setor_id_fkey")
+  tipoFrota            TipoFrota      @relation(fields: [tipo_frota_id], references: [id], map: "Veiculo_tipo_frota_id_fkey")
+  Movimentacao         Movimentacao[]
 
   @@index([locadora_id], map: "Veiculo_locadora_id_fkey")
   @@index([setor_id], map: "Veiculo_setor_id_fkey")

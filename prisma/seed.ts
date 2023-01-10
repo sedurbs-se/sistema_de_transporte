@@ -4,6 +4,7 @@ import municipios from './seeds/insert/municipio';
 import locadora from './seeds/insert/locadora';
 import tipoFrota from './seeds/insert/tipoFrota';
 import statusSolicitacao from './seeds/insert/statusSolicitacao';
+import statusMovimentacao from './seeds/insert/statusMovimentacao';
 import tipoSolicitacao from './seeds/insert/tipoSolicitacao';
 import setor from './seeds/insert/setor';
 import veiculo from './seeds/insert/veiculo';
@@ -30,6 +31,8 @@ async function main() {
     await veiculo(prisma);
 
     await motorista(prisma);
+
+    await statusMovimentacao(prisma)
 
 }
 

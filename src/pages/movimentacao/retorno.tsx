@@ -1,17 +1,20 @@
 import PageContainer from "@components/PageContainer";
 import { initializeStore } from "@domain/store/store";
 import { GetServerSideProps, NextPage } from "next";
+import style from "../../styles/Home.module.css"
 
 
 const MovimentacaoPageRetorno: NextPage  = () => {
-
     return (
         <PageContainer>
-            <h1>Movimentação Saída</h1>
+           <h2 className={style["title"]}>Movimentação Retorno</h2>
             {
-            // Lista de Movimentações
+                // Lista de Movimentações
             }
 
+            {
+                // Formulário de Movimentação
+            }
         </PageContainer>
     )
 };

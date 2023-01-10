@@ -1,12 +1,12 @@
 import ListaSolicitacoesAprovada from "@components/Listas/ListaSolicitacoesAprovadas";
 import PageContainer from "@components/PageContainer";
-import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
+import style from "../../styles/Home.module.css"
 import fetchSolicitacoes from "@domain/requests/fetch/fetchSolicitacoes";
 import { initializeStore } from "@domain/store/store";
 import { GetServerSideProps, NextPage } from "next";
+import fetchVeiculosSemMovimentacao from "@domain/requests/fetch/fetchVeiculosSemMovimentacao";
 
 const MovimentacaoPageSaida: NextPage = () => {
-
     return (
         <PageContainer>
             <h2 className={style["title"]}>Movimentação Saída</h2>
@@ -36,10 +36,18 @@ export const getServerSideProps: GetServerSideProps = async context => {
         }
     }
 
-    const { solicitacoes } = await fetchSolicitacoes()
+    try {
+        const { solicitacoes } = await fetchSolicitacoes();
 
-    state.user = isAuthenticated;
-    state.solicitacoes = solicitacoes;
+        const { veiculos } = await fetchVeiculosSemMovimentacao();
+
+        state.user = isAuthenticated;
+
+        state.solicitacoes = solicitacoes;
+    } catch (error) {
+        console.log(error)
+    }
+
 
     return {
         props: {

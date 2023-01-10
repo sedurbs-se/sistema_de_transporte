@@ -14,7 +14,10 @@
   justify-content: center;
 }
 
-
+.title {
+  font-family: Inter;
+  color: #474646;
+}
 /* .main > h3 {
   color:#FFFFFF;
   font-weight: 500;
