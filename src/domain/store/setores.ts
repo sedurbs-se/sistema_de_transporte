@@ -2,6 +2,7 @@ import { Setor } from "@prisma/client"
 
 export interface ISetoresStore {
     setores: Setor[] | [];
+    setorPages: number;
     selectedSetor: Setor | null;
     setSelectedSetor: (selectedSetor?: Setor | string) => void;
     setSetores: (setores: Setor[]) => void;
@@ -13,6 +14,7 @@ export interface ISetoresStore {
 
 export const initialSetoresStoreState: ISetoresStore = {
     setores: [],
+    setorPages: 0,
     selectedSetor: null,
     setSelectedSetor: (selectedSetor?: Setor | string) => { },
     setSetores: (setores: Setor[]) => { },

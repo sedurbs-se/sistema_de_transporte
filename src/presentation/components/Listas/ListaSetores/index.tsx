@@ -6,6 +6,7 @@ import shallow from "zustand/shallow"
 import { useStore } from "@domain/store/store"
 import TableComponent from "@components/Table"
 import { api } from "@domain/config/api"
+import PaginationComponent from "@components/Pagination"
 
 export interface ListaSetoresProps {
 }
@@ -13,7 +14,7 @@ export interface ListaSetoresProps {
 
 const ListaSetores = (props: ListaSetoresProps) => {
 
-    const { setores , removeSetor, selectedSetor ,setSelectedSetor } = useStore((state) => state, shallow);
+    const { setores , removeSetor, selectedSetor ,setSelectedSetor, setorPages } = useStore((state) => state, shallow);
 
     const [setor, setSetor] = useState([{ nome: "", codigo: "", sigla: "", responsavel: "", ramal: "", createdAt: "", updatedAt: "" }]);
     const [show, setShow] = useState(false);
@@ -60,6 +61,9 @@ const ListaSetores = (props: ListaSetoresProps) => {
         }
     }, [selectedSetor])
 
+
+    const [page, setPage] = useState(1);
+
     return(
         <>
         <TableComponent
@@ -90,6 +94,11 @@ const ListaSetores = (props: ListaSetoresProps) => {
                 </Modal.Body>
             </Modal>
 
+        <PaginationComponent
+        totalPages={setorPages}
+        page={page}
+        onPageChange={setPage}
+        />
         <Button onClick={onAdd}>Adicionar</Button>
         </>
 

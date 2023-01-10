@@ -142,7 +142,11 @@ const ListaMotoristas = (props: ListaMotoristasProps) => {
             <PaginationComponent
                 page={page}
                 totalPages={motoristaPages}
-                onPageChange={setPage}
+                onPageChange={async(page) => {
+                    setPage(page)
+                    const res = await api.get(`/motorista/list?page=${page}`)
+                    setMotorista(res.data.motoristas)
+                }}
             />
             <Button variant="primary" onClick={onAdd}>Adicionar</Button>
         </>
