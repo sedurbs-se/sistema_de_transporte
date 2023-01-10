@@ -9,7 +9,7 @@ const listVeiculoController = catchAsyncErrors(async (req: NextApiRequest, res: 
     const veiculosQuery = await prisma.veiculo.findMany(
         {
             include: {
-                tipoFrota: {
+                tipofrota: {
                     select: {
                         nome: true
                     }
@@ -21,7 +21,7 @@ const listVeiculoController = catchAsyncErrors(async (req: NextApiRequest, res: 
     const veiculos = veiculosQuery.map(veiculo => {
         return {
             ...veiculo,
-            tipoFrota: veiculo.tipoFrota.nome
+            tipoFrota: veiculo.tipofrota.nome
         }
     })
 

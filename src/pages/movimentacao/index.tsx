@@ -4,6 +4,7 @@ import style from "../../styles/Home.module.css"
 import fetchSolicitacoes from "@domain/requests/fetch/fetchSolicitacoes";
 import { initializeStore } from "@domain/store/store";
 import { GetServerSideProps, NextPage } from "next";
+import CadastroMovimentacao from "@components/Cadastros/CadastroMovimentacao";
 import fetchVeiculosSemMovimentacao from "@domain/requests/fetch/fetchVeiculosSemMovimentacao";
 
 const MovimentacaoPageSaida: NextPage = () => {
@@ -14,6 +15,7 @@ const MovimentacaoPageSaida: NextPage = () => {
                 // Lista de Solicitações Aprovadas
             }
             <ListaSolicitacoesAprovada />
+            <CadastroMovimentacao/>
         </PageContainer>
     )
 };

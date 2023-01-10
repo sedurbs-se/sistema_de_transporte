@@ -2,7 +2,7 @@ import { Municipio, Solicitacao as SolicitacaoPrisma, StatusSolicitacao, TipoSol
 
 
 export interface Solicitacao extends  SolicitacaoPrisma{
-    municipiosolicitacao: Municipio[]
-    statussolicitacao: StatusSolicitacao
-    tiposolicitacao: TipoSolicitacao
+    municipiosolicitacao?: Municipio[]
+    statussolicitacao?: StatusSolicitacao
+    tiposolicitacao?: TipoSolicitacao
 }

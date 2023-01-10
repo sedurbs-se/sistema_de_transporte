@@ -31,7 +31,7 @@ const listMotoristaController = catchAsyncErrors(async (req: NextApiRequest, res
     const count = await prisma.motorista.count();
     res.status(200).json({
         motoristas:mappedMotoristas,
-        count
+        count: Math.ceil(count/Number(limit))
     });
 });
 

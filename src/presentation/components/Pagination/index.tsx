@@ -16,15 +16,15 @@ const PaginationComponent = ({ page, totalPages, onPageChange }: PaginationProps
         for (let number = 1; number <= paginationCount; number++) {
 
 
-            // Elipse na metade da paginação
+            // // Elipse na metade da paginação
 
-            if (number > 3 && number < paginationCount - 3) {
+            // if (number > 3 && number < paginationCount - 3) {
                 
-                if (items[items.length - 1].type.render.displayName != 'Ellipsis') {
-                    items.push(<Pagination.Ellipsis></Pagination.Ellipsis>)
-                };
+            //     if (items[items.length - 1].type.render.displayName != 'Ellipsis') {
+            //         items.push(<Pagination.Ellipsis></Pagination.Ellipsis>)
+            //     };
 
-            } else {
+            // } else {
                 items.push(
                     <Pagination.Item
                         key={number}
@@ -33,7 +33,7 @@ const PaginationComponent = ({ page, totalPages, onPageChange }: PaginationProps
                         {number}
                     </Pagination.Item>,
                 );
-            }
+            // }
         }
         return items;
     };

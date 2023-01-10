@@ -9,6 +9,7 @@ import { InputError } from "@components/InputError";
 import { ICreateSolicitacaoDTO, ICreateSolicitacaoResponse, useCreateSolicitacao } from "@domain/query/createSolicitacao";
 import { useEffect } from "react";
 import { Solicitacao } from "@prisma/client";
+import { isIsoDate } from "@shared/utils/dateUtils";
 
 const CadastroSolicitacao = () => {
 
@@ -33,9 +34,9 @@ const CadastroSolicitacao = () => {
         num_ocupantes: yup.number().min(1).required(),
         atividade: yup.string().required(),
         data_hora_saida: yup.date().required(),
-        tipo_solicitacao: yup.string().required(),
-        status_solicitacao: yup.string().required(),
-        setor: yup.string().required(),
+        tipo_solicitacao_id: yup.string().required(),
+        status_solicitacao_id: yup.string().required(),
+        setor_id: yup.string().required(),
         municipios: yup.array().of(yup.string()).min(1).required(),
         observacao: yup.string().required()
     })
@@ -64,6 +65,7 @@ const CadastroSolicitacao = () => {
     });
 
     const onSubmit = async () => {
+        console.log('refetch')
         refetch();
     };
     
@@ -116,12 +118,12 @@ const CadastroSolicitacao = () => {
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Setor</Form.Label>
                                 <Form.Select
-                                    {...register("setor", { required: true })}
+                                    {...register("setor_id", { required: true })}
                                     isValid={!errors.setor && form.setor !== ""}
                                     isInvalid={errors.setor != undefined}
                                 >
                                     <option value="">Selecione um setor</option>
-                                    {setores.map(setor => (
+                                    {setores.map((setor:any) => (
                                         <option key={setor.id} value={setor.id}>{setor.codigo} - {setor.sigla}</option>
                                     ))}
                                 </Form.Select>
@@ -165,7 +167,7 @@ const CadastroSolicitacao = () => {
                         <Col md={3} xs={3} xl={3} xls={3}>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Data e Hora de saída</Form.Label>
-                                <Form.Control type="datetime-local" placeholder="Data de saída"
+                                <Form.Control  type="datetime-local" placeholder="Data de saída"
                                     {...register("data_hora_saida")}
                                     isValid={!errors.data_hora_saida && form.data_hora_saida !== ""}
                                     isInvalid={errors.data_hora_saida != undefined}
@@ -180,7 +182,7 @@ const CadastroSolicitacao = () => {
                         <Col md={3} xs={3} xl={3} xls={3}>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Tipo</Form.Label>
-                                <Form.Select {...register("tipo_solicitacao")}
+                                <Form.Select {...register("tipo_solicitacao_id")}
                                     isValid={!errors.tipo_solicitacao && form.tipo_solicitacao !== ""}
                                     isInvalid={errors.tipo_solicitacao != undefined}
                                 >
@@ -197,7 +199,7 @@ const CadastroSolicitacao = () => {
                         <Col md={3} xs={3} xl={3} xls={3}>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Status</Form.Label>
-                                <Form.Select {...register("status_solicitacao")}
+                                <Form.Select {...register("status_solicitacao_id")}
                                     isValid={!errors.status_solicitacao && form.status_solicitacao !== ""}
                                     isInvalid={errors.status_solicitacao != undefined}
                                 >

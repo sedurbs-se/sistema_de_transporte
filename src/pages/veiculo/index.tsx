@@ -37,7 +37,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
 
     try {
-        const { veiculos } = await fetchVeiculos(1);
+        const { veiculos } = await fetchVeiculos(1, 10);
 
         state.veiculos = veiculos;
     } catch (error) {
