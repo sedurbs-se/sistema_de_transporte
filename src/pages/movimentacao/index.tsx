@@ -42,7 +42,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
         const { veiculos } = await fetchVeiculosSemMovimentacao();
 
         state.user = isAuthenticated;
-
+        state.veiculos = veiculos;
         state.solicitacoes = solicitacoes;
     } catch (error) {
         console.log(error)
