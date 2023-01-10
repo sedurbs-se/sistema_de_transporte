@@ -17,3 +17,9 @@ export const normalizePlaca = (value: string | undefined) => {
 
     return val;
 }
+
+
+export function omit(key: any, obj: any) {
+    const { [key]: omitted, ...rest } = obj;
+    return rest;
+  }

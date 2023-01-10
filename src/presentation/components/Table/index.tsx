@@ -1,6 +1,8 @@
 import { Button, Table } from "react-bootstrap"
 import style from "./index.module.scss"
 import { BsPencilSquare, BsTrash, BsList } from "react-icons/bs"
+import { v4 as uuidv4 } from 'uuid';
+
 
 export interface TableComponentProps {
     tableHeaderData: string[][],
@@ -25,7 +27,7 @@ const TableComponent = ({
     const generatedTableBody =
         (tableHeaderData: string[][], tableBodyData: any[]) => tableBodyData.map((data) =>
         (
-            <tr key={data}>
+            <tr key={uuidv4()}>
                 {tableHeaderData.map((column,i) => (
                     column[1] && <td  key={i}>{data[column[1]]}</td>
                 ))}

@@ -4,6 +4,7 @@ import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
 import fetchSolicitacoes from "@domain/requests/fetch/fetchSolicitacoes";
 import { initializeStore } from "@domain/store/store";
 import { GetServerSideProps, NextPage } from "next";
+import CadastroMovimentacao from "@components/Cadastros/CadastroMovimentacao";
 
 const MovimentacaoPageSaida: NextPage = () => {
 
@@ -14,6 +15,7 @@ const MovimentacaoPageSaida: NextPage = () => {
                 // Lista de Solicitações Aprovadas
             }
             <ListaSolicitacoesAprovada />
+            <CadastroMovimentacao/>
         </PageContainer>
     )
 };

@@ -83,7 +83,7 @@ const NavBarT = () => {
         <Navbar variant="dark" bg="dark" sticky="top">
             <Container>
           <Navbar.Brand href="/">Sistema de transporte</Navbar.Brand>
-          <Nav className="me-auto">
+          <Nav  className="me-auto">
           <NavDropdown 
           className={style['dropdown-box']}
              show={show.movimentacao}
