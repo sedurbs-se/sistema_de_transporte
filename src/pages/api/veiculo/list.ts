@@ -1,6 +1,6 @@
 import nc from "next-connect";
 import onError from "../../../http/middlewares/onErrors";
-import { listVeiculoController } from "../../../http/modules/veiculos/controllers/listMotoristaController";
+import { listVeiculoController } from "../../../http/modules/veiculos/controllers/listVeiculoController";
 
 const handler = nc({ onError })
 
