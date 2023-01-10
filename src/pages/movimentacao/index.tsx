@@ -7,6 +7,8 @@ import { GetServerSideProps, NextPage } from "next";
 import CadastroMovimentacao from "@components/Cadastros/CadastroMovimentacao";
 import fetchVeiculosSemMovimentacao from "@domain/requests/fetch/fetchVeiculosSemMovimentacao";
 import fetchMotoristasSemMovimentacao from "@domain/requests/fetch/fetchMotoristasSemMovimentacao";
+import fetchSolicitacoesAutorizadas from "@domain/requests/fetch/fetchSolicitacoesAutorizadas";
+import fetchMovimentacaoStatus from "@domain/requests/fetch/fetchMovimentacaoStatus";
 
 const MovimentacaoPageSaida: NextPage = () => {
     return (
@@ -15,8 +17,7 @@ const MovimentacaoPageSaida: NextPage = () => {
             {
                 // Lista de Solicitações Aprovadas
             }
-                <ListaSolicitacoesAprovada />
-                <CadastroMovimentacao/>
+            <CadastroMovimentacao />
         </PageContainer>
     )
 };
@@ -40,18 +41,21 @@ export const getServerSideProps: GetServerSideProps = async context => {
     }
 
     try {
-        const { solicitacoes } = await fetchSolicitacoes();
+        const { solicitacoes } = await fetchSolicitacoesAutorizadas();
 
         const { veiculos } = await fetchVeiculosSemMovimentacao();
 
         const { motoristas } = await fetchMotoristasSemMovimentacao();
-        
+
+        const { statusMovimentacao } = await fetchMovimentacaoStatus();
+
         state.user = isAuthenticated;
         state.veiculos = veiculos;
         state.solicitacoes = solicitacoes;
         state.motoristas = motoristas;
-
+        state.statusMovimentacao = statusMovimentacao;
     } catch (error) {
+        console.log(error);
     }
 
 

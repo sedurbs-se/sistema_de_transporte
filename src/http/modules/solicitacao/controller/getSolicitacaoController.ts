@@ -20,14 +20,23 @@ const getSolicitacaoController = catchAsyncErrors(async (req: NextApiRequest, re
             id: id as string
         },
         include: {
-            municipiosolicitacao: true,
+            municipiosolicitacao: {
+                select: {
+                    municipio: {
+                        select: {
+                            nome: true,
+                            id: true
+                        }
+                    }
+                }
+            },
             tiposolicitacao: true,
             setor: true,
             statussolicitacao: true,
         }
     });
 
-    const municiopiosId = solicitacao?.municipiosolicitacao.map(municipio => municipio.id);
+    const municiopiosId = solicitacao?.municipiosolicitacao?.map(municipio => municipio.municipio.id);
 
     const municipios = await prisma.municipio.findMany({
         where: {

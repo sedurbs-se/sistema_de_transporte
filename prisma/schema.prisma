@@ -84,7 +84,9 @@ model Movimentacao {
   dtretorno    DateTime?
   status_id    String
   status       MovimentacaoStatus @relation(fields: [status_id], references: [id], map: "Movimentacao_status_id_fkey")
-  Solicitacao  Solicitacao[]
+
+  solicitacao_id String      @unique
+  Solicitacao    Solicitacao @relation(fields: [solicitacao_id], references: [id], map: "Movimentacao_solicitacao_id_fkey")
 }
 
 model MovimentacaoStatus {
@@ -108,12 +110,11 @@ model Solicitacao {
   setor_id              String
   status_solicitacao_id String
   tipo_solicitacao_id   String
-  movimentacao_id       String?
   setor                 Setor                  @relation(fields: [setor_id], references: [id], map: "Solicitacao_setor_id_fkey")
   statussolicitacao     StatusSolicitacao      @relation(fields: [status_solicitacao_id], references: [id], map: "Solicitacao_status_solicitacao_id_fkey")
   tiposolicitacao       TipoSolicitacao        @relation(fields: [tipo_solicitacao_id], references: [id], map: "Solicitacao_tipo_solicitacao_id_fkey")
-  movimentacao          Movimentacao?          @relation(fields: [movimentacao_id], references: [id], map: "Movimentacao_id_fkey")
   municipiosolicitacao  Municipiosolicitacao[]
+  Movimentacao          Movimentacao?
 
   @@index([setor_id], map: "Solicitacao_setor_id_fkey")
   @@index([status_solicitacao_id], map: "Solicitacao_status_solicitacao_id_fkey")

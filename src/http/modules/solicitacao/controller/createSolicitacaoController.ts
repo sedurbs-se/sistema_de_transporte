@@ -13,9 +13,9 @@ const createSolicitacaoController = catchAsyncErrors(async (req: NextApiRequest,
         num_ocupantes,
         atividade,
         data_hora_saida,
-        tipo_solicitacao,
-        status_solicitacao,
-        setor,
+        tipo_solicitacao_id,
+        status_solicitacao_id,
+        setor_id,
         municipios,
         observacao,
     } = req.body as ICreateSolicitacaoDTO["params"];
@@ -28,12 +28,13 @@ const createSolicitacaoController = catchAsyncErrors(async (req: NextApiRequest,
             num_ocupantes,
             data_hora_saida: new Date(data_hora_saida),
             atividade,
-            tipo_solicitacao_id: tipo_solicitacao,
-            status_solicitacao_id: status_solicitacao,
-            setor_id: setor,
+            tipo_solicitacao_id,
+            status_solicitacao_id,
+            setor_id,
             observacao,
         }
-    })
+    });
+
     const municipiosInDB = await prisma.municipio.findMany({
         where: {
             nome: {

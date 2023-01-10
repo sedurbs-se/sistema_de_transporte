@@ -12,9 +12,9 @@ interface ICreateSolicitacaoDTO {
         num_ocupantes: number;
         atividade: string;
         data_hora_saida: string;
-        tipo_solicitacao: string;
-        status_solicitacao: string;
-        setor: string;
+        tipo_solicitacao_id: string;
+        status_solicitacao_id: string;
+        setor_id: string;
         municipios: string[];
         observacao: string;
     };

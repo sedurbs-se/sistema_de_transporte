@@ -49,7 +49,6 @@ const ListaSolicitacoes = () => {
             </Badge>
     }))
 
-    console.log(solicitacoes[0])
     const onEdit = (id: string) => {
         Router.push(`/solicitacao/formulario/${id}`)
     }

@@ -14,25 +14,16 @@ const saidaMovimentacaoController = catchAsyncErrors(async (req: NextApiRequest,
         observacao,
     } = req.body;
 
-    const movimentacao = await prisma.movimentacao.create({
+    await prisma.movimentacao.create({
         data: {
+            solicitacao_id,
             motorista_id,
             veiculos_id,
-            dtsaida,
+            dtsaida: new Date(dtsaida),
             status_id,
             observacao,
         }
     })
-
-    await prisma.solicitacao.update({
-        where: {
-            id: solicitacao_id,
-        },
-        data: {
-            movimentacao_id: movimentacao.id
-        }
-    });
-
 
     res.status(200).json({});
 

@@ -1,14 +1,19 @@
-import { Badge} from "react-bootstrap"
+import { Badge } from "react-bootstrap"
 import getBadgeTypeByStatus from "@shared/utils/getBadgeTypeByStatus"
 import TableComponent from "@components/Table"
 import { useStore } from "@domain/store/store"
 import shallow from "zustand/shallow"
 
 
+interface IListaSolicitacoesAprovada {
+    handleSelectCheck: (id: string) => void
+    selectedValue: string;
+}
 
-const ListaSolicitacoesAprovada = () => {
+const ListaSolicitacoesAprovada = ({ handleSelectCheck, selectedValue }: IListaSolicitacoesAprovada) => {
 
     const tableColumns = [
+        ["", "checkbox"],
         ["Usuário", "usuario"],
         // ["Ramal", "ramal"],
         // ["Atividade", "atividade"],
@@ -37,13 +42,17 @@ const ListaSolicitacoesAprovada = () => {
     }
 
     const tableBody = solicitacoes.map((solicitacao) => ({
+        checkbox: <input type="checkbox" 
+        checked={solicitacao.id === selectedValue} 
+        onChange={() => handleSelectCheck(solicitacao.id)} />,
         data: getData(solicitacao.data_hora_saida),
         hora: getTime(solicitacao.data_hora_saida),
         municipios: solicitacao.municipiosolicitacao ?
             solicitacao.municipiosolicitacao.map(municipio => municipio.nome).join(', ') : '',
         ...solicitacao,
         status_solicitacao_id:
-            <Badge pill bg={getBadgeTypeByStatus(solicitacao.statussolicitacao.nome)}>{solicitacao.statussolicitacao.nome}
+            <Badge pill bg={getBadgeTypeByStatus(solicitacao.statussolicitacao.nome)}>
+                {solicitacao.statussolicitacao.nome}
             </Badge>
     }))
 

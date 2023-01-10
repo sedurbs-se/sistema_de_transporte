@@ -21,6 +21,7 @@ const retornoMovimentacaoController = catchAsyncErrors(async (req: NextApiReques
     const {
         solicitacao_id,
         motorista_id,
+        veiculo_id,
         dtsaida,
         dtretorno,
         kminicial,
@@ -28,29 +29,29 @@ const retornoMovimentacaoController = catchAsyncErrors(async (req: NextApiReques
         status_id,
     } = req.body;
 
+    await prisma.veiculo.update({
+        where: {
+
+            id: veiculo_id,
+        },
+        data: {
+            quilometragemAtual: kmfinal
+        }
+
+    })
 
     const movimentacao = await prisma.movimentacao.update({
         where: {
             id: id as string,
         },
         data: {
+            solicitacao_id,
             motorista_id,
             dtsaida,
             dtretorno,
-            kminicial,
-            kmfinal,
             status_id,
         }
     })
-
-    await prisma.solicitacao.update({
-        where: {
-            id: solicitacao_id,
-        },
-        data: {
-            movimentacao_id: id as string
-        }
-    });
 
     res.status(200).json(movimentacao);
 });

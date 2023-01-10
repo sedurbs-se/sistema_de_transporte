@@ -11,11 +11,21 @@ import { createTipoFrotaStore, initialTipoFrotaState, ITipoFrotaStore } from './
 import { createVinculoStore, initialVinculoState, IVinculoStore } from './vinculos';
 import { createSolicitacaoStore, initialSolicitacaoState, ISolicitacaoStore } from './solicitacao';
 import { IMunicipiosStore, municipiosState } from './municipios';
+import { IMovimentacaoStore, initialMovimentacaoStoreState } from './movimentacao';
 
 
 
 export interface IInitialState extends
-    IUserStore, IVeiculosStore, IMotoristasStore, ILocadorasStore, ISetoresStore, ITipoFrotaStore, IVinculoStore, ISolicitacaoStore, IMunicipiosStore {
+    IUserStore,
+    IVeiculosStore,
+    IMotoristasStore,
+    ILocadorasStore,
+    ISetoresStore,
+    ITipoFrotaStore,
+    IVinculoStore,
+    ISolicitacaoStore,
+    IMunicipiosStore,
+    IMovimentacaoStore {
 };
 
 type useStoreState = typeof initializeStore extends (
@@ -35,7 +45,8 @@ const getDefaultInitialState = (): IInitialState => ({
     ...initialTipoFrotaState,
     ...initialVinculoState,
     ...initialSolicitacaoState,
-    ...municipiosState
+    ...municipiosState,
+    ...initialMovimentacaoStoreState
 })
 
 const zustandContext = createContext<useStoreState>()
@@ -57,6 +68,7 @@ export const initializeStore = (preloadedState = {}) => {
                 ...createTipoFrotaStore(set, get, api),
                 ...createVinculoStore(set, get, api),
                 ...createSolicitacaoStore(set, get, api),
+                ...createMotoristasStore(set, get, api),
             }))
     )
 };

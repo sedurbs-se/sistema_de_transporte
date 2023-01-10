@@ -8,9 +8,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { InputError } from "@components/InputError";
 import { ICreateSolicitacaoDTO, ICreateSolicitacaoResponse, useCreateSolicitacao } from "@domain/query/createSolicitacao";
 import { useEffect } from "react";
-import { Solicitacao } from "@prisma/client";
 import { isIsoDate } from "@shared/utils/dateUtils";
-
+import { Solicitacao } from "@shared/types/Solicitação"
 const CadastroSolicitacao = () => {
 
     const {
@@ -65,17 +64,23 @@ const CadastroSolicitacao = () => {
     });
 
     const onSubmit = async () => {
-        console.log('refetch')
         refetch();
     };
-    
+
     useEffect(() => {
+        
         if (selectedSolicitacao) {
             Object.keys(form).forEach(key => {
-                setValue(key, selectedSolicitacao[key as keyof Solicitacao])
+                if (key == "municipios") {
+                
+                    setValue("municipios", selectedSolicitacao.municipiosolicitacao?.map(m => m.municipio.nome))
+                } else {
+                    setValue(key, selectedSolicitacao[key as keyof Solicitacao])
+                }
             })
         }
     }, [selectedSolicitacao])
+
 
     return (
         <Container
@@ -119,11 +124,11 @@ const CadastroSolicitacao = () => {
                                 <Form.Label>Setor</Form.Label>
                                 <Form.Select
                                     {...register("setor_id", { required: true })}
-                                    isValid={!errors.setor && form.setor !== ""}
+                                    isValid={!errors.setor && form.setor_id !== ""}
                                     isInvalid={errors.setor != undefined}
                                 >
                                     <option value="">Selecione um setor</option>
-                                    {setores.map((setor:any) => (
+                                    {setores.map((setor: any) => (
                                         <option key={setor.id} value={setor.id}>{setor.codigo} - {setor.sigla}</option>
                                     ))}
                                 </Form.Select>
@@ -167,8 +172,11 @@ const CadastroSolicitacao = () => {
                         <Col md={3} xs={3} xl={3} xls={3}>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Data e Hora de saída</Form.Label>
-                                <Form.Control  type="datetime-local" placeholder="Data de saída"
+                                <Form.Control type="datetime-local" placeholder="Data de saída"
                                     {...register("data_hora_saida")}
+                                    value={
+                                        form.data_hora_saida?.slice(0, 16)
+                                    }
                                     isValid={!errors.data_hora_saida && form.data_hora_saida !== ""}
                                     isInvalid={errors.data_hora_saida != undefined}
                                 />
@@ -183,7 +191,7 @@ const CadastroSolicitacao = () => {
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Tipo</Form.Label>
                                 <Form.Select {...register("tipo_solicitacao_id")}
-                                    isValid={!errors.tipo_solicitacao && form.tipo_solicitacao !== ""}
+                                    isValid={!errors.tipo_solicitacao && form.tipo_solicitacao_id !== ""}
                                     isInvalid={errors.tipo_solicitacao != undefined}
                                 >
                                     <option value="">Selecione um Tipo</option>
@@ -200,7 +208,7 @@ const CadastroSolicitacao = () => {
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Status</Form.Label>
                                 <Form.Select {...register("status_solicitacao_id")}
-                                    isValid={!errors.status_solicitacao && form.status_solicitacao !== ""}
+                                    isValid={!errors.status_solicitacao && form.status_solicitacao_id !== ""}
                                     isInvalid={errors.status_solicitacao != undefined}
                                 >
                                     <option value="">Selecione um Status</option>
