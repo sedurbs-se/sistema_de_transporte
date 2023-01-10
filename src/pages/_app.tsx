@@ -17,8 +17,7 @@ function MyApp({ Component, pageProps }: AppProps<pageProps>) {
   const [queryClient] = useState(() => new QueryClient());
   const createStore = useCreateStore(pageProps.initialZustandState)
 
-  const { user } = pageProps.initialZustandState;
-
+  const user = pageProps.initialZustandState?.user;
   // Validade if logged here
   return (
     <SSRProvider>

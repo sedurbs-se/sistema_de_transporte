@@ -71,9 +71,7 @@ export function useCreateStore(serverInitialState: IInitialState) {
     // Client side code:
     // Next.js always re-uses same store regardless of whether page is a SSR or SSG or CSR type.
     const isReusingStore = Boolean(store)
-    
     store = store ?? initializeStore(serverInitialState)
-    console.log(store.getState())
     // When next.js re-renders _app while re-using an older store, then replace current state with
     // the new state (in the next render cycle).
     // (Why next render cycle? Because react cannot re-render while a render is already in progress.

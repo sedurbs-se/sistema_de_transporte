@@ -1,53 +1,39 @@
-import { Motorista } from "@prisma/client";
 import { useEffect } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap"
 import { useForm } from "react-hook-form";
 import shallow from "zustand/shallow";
-import { useCreateMotorista, ICreateMotoristaDTO, ICreateMotoristaResponse } from "@domain/query/createMotorista";
 import { useStore } from "@domain/store/store";
 import { setModalSuccess } from "@shared/utils/modalUtils";
+import { ISaidaMovimentacaoDTO, ISaidaMovimentacaoResponse, useSaidaMovimentacao } from "@domain/query/saidaMovimentacao";
 
 
 const CadastroMovimentacao = () => {
 
-    const { 
-        addMotorista, 
-        selectedMotorista, 
-        setSelectedMotorista, 
-        updateMotorista,
-
+    const {
+        motoristas,
         // Vinculo
-        vinculos
-    
+        veiculos
+
     } = useStore(state => state, shallow);
 
     const { register, handleSubmit, watch, formState: { errors }, setValue } = useForm();
 
-    const onSuccess = ({ motorista }: ICreateMotoristaResponse) => {
-        if (selectedMotorista) {
-            setSelectedMotorista()
-            updateMotorista(motorista);
-            setModalSuccess(true);
-        } else {
-            addMotorista(motorista)
-            setModalSuccess();
-        }
+    const onSuccess = ({  }: ISaidaMovimentacaoResponse) => {
+        setModalSuccess()
     };
 
-    const form = watch() as ICreateMotoristaDTO['params'];
+    const form = watch() as ISaidaMovimentacaoDTO['params'];
 
     useEffect(() => {
         console.log(form)
     }, [form])
 
-    const { refetch, isError } = useCreateMotorista({
+    const { refetch, isError } = useSaidaMovimentacao({
         params: form,
         onSuccess,
-        id: selectedMotorista?.id
     });
 
     const onSubmit = async () => {
-        console.log('e')
         refetch();
     };
 
@@ -55,52 +41,61 @@ const CadastroMovimentacao = () => {
         console.log(errors);
     }
 
-    useEffect(() => {
-        if (selectedMotorista) {
-            Object.keys(form).forEach(key => {
-                setValue(key, selectedMotorista[key as keyof Motorista])
-            })
-        }
-    }, [selectedMotorista])
-
+    const selectedVeiculo = veiculos.find(veiculo => veiculo.id === form.veiculos_id);
 
     return (
         <fieldset>
             <legend>Cadastro de Saída</legend>
             <Form onSubmit={handleSubmit(onSubmit)}>
 
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Placa</Form.Label>
-                    <Form.Select {...register("status_solicitacao_id")}>
-                                    <option value="">Selecione uma placa</option>
-                    </Form.Select>
-                </Form.Group>
+                <Row>
+                    <Col>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Placa</Form.Label>
+                            <Form.Select {...register("veiculos_id")}>
+                                <option value="">Selecione uma placa</option>
+                                {
+                                    veiculos.map(veiculo => (
+                                        <option key={veiculo.id} value={veiculo.id}>{veiculo.placa}</option>
+                                    ))
+                                }
+                            </Form.Select>
+                        </Form.Group>
+                    </Col>
 
-                <Form.Group className="mb-3" controlId="formBasicDataNascimento">
-                    <Form.Label>Km inicial</Form.Label>
-                    <Form.Control type="number" disabled 
-                    value={10}
-                    {...register("data_nascimento")} />
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formBasicBairro">
-                    <Form.Label>Motorista</Form.Label>
-                    <Form.Select {...register("status_solicitacao_id")}>
-                                    <option value="">Selecione o motorista</option>
-                    </Form.Select>
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Data e Hora de saída</Form.Label>
-                                <Form.Control  type="datetime-local" placeholder="Data de saída"
-                                    {...register("data_hora_saida")}
+                    <Col>
+                        <Form.Group className="mb-3" controlId="formBasicDataNascimento">
+                            <Form.Label>Km inicial</Form.Label>
+                            <Form.Control type="number" disabled
+                                value={selectedVeiculo ? selectedVeiculo.quilometragemInicial :0}
                                 />
-        
-                            </Form.Group>
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group className="mb-3" controlId="formBasicBairro">
+                            <Form.Label>Motorista</Form.Label>
+                            <Form.Select {...register("motorista_id")}>
+                                <option value="">Selecione o motorista</option>
+                                {motoristas.map(motorista => (
+                                    <option key={motorista.id} value={motorista.id}>{motorista.nome}</option>
+                                ))}
+
+                            </Form.Select>
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Data e Hora de saída</Form.Label>
+                            <Form.Control type="datetime-local" placeholder="Data de saída"
+                                {...register("data_hora_saida")}
+                            />
+                        </Form.Group>
+                    </Col>
+                </Row>
 
                 <Form.Group>
-
-               
+                    <Form.Label>Observações</Form.Label>
+                    <Form.Control as="textarea" rows={3} {...register("observacoes")} />
                 </Form.Group>
 
                 <Button variant="primary" type="submit">

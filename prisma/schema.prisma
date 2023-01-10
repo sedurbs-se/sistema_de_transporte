@@ -80,9 +80,8 @@ model Movimentacao {
   veiculos_id  String
   veiculo      Veiculo            @relation(fields: [veiculos_id], references: [id], map: "Movimentacao_veiculos_id_fkey")
   dtsaida      DateTime
-  dtretorno    DateTime
-  kminicial    Int
-  kmfinal      Int
+  observacao   String?
+  dtretorno    DateTime?
   status_id    String
   status       MovimentacaoStatus @relation(fields: [status_id], references: [id], map: "Movimentacao_status_id_fkey")
   Solicitacao  Solicitacao[]
