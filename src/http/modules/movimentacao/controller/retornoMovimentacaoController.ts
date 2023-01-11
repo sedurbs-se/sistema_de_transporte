@@ -17,25 +17,22 @@ const retornoMovimentacaoController = catchAsyncErrors(async (req: NextApiReques
     if (!movimentacaoExist) {
         throw new AppError("Movimentação não encontrada", 400);
     };
+    console.log('alo')
 
     const {
-        solicitacao_id,
-        motorista_id,
-        veiculo_id,
         dtsaida,
         dtretorno,
-        kminicial,
-        kmfinal,
+        observacao,
+        quilometragemFinal,
         status_id,
     } = req.body;
 
     await prisma.veiculo.update({
         where: {
-
-            id: veiculo_id,
+            id: movimentacaoExist.veiculos_id,
         },
         data: {
-            quilometragemAtual: kmfinal
+            quilometragemAtual: Number(quilometragemFinal)
         }
 
     })
@@ -45,11 +42,9 @@ const retornoMovimentacaoController = catchAsyncErrors(async (req: NextApiReques
             id: id as string,
         },
         data: {
-            solicitacao_id,
-            motorista_id,
-            dtsaida,
-            dtretorno,
+            dtretorno:  new Date(dtretorno),
             status_id,
+            observacao
         }
     })
 
