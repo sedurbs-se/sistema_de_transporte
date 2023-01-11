@@ -7,21 +7,18 @@ import Router from "next/router"
 import { deleteSolicitacao } from "@domain/requests/delete/deleteSolicitacao"
 import { WarningPopUp } from "@shared/swal"
 
-const ListaSolicitacoes = () => {
+const ListaMovimentacoes = () => {
 
     const tableColumns = [
-        ["Usuário", "usuario"],
-        ["Ramal", "ramal"],
-        ["Atividade", "atividade"],
-        ["Município", "municipios"],
-        ["Ocupantes", "num_ocupantes"],
-        ["Data", "data"],
-        ["Hora", "hora"],
-        ["Status", "status_solicitacao_id"],
+        ["Placa", "placa"],
+        ["Motorista", "motorista"],
+        ["Data Saída", "data"],
+        ["Hora Saída", "hora"],
+        ["Status", "status_id"],
         ["", ""],
     ]
 
-    const { solicitacoes, removeSolicitacao } = useStore(state => state, shallow)
+    const { movimentacoes, removeMovimentacao } = useStore(state => state, shallow)
 
     const getData = (data: Date) => {
         const date = new Date(data);
@@ -38,36 +35,33 @@ const ListaSolicitacoes = () => {
         return `${hours}:${minutes}:${seconds}`;
     }
 
-    console.log('Solicitacoes', solicitacoes);
 
-    const tableBody = solicitacoes.map((solicitacao) => ({
-        data: getData(solicitacao.data_hora_saida),
-        hora: getTime(solicitacao.data_hora_saida),
-        municipios: solicitacao.municipiosolicitacao ?
-            solicitacao.municipiosolicitacao.map(municipio => municipio.nome).join(', ') : '',
-        ...solicitacao,
-        status_solicitacao_id:
-            <Badge pill bg={getBadgeTypeByStatus(solicitacao.statussolicitacao.nome)}>{solicitacao.statussolicitacao.nome}
-            </Badge>
+    const tableBody = movimentacoes.map((movimentacao) => ({
+        id: movimentacao.id,
+        data: getData(movimentacao.dtsaida),
+        hora: getTime(movimentacao.dtsaida),
+        placa: movimentacao.veiculo!.placa,
+        motorista: movimentacao.motorista!.nome,
+        status_id: <Badge pill bg={getBadgeTypeByStatus(movimentacao.status!.nome)}>{movimentacao.status!.nome}</Badge>
     }))
 
     const onEdit = (id: string) => {
-        Router.push(`/solicitacao/formulario/${id}`)
+        Router.push(`/movimentacao/retorno/${id}`)
     }
 
     const onAdd = () => {
-        Router.push(`/solicitacao/formulario`)
+        Router.push(`/movimentacao/formulario`)
     };
 
     const onDelete = async (id: string) => {
 
         const onDeletedSuccess = () => {
-            removeSolicitacao(id)
+            removeMovimentacao(id)
         }
 
         WarningPopUp({
-            message: "Tem certeza que deseja excluir essa solicitação?",
-            errorMessage: "Não foi possível excluir a solicitação",
+            message: "Tem certeza que deseja excluir essa movimentação?",
+            errorMessage: "Não foi possível excluir a movimentação",
             action: async () => await deleteSolicitacao({ id }),
             onActionSuccess: onDeletedSuccess,
         })
@@ -89,7 +83,7 @@ const ListaSolicitacoes = () => {
     )
 }
 
-export default ListaSolicitacoes;
+export default ListaMovimentacoes;
 
 // Todo List
 
