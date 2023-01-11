@@ -152,6 +152,17 @@ model Usuario {
   login     String   @unique(map: "Usuario_login_key")
   password  String   @default("abcd1234")
   nome      String
+
+  tipo_id String?
+  tipo    TipoUsuario? @relation(fields: [tipo_id], references: [id], map: "Usuario_tipo_id_fkey")
+}
+
+model TipoUsuario {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  nome      String    @unique(map: "TipoUser_nome_key")
+  usuario   Usuario[]
 }
 
 model Veiculo {
