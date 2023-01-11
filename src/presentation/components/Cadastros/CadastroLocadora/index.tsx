@@ -26,7 +26,7 @@ const CadastroLocadoras = (props: CadastroLocadoraProps) => {
     telefone: yup.string().required()
   })
 
-  const { register, handleSubmit, watch, formState: { errors }, setValue } = useForm({ resolver: yupResolver(validationSchema) });
+  const { register, handleSubmit, watch, formState: { errors }, setValue, reset } = useForm({ resolver: yupResolver(validationSchema) });
 
 
   const onSuccess = ({ locadora }: ICreateLocadoraResponse) => {
@@ -39,6 +39,8 @@ const CadastroLocadoras = (props: CadastroLocadoraProps) => {
       setModalSuccess();
       clearFields();
     }
+
+    reset()
   };
 
   const clearFields = () => {
