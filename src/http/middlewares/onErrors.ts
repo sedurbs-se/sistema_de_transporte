@@ -1,10 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { Request, Response } from "src/http/type";
 import AppError from "../errors/AppError";
 
 export default async function onError(
     error: AppError,
-    req: NextApiRequest,
-    res: NextApiResponse,
+    req: Request,
+    res: Response,
     next: () => void,
 ) {
 

@@ -1,11 +1,11 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { Request, Response } from "src/http/type";
 import catchAsyncErrors from "../../../middlewares/catchAsyncErrors";
 import prisma from "../../../../shared/prisma.index";
 import { ICreateSolicitacaoDTO } from "@domain/query/createSolicitacao";
 import AppError from "src/http/errors/AppError";
 
 
-const updateSolicitacaoController = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
+const updateSolicitacaoController = catchAsyncErrors(async (req: Request, res: Response) => {
 
     const { id } = req.query;
 

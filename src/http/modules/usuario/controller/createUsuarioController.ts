@@ -1,25 +1,24 @@
 
 
-import { NextApiRequest, NextApiResponse } from "next";
 import catchAsyncErrors from "../../../middlewares/catchAsyncErrors";
 import prisma from "../../../../shared/prisma.index";
 import AppError from "src/http/errors/AppError";
+import { Request, Response } from "src/http/type";
 
 
 // get one note from with a note id request dynamically
-const createUsuarioController = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
+const createUsuarioController = catchAsyncErrors(async (req: Request, res: Response) => {
+
+    const responsavelTipo = await prisma.tipoUsuario.findUnique(
+        {
+            where: {
+                id: req.user?.tipo_id as string
+            }
+        });
 
 
-    const { id } = req.query;
-
-    if (!id) {
-        throw new AppError('Id não informado', 400);
-    }
-
-    const responsavel = await prisma.usuario.findUnique({ where: { id: id as string } });
-
-    if (!responsavel) {
-        throw new AppError('Usuário responsável não encontrado', 400);
+    if (responsavelTipo?.nome !== 'admin') {
+        throw new AppError('Você não tem permissão para realizar essa ação', 401);
     }
 
     const { nome, login, password } = req.body;

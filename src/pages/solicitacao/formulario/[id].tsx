@@ -49,7 +49,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
     state.statusSolicitacao = statusSolicitacoes;
     state.setores = setores;
 
-    console.log('Solicitacao aqui ', solicitacao)
     return {
         props: {
             initialZustandState: JSON.parse(JSON.stringify(state)),

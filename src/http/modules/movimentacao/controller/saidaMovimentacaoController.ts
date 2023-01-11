@@ -1,9 +1,9 @@
 import prisma from "@shared/prisma.index";
-import { NextApiRequest, NextApiResponse } from "next";
+import { Request, Response } from "src/http/type";
 import catchAsyncErrors from "src/http/middlewares/catchAsyncErrors";
 
 
-const saidaMovimentacaoController = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
+const saidaMovimentacaoController = catchAsyncErrors(async (req: Request, res: Response) => {
 
     const {
         solicitacao_id,

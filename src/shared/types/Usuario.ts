@@ -1,8 +1,6 @@
+import { Usuario as UsuarioPrisma } from "@prisma/client"
 
 
-export  interface Usuario {
-    id: string;
-    login: string;
-    nome: string;
-    // tipo_usuario_id: string;
+export interface Usuario extends UsuarioPrisma {
+
 }

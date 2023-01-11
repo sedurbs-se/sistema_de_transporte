@@ -1,8 +1,8 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { Request, Response } from "src/http/type";
 import catchAsyncErrors from "../../../middlewares/catchAsyncErrors";
 import prisma from "../../../../shared/prisma.index";
 
-const listVeiculoSemMovimentacaoController = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
+const listVeiculoSemMovimentacaoController = catchAsyncErrors(async (req: Request, res: Response) => {
 
     const { page, limit } = req.query;
 

@@ -1,10 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { Request, Response } from "src/http/type";
 import catchAsyncErrors from "../../../middlewares/catchAsyncErrors";
 import prisma from "../../../../shared/prisma.index";
 import AppError from "../../../errors/AppError";
 
 
-const deleteVeiculoController = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
+const deleteVeiculoController = catchAsyncErrors(async (req: Request, res: Response) => {
     
     const { id } = req.query;
 
