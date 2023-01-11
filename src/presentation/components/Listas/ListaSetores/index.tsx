@@ -7,6 +7,8 @@ import { useStore } from "@domain/store/store"
 import TableComponent from "@components/Table"
 import { api } from "@domain/config/api"
 import PaginationComponent from "@components/Pagination"
+import { WarningPopUp } from "@shared/swal"
+import { deleteSetor } from "@domain/requests/delete/deleteSetor"
 
 export interface ListaSetoresProps {
 }
@@ -28,15 +30,16 @@ const ListaSetores = (props: ListaSetoresProps) => {
 
     const onDelete = async (id: string) => {
 
-        const onDeleteSuccess = (id: string) => {
+        const onDeleteSuccess = () => {
             removeSetor(id)
         }
 
-        const data = await axios.delete(`http://localhost:3000/api/setor?id=${id}`);
-
-        if (data.status === 200) {
-            onDeleteSuccess(id)
-        }
+        WarningPopUp({
+            message: "Tem certeza que deseja excluir o setor do sistema?",
+            errorMessage: "Não foi possível excluir o setor",
+            action: async () => await deleteSetor({ id }),
+            onActionSuccess: onDeleteSuccess
+        })
 
     }
 
@@ -54,12 +57,6 @@ const ListaSetores = (props: ListaSetoresProps) => {
         setSetor([setor.data.setor])
         setShow(true)
     }
-
-    useEffect(() => {
-        if (selectedSetor) {
-            setSelectedSetor()
-        }
-    }, [selectedSetor])
 
 
     const [page, setPage] = useState(1);

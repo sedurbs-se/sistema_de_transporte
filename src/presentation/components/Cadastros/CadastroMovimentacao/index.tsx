@@ -19,10 +19,11 @@ const CadastroMovimentacao = () => {
 
     } = useStore(state => state, shallow);
 
-    const { register, handleSubmit, watch, formState: { errors }, setValue } = useForm();
+    const { register, handleSubmit, watch, formState: { errors }, setValue,reset } = useForm();
 
     const onSuccess = ({ }: ISaidaMovimentacaoResponse) => {
-        setModalSuccess()
+        setModalSuccess();
+        reset()
     };
 
     const form = watch() as ISaidaMovimentacaoDTO['params'];

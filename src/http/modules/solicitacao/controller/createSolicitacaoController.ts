@@ -20,6 +20,11 @@ const createSolicitacaoController = catchAsyncErrors(async (req: NextApiRequest,
         observacao,
     } = req.body as ICreateSolicitacaoDTO["params"];
 
+    Object.keys(req.body).forEach(key => {
+        if (!req.body[key]) {
+            throw new AppError('Todos os campos são obrigatórios', 400)
+        };
+    })
 
     const solicitacao = await prisma.solicitacao.create({
         data: {

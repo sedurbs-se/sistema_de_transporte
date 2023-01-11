@@ -3,7 +3,6 @@ import ListaSetores from "@components/Listas/ListaSetores";
 import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
 import PageContainer from "@components/PageContainer";
 import { initializeStore } from "@domain/store/store";
-import axios from "axios";
 import fetchSetores from "@domain/requests/fetch/fetchSetores";
 
 const Teste: NextPage  = () => {

@@ -8,8 +8,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { InputError } from "@components/InputError";
 import { ICreateSolicitacaoDTO, ICreateSolicitacaoResponse, useCreateSolicitacao } from "@domain/query/createSolicitacao";
 import { useEffect } from "react";
-import { isIsoDate } from "@shared/utils/dateUtils";
 import { Solicitacao } from "@shared/types/Solicitação"
+import { useRouter } from "next/router";
 const CadastroSolicitacao = () => {
 
     const {
@@ -42,9 +42,10 @@ const CadastroSolicitacao = () => {
 
     const isFetching = false;
 
-    const { register, handleSubmit, watch, formState: { errors }, setValue } = useForm({ resolver: yupResolver(validationSchema) });
+    const { register, handleSubmit, watch, formState: { errors }, setValue, reset } = useForm({ resolver: yupResolver(validationSchema) });
 
     const onSuccess = ({ solicitacao }: ICreateSolicitacaoResponse) => {
+
         if (selectedSolicitacao) {
             setSelectedSolicitacao()
             updateSolicitacao(solicitacao);
@@ -52,7 +53,9 @@ const CadastroSolicitacao = () => {
         } else {
             addSolictacao(solicitacao)
             setModalSuccess();
-        }
+        };
+
+        reset()
     };
 
     const form = watch() as ICreateSolicitacaoDTO["params"]
@@ -68,11 +71,11 @@ const CadastroSolicitacao = () => {
     };
 
     useEffect(() => {
-        
+
         if (selectedSolicitacao) {
             Object.keys(form).forEach(key => {
                 if (key == "municipios") {
-                
+
                     setValue("municipios", selectedSolicitacao.municipiosolicitacao?.map(m => m.municipio.nome))
                 } else {
                     setValue(key, selectedSolicitacao[key as keyof Solicitacao])

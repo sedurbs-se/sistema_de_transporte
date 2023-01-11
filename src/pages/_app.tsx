@@ -18,7 +18,9 @@ function MyApp({ Component, pageProps }: AppProps<pageProps>) {
   const createStore = useCreateStore(pageProps.initialZustandState)
 
   const user = pageProps.initialZustandState?.user;
-  console.log('sol',pageProps.initialZustandState?.solicitacoes)
+
+  console.log(pageProps.initialZustandState)
+  
   // Validade if logged here
   return (
     <SSRProvider>

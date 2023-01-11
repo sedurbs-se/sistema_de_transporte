@@ -21,7 +21,7 @@ const CadastroMotorista = () => {
     
     } = useStore(state => state, shallow);
 
-    const { register, handleSubmit, watch, formState: { errors }, setValue } = useForm();
+    const { register, handleSubmit, watch, formState: { errors }, setValue,reset } = useForm();
 
     const onSuccess = ({ motorista }: ICreateMotoristaResponse) => {
         if (selectedMotorista) {
@@ -32,6 +32,8 @@ const CadastroMotorista = () => {
             addMotorista(motorista)
             setModalSuccess();
         }
+
+        reset()
     };
 
     const form = watch() as ICreateMotoristaDTO['params'];
