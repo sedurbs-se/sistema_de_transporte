@@ -23,7 +23,10 @@ const listSolicitacaoAutorizadasController = catchAsyncErrors(async (req: NextAp
 
     const solicitacoes = await prisma.solicitacao.findMany({
         where: {
-            status_solicitacao_id: statusAutorizado.id
+            AND: [
+                {status_solicitacao_id:  statusAutorizado.id},
+                {Movimentacao: null}
+            ]
         },
         skip: (Number(page) - 1) * Number(limit), take: Number(limit),
         include: {

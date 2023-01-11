@@ -23,14 +23,10 @@ const CadastroRetorno = () => {
 
 
     const validationSchema = yup.object().shape({
-        placa: yup.string().required('Código é obrigatório'),
-        motorista: yup.string().required('Descrição é obrigatório'),
-        motorista_id: yup.string().required('Sigla é obrigatório'),
-        veiculos_id: yup.string().required(),
-        quilometragemAtual: yup.number().required('Sigla é obrigatório'),
+        quilometragemFinal: yup.number().required().min(selectedMovimentacao?.veiculo.quilometragemAtual as number),
         status_id: yup.string().required(),
-        dtsaida: yup.date().required()
-      });
+        dtretorno: yup.date().required(),
+        observacao: yup.string()});
 
     const { register, handleSubmit, watch, formState: { errors }, setValue } = useForm({resolver: yupResolver(validationSchema)});
 
@@ -47,7 +43,7 @@ const CadastroRetorno = () => {
     }, [form])
 
     const { refetch, isError } = useRetornoMovimentacao({
-        params: form,
+        params: {...form, id: selectedMovimentacao?.id},
         onSuccess,
     });
 
@@ -93,9 +89,9 @@ const CadastroRetorno = () => {
                         <Col>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Placa</Form.Label>
-                                <Form.Select  >
+                                <Form.Select disabled >
                                     {
-                                            <option key={form.veiculos_id} selected value={form.veiculos_id}>{form.placa}</option>
+                                            <option  key={form.veiculos_id} selected value={form.veiculos_id}>{selectedMovimentacao?.veiculo.placa}</option>
                                     }
                                 </Form.Select>
                             </Form.Group>
@@ -105,27 +101,60 @@ const CadastroRetorno = () => {
                             <Form.Group className="mb-3" controlId="formBasicDataNascimento">
                                 <Form.Label>Km inicial</Form.Label>
                                 <Form.Control type="number" disabled
-                                    value={form.quilometragemAtual}
+                                    value={selectedMovimentacao?.veiculo.quilometragemAtual}
                                 />
                             </Form.Group>
                         </Col>
+                        <Col>
+                            <Form.Group className="mb-3" controlId="formBasicDataNascimento">
+                                <Form.Label>Km final</Form.Label>
+                                <Form.Control type="number" 
+                                    {...register("quilometragemFinal")}
+                                />
+                            </Form.Group>
+                        </Col>
+                        <Row>
                         <Col>
                             <Form.Group className="mb-3" controlId="formBasicBairro">
                                 <Form.Label>Motorista</Form.Label>
-                                <Form.Select >
-                                    <option value="">Selecione o motorista</option>
-                                        <option selected key={form.motorista_id} value={form.motorista_id}>{form.motorista}</option>
+                                <Form.Select disabled >
+                                        <option selected key={form.motorista_id} value={form.motorista_id}>{selectedMovimentacao?.motorista.nome}</option>
                                 </Form.Select>
                             </Form.Group>
                         </Col>
+                        </Row>
+
+
+                        <Row>
                         <Col>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Data e Hora de saída</Form.Label>
-                                <Form.Control type="datetime-local" placeholder="Data de saída"
+                                <Form.Control 
+                                disabled
+                                type="datetime-local" placeholder="Data de saída"
                                     {...register("dtsaida")}
+                                    value={
+                                        form.dtsaida?.slice(0, 16)
+                                    }
                                 />
                             </Form.Group>
                         </Col>
+
+                        <Col>
+                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Label>Data e Hora de retorno</Form.Label>
+                                <Form.Control 
+                                type="datetime-local" placeholder="Data de saída"
+                                    {...register("dtretorno")}
+                                    value={
+                                        form.dtretorno?.slice(0, 16)
+                                    }
+                                />
+                            </Form.Group>
+                        </Col>
+                        </Row>
+
+
 
                         <Col>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
