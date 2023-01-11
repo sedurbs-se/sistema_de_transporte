@@ -25,12 +25,19 @@ const updateSolicitacaoController = catchAsyncErrors(async (req: NextApiRequest,
         num_ocupantes,
         atividade,
         data_hora_saida,
-        tipo_solicitacao,
-        status_solicitacao,
-        setor,
+        tipo_solicitacao_id,
+        status_solicitacao_id,
+        setor_id,
         municipios,
         observacao,
     } = req.body as ICreateSolicitacaoDTO["params"];
+
+
+    Object.keys(req.body).forEach(key => {
+        if (!req.body[key]) {
+            throw new AppError('Todos os campos são obrigatórios', 400)
+        };
+    })
 
     // valida body params
 
@@ -43,9 +50,9 @@ const updateSolicitacaoController = catchAsyncErrors(async (req: NextApiRequest,
             num_ocupantes,
             data_hora_saida: new Date(data_hora_saida),
             atividade,
-            tipo_solicitacao_id: tipo_solicitacao,
-            status_solicitacao_id: status_solicitacao,
-            setor_id: setor,
+            tipo_solicitacao_id,
+            status_solicitacao_id,
+            setor_id,
             observacao,
         }
     });
