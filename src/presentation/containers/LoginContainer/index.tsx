@@ -3,7 +3,7 @@ import Router from "next/router";
 import { useState } from "react";
 import { useStore } from "@domain/store/store";
 import style from "./index.module.scss";
-import { authenticateUser, IAuthenticateUser, IAuthenticateUserResponse } from "@domain/query/authenticateUser";
+import { useAuthenticateUser, IAuthenticateUser, IAuthenticateUserResponse } from "@domain/query/authenticateUser";
 import shallow from "zustand/shallow";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -29,7 +29,7 @@ const LoginContainer = () => {
         Router.push("/solicitacao");
     };
 
-    const { isLoading, isError, error, refetch } = authenticateUser(loginForm, onSuccess);
+    const { isLoading, isError, error, refetch } = useAuthenticateUser(loginForm, onSuccess);
 
     const errorMessage = axios.isAxiosError(error) && error.response?.data.message;
 

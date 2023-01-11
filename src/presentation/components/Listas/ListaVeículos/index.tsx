@@ -5,14 +5,16 @@ import { useStore } from "@domain/store/store";
 import TableComponent from "@components/Table";
 import { useState } from "react";
 import { api } from "@domain/config/api";
+import { deleteVeiculo } from "@domain/requests/delete/deleteVeiculo";
+import { WarningPopUp } from "@shared/swal";
 
 
 const ListaVeiculos = () => {
 
-    const [veiculo, setVeiculo] = useState([{nome: "", placa: "", componentes:"", quilometragemInicial:0,quilometragemAtual:0,tipoFrota:"",setor:"",locadora:"", observacao:""}])
+    const [veiculo, setVeiculo] = useState([{ nome: "", placa: "", componentes: "", quilometragemInicial: 0, quilometragemAtual: 0, tipoFrota: "", setor: "", locadora: "", observacao: "" }])
     const [show, setShow] = useState(false);
 
-    const { veiculos } = useStore((state) => state, shallow);
+    const { veiculos, removeVeiculo } = useStore((state) => state, shallow);
 
     const tableColumns = [
         ["Placa", "placa"],
@@ -23,8 +25,18 @@ const ListaVeiculos = () => {
     ];
 
     const onDelete = async (id: string) => {
-        const onDeleteSuccess = (id: string) => {
+        
+        const onDeleteSuccess = () => {
+            removeVeiculo(id);
         }
+
+        WarningPopUp({
+            message: "Tem certeza que deseja excluir o veiculo do sistema?",
+            errorMessage: "Não foi possível excluir o veiculo",
+            action: async () => await deleteVeiculo({ id }),
+            onActionSuccess: onDeleteSuccess
+        })
+
     }
 
     const onEdit = (id: string) => {
@@ -51,7 +63,7 @@ const ListaVeiculos = () => {
                 onDetail={onDetail}
             />
 
-<Modal show={show} fullscreen={true} onHide={() => setShow(false)}>
+            <Modal show={show} fullscreen={true} onHide={() => setShow(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>{veiculo[0].nome}</Modal.Title>
                 </Modal.Header>

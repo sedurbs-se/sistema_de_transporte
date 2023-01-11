@@ -10,7 +10,7 @@ interface IAuthenticateUserResponse {
     token: string;
 }
 
-function authenticateUser(params: IAuthenticateUser, onSuccess: (data: IAuthenticateUserResponse) => void): UseQueryResult<IAuthenticateUserResponse> {
+function useAuthenticateUser(params: IAuthenticateUser, onSuccess: (data: IAuthenticateUserResponse) => void): UseQueryResult<IAuthenticateUserResponse> {
     return useQuery('authenticateUser', async () => {
         const { data }: AxiosResponse = await axios.post("http://localhost:3000/api/session",
             { ...params });
@@ -23,5 +23,5 @@ function authenticateUser(params: IAuthenticateUser, onSuccess: (data: IAuthenti
     });
 }
 
-export { authenticateUser };
+export { useAuthenticateUser };
 export type { IAuthenticateUser, IAuthenticateUserResponse };

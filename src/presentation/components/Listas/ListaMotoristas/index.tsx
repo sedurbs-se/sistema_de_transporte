@@ -8,6 +8,8 @@ import TableComponent from "@components/Table"
 import Swal from "sweetalert2"
 import { api } from "@domain/config/api"
 import PaginationComponent from "@components/Pagination"
+import { deleteMotorista } from "@domain/requests/delete/deleteMotorista"
+import { WarningPopUp } from "@shared/swal"
 
 export interface ListaMotoristasProps {
 }
@@ -29,60 +31,17 @@ const ListaMotoristas = (props: ListaMotoristasProps) => {
 
     const onDelete = async (id: string) => {
 
-        const onDeleteSuccess = (id: string) => {
+        const onDeleteSuccess = () => {
             removeMotorista(id)
         }
 
-        Swal.fire({
-            icon: 'warning',
-            title: "Tem certeza?",
-            text: "Isso excluirá o motorista do sistema",
-            confirmButtonText: "Sim",
-            cancelButtonText: "Não",
-            cancelButtonColor: "red",
-            confirmButtonColor: "green",
-            focusCancel: true,
-            showCancelButton: true,
-            showCloseButton: true,
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                var showLoading = function () {
-                    Swal.fire({
-                        title: 'Aguarde..',
-                        allowOutsideClick: false,
-                        showConfirmButton: false,
-                        willOpen: () => {
-                            Swal.showLoading()
-                        },
-                    })
-                }
 
-                try {
-                    showLoading();
-                    const data = await axios.delete(`http://localhost:3000/api/motorista?id=${id}`);
-                    Swal.close()
-
-                    if (data.status === 200) {
-                        onDeleteSuccess(id)
-                    }
-                }
-
-                catch {
-                    Swal.fire({
-                        icon: 'error',
-                        title: "Algo deu errado!",
-                        text: "Não foi possível realizar a exclusão.\nVerifique sua conexão e tente novamente!",
-                        confirmButtonColor: 'gray',
-                        showCloseButton: true
-                    })
-                }
-
-
-
-            }
-        }
-        )
-
+        WarningPopUp({
+            message: "Tem certeza que deseja excluir o motorista do sistema?",
+            errorMessage: "Não foi possível excluir o motorista",
+            action: async () => await deleteMotorista({ id }),
+            onActionSuccess: onDeleteSuccess
+        })
     }
 
     const onEdit = (id: string) => {
@@ -100,11 +59,7 @@ const ListaMotoristas = (props: ListaMotoristasProps) => {
         setShow(true)
     }
 
-    useEffect(() => {
-        if (selectedMotorista) {
-            setSelectedMotorista()
-        }
-    }, [selectedMotorista])
+
 
     const [page, setPage] = useState(1);
 

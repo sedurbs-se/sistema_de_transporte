@@ -37,17 +37,11 @@ const CadastroLocadoras = (props: CadastroLocadoraProps) => {
     } else {
       addLocadora(locadora)
       setModalSuccess();
-      clearFields();
     }
 
     reset()
   };
 
-  const clearFields = () => {
-    Object.keys(form).forEach(key => {
-      setValue(key, "")
-    })
-  }
 
   const form = watch() as ICreateLocadoraDTO['params'];
 
