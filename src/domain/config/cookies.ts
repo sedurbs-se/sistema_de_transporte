@@ -1,7 +1,7 @@
 import { NextPageContext } from "next"
 import nookies from "nookies"
 
-export const getCookies = (ctx: NextPageContext) => {
+export const getCookies = (ctx?: NextPageContext) => {
     return nookies.get(ctx)
 };
 
