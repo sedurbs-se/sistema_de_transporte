@@ -34,6 +34,8 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     const { solicitacoes } = await fetchSolicitacoes()
 
+    console.log('solicitacoes', solicitacoes)
+
     state.user = isAuthenticated;
     state.solicitacoes = solicitacoes;
 
