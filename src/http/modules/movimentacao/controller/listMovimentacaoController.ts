@@ -6,11 +6,7 @@ import prisma from "../../../../shared/prisma.index";
 
 
 // get one note from with a note id request dynamically
-<<<<<<< HEAD
 const listMovimentacaoController = catchAsyncErrors(async (req: Request, res: Response) => {
-    const movimentacoes = await prisma.movimentacao.findMany();
-=======
-const listMovimentacaoController = catchAsyncErrors(async (req: NextApiRequest, res: NextApiResponse) => {
     const movimentacoes = await prisma.movimentacao.findMany({
         where: {
             solicitacao_id: {
@@ -36,7 +32,6 @@ const listMovimentacaoController = catchAsyncErrors(async (req: NextApiRequest, 
             }
         }
     });
->>>>>>> dab29fa24c056da0513d4ae460c0da180466b4f7
 
     res.status(200).json({
         movimentacoes

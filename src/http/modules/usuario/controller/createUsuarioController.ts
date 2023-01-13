@@ -9,15 +9,13 @@ import { Request, Response } from "src/http/type";
 // get one note from with a note id request dynamically
 const createUsuarioController = catchAsyncErrors(async (req: Request, res: Response) => {
 
-    const responsavelTipo = await prisma.tipoUsuario.findUnique(
-        {
-            where: {
-                id: req.user?.tipo_id as string
-            }
-        });
+    const { user: responsavel } = req;
 
+    console.log(responsavel);
+    
+    if (responsavel?.tipo === null) throw new AppError('Usuário não autenticado', 401);
 
-    if (responsavelTipo?.nome !== 'admin') {
+    if (responsavel?.tipo.nome !== 'admin') {
         throw new AppError('Você não tem permissão para realizar essa ação', 401);
     }
 
