@@ -11,7 +11,6 @@ export default async function verifyAuthentication(
 ) {
 
     const { authorization } = req.headers;
-    console.log("caiu aqui")
     if (!authorization) {
         throw new AppError('Token not provided', 401);
     }
@@ -22,7 +21,6 @@ export default async function verifyAuthentication(
         throw new AppError('Token not provided', 401);
     }
 
-    console.log(authorization)
 
     const { user } = decode(token) as { user: Usuario };
 
@@ -30,13 +28,13 @@ export default async function verifyAuthentication(
         throw new AppError('Invalid token', 401);
     }
 
-    const existUser = await prisma.usuario.findUnique({ where: { id: user.id } });
+    const existUser = await prisma.usuario.findUnique({ where: { id: user.id }, include: { tipo: true } });
 
     if (!existUser) {
         throw new AppError('Invalid token', 401);
     };
 
-    req.user = user;
+    req.user = existUser;
 
     next();
 }

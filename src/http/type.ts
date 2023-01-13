@@ -1,9 +1,11 @@
-import { Usuario } from "@prisma/client";
+import { TipoUsuario, Usuario } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 
 
 interface Request extends NextApiRequest {
-    user?: Usuario;
+    user?: Usuario & {
+        tipo: TipoUsuario | null;
+    }
 };
 
 interface Response extends NextApiResponse {

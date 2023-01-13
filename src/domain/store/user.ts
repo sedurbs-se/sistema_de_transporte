@@ -6,6 +6,7 @@ import { GetServerSidePropsContext } from 'next';
 
 export interface IUserStore {
     user: Usuario | null;
+    usuarios: Usuario[];
     setUser: (user: Usuario) => void;
     createSession: (token: string) => Promise<void>;
     deleteSession: () => void;
@@ -15,6 +16,7 @@ export interface IUserStore {
 
 export const initialUserStoreState: IUserStore = {
     user: null,
+    usuarios: [],
     setUser: (user: Usuario) => { },
     createSession: async (token: string) => { },
     deleteSession: async () => { },

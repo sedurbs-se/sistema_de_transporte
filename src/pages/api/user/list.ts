@@ -1,13 +1,15 @@
 
 import nc from "next-connect";
 import verifyAuthentication from "src/http/middlewares/verifyAuthentication";
-import resetUsuarioController from "src/http/modules/usuario/controller/resetUsuarioController";
+import { listUsuarioController } from "src/http/modules/usuario/controller/listUsuarioController";
 import onError from "../../../http/middlewares/onErrors";
 
-const handler = nc({ onError }).use(verifyAuthentication)
+const handler = nc({ onError });
 
-handler.post(resetUsuarioController);
+handler.get(listUsuarioController);
 
+
+// handler.put(updateMotoristaController);
 // handler.put()
 export default handler;
 

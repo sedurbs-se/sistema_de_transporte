@@ -19,7 +19,11 @@ const resetUsuarioController = catchAsyncErrors(async (req: Request, res: Respon
         throw new AppError('Você não tem permissão para realizar essa ação', 401);
     }
 
-    const { id } = req.body;
+    const { id } = req.query;
+
+    if(!id) {
+        throw new AppError('Usuário não encontrado', 404);
+    }
 
     const existUser = await prisma.usuario.findUnique({ where: { id: id as string } });
 

@@ -17,7 +17,8 @@ const createSessionController = catchAsyncErrors(async (req: Request, res: Respo
         select: {
             id: true,
             nome: true,
-            login: true
+            login: true,
+            tipo: true
         }
     })
 

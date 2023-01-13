@@ -21,24 +21,41 @@ const updateUsuarioController = catchAsyncErrors(async (req: Request, res: Respo
         throw new AppError('Você não tem permissão para realizar essa ação', 401);
     }
 
-    const { nome, login, password } = req.body;
+    const { id } = req.query;
 
-    const existUser = await prisma.usuario.findUnique({ where: { login: login as string } });
-
-    if (existUser) {
-        throw new AppError('Usuário já cadastrado', 400);
+    if (!id) {
+        throw new AppError('Usuário não encontrado', 400);
     }
 
-    await prisma.usuario.create({
+
+    const existUser = await prisma.usuario.findUnique({ where: { id: id as string } });
+
+    if (!existUser) {
+        throw new AppError('Usuário não cadastrado', 400);
+    }
+
+    const { nome, login, password } = req.body;
+
+    const user = await prisma.usuario.update({
+        where: {
+            id: id as string
+        },
         data: {
-            nome,
-            login,
-            password,
+            nome, login, password
+        },
+        select: {
+            id: true,
+            nome: true,
+            login: true,
+            tipo: {
+                select: {
+                    nome: true
+                }
+            }
         }
     });
 
-
-    res.status(200).json({});
+    res.status(200).json({ user });
 });
 
 
