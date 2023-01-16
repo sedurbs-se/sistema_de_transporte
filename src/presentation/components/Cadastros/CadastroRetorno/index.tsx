@@ -21,9 +21,11 @@ const CadastroRetorno = () => {
 
     } = useStore(state => state, shallow);
 
+    
+
 
     const validationSchema = yup.object().shape({
-        quilometragemFinal: yup.number().required().min(selectedMovimentacao?.veiculo.quilometragemAtual as number),
+        quilometragemFinal: yup.number().required().min(selectedMovimentacao?.veiculo!.quilometragemAtual as number),
         status_id: yup.string().required(),
         dtretorno: yup.date().required(),
         observacao: yup.string()});
@@ -36,14 +38,9 @@ const CadastroRetorno = () => {
 
     const form = watch() as IRetornoMovimentacaoDTO['params'];
 
-    
-
-    useEffect(() => {
-        console.log(form)
-    }, [form])
 
     const { refetch, isError } = useRetornoMovimentacao({
-        params: {...form, id: selectedMovimentacao?.id},
+        params: {...form, id: selectedMovimentacao?.id || ''},
         onSuccess,
     });
 
@@ -61,22 +58,9 @@ const CadastroRetorno = () => {
         if (selectedMovimentacao) {
             console.log('selectedMovimentacao', selectedMovimentacao)
             Object.keys(form).forEach(key => {
-                if(key == 'placa') {
-                    setValue('placa', selectedMovimentacao.veiculo.placa)
-                }
-                else if(key == 'quilometragemAtual') {
-                    setValue('quilometragemAtual', selectedMovimentacao.veiculo.quilometragemAtual)
-                }
-                else if(key == 'motorista') {
-                    setValue('motorista', selectedMovimentacao.motorista.nome)
-                }
-                else {
                     setValue(key, selectedMovimentacao[key as keyof Movimentacao])
-                }
-        
             })
         }
-        console.log(form)
     }, [selectedMovimentacao])
 
     return (
@@ -91,7 +75,7 @@ const CadastroRetorno = () => {
                                 <Form.Label>Placa</Form.Label>
                                 <Form.Select disabled >
                                     {
-                                            <option  key={form.veiculos_id} selected value={form.veiculos_id}>{selectedMovimentacao?.veiculo.placa}</option>
+                                            <option  key={form.veiculos_id} selected value={form.veiculos_id}>{selectedMovimentacao?.veiculo!.placa}</option>
                                     }
                                 </Form.Select>
                             </Form.Group>
@@ -101,7 +85,7 @@ const CadastroRetorno = () => {
                             <Form.Group className="mb-3" controlId="formBasicDataNascimento">
                                 <Form.Label>Km inicial</Form.Label>
                                 <Form.Control type="number" disabled
-                                    value={selectedMovimentacao?.veiculo.quilometragemAtual}
+                                    value={selectedMovimentacao?.veiculo!.quilometragemAtual}
                                 />
                             </Form.Group>
                         </Col>
@@ -118,7 +102,7 @@ const CadastroRetorno = () => {
                             <Form.Group className="mb-3" controlId="formBasicBairro">
                                 <Form.Label>Motorista</Form.Label>
                                 <Form.Select disabled >
-                                        <option selected key={form.motorista_id} value={form.motorista_id}>{selectedMovimentacao?.motorista.nome}</option>
+                                        <option selected key={form.motorista_id} value={form.motorista_id}>{selectedMovimentacao?.motorista!.nome}</option>
                                 </Form.Select>
                             </Form.Group>
                         </Col>

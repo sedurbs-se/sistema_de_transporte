@@ -9,6 +9,5 @@ interface InputErrorProps {
 
 export function InputError({type, field, form}:InputErrorProps){
     // @ts-expect-error
-    console.log(form)
     return <span className={style['field-error']}>{errors[form][field][type]}</span>
 }

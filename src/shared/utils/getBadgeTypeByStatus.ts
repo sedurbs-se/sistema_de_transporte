@@ -12,6 +12,9 @@ export default function getBadgeTypeByStatus(status: string): BadgeType {
         case('AUTORIZADO'):
         result = 'success';
         break;
+        case('CANCELADO'):
+        result = 'danger';
+        break;
     }
     return result;
 }
