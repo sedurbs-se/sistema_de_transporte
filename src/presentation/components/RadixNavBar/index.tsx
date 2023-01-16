@@ -78,7 +78,7 @@ const RadixNavBar = () => {
                         ItemsDropDown.map((drop, index) => (
                             !drop.disabled ?
                                 (
-                                    <DropdownMenu.Root>
+                                    <DropdownMenu.Root key={drop.title + index}>
                                         <DropdownMenu.Trigger asChild>
                                             <span className={styles.IconButton} >
                                                 {drop.title}
@@ -91,7 +91,9 @@ const RadixNavBar = () => {
                                                 {drop.items.map(item => (
                                                     <DropdownMenu.Item className={styles.DropdownMenuItem} onClick={() => {
                                                         handleItemClick(item);
-                                                    }}>
+                                                    }}
+                                                    key={item.text}
+                                                    >
                                                         {item.text}
                                                         {/* <div className={styles.RightSlot}> </div> */}
                                                     </DropdownMenu.Item>
