@@ -4,10 +4,13 @@ import PageContainer from "@components/PageContainer";
 import { initializeStore } from "@domain/store/store";
 import fetchSolicitacoes from "@domain/requests/fetch/fetchSolicitacoes";
 
+
 const Solicitacao: NextPage = () => {
     return (
 
         <PageContainer>
+
+
             <ListaSolicitacoes></ListaSolicitacoes>
         </PageContainer>
 
