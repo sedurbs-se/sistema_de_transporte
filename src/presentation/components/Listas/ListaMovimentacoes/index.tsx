@@ -4,8 +4,8 @@ import TableComponent from "@components/Table"
 import { useStore } from "@domain/store/store"
 import shallow from "zustand/shallow"
 import Router from "next/router"
-import { deleteSolicitacao } from "@domain/requests/delete/deleteSolicitacao"
 import { WarningPopUp } from "@shared/swal"
+import { deleteMovimentacao } from "@domain/requests/delete/deleteMovimentacao"
 
 const ListaMovimentacoes = () => {
 
@@ -36,7 +36,7 @@ const ListaMovimentacoes = () => {
     }
 
 
-    const tableBody = movimentacoes.map((movimentacao) => ({
+    const tableBody = movimentacoes.map((movimentacao:any) => ({
         id: movimentacao.id,
         data: getData(movimentacao.dtsaida),
         hora: getTime(movimentacao.dtsaida),
@@ -62,7 +62,7 @@ const ListaMovimentacoes = () => {
         WarningPopUp({
             message: "Tem certeza que deseja excluir essa movimentação?",
             errorMessage: "Não foi possível excluir a movimentação",
-            action: async () => await deleteSolicitacao({ id }),
+            action: async () => await deleteMovimentacao({ id }),
             onActionSuccess: onDeletedSuccess,
         })
     };

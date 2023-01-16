@@ -7,6 +7,7 @@ import { useStore } from "@domain/store/store";
 import shallow from "zustand/shallow";
 import Router from "next/router";
 import { availableDropDown } from "./contants";
+import { v4 as uuidv4 } from 'uuid';
 
 
 
@@ -109,7 +110,7 @@ const NavBarT = () => {
                                 id={drop.id}>
                                 {
                                     drop.items.map(item => (
-                                        <NavDropdown.Item text={item.text} href={item.href} as={DropdownLink}>
+                                        <NavDropdown.Item key={uuidv4()} text={item.text} href={item.href} as={DropdownLink}>
                                         </NavDropdown.Item>
                                     ))
                                 }

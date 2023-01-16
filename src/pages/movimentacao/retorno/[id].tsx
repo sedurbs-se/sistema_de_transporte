@@ -9,6 +9,7 @@ import fetchVeiculos from "@domain/requests/fetch/fetchVeiculos";
 import fetchVeiculosSemMovimentacao from "@domain/requests/fetch/fetchVeiculosSemMovimentacao";
 import { initializeStore } from "@domain/store/store";
 import { GetServerSideProps, NextPage } from "next";
+import { useState } from "react";
 import style from "../../../styles/Home.module.css"
 
 

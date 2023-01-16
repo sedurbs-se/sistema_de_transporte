@@ -84,7 +84,7 @@ const CadastroMovimentacao = () => {
                             <Form.Group className="mb-3" controlId="formBasicDataNascimento">
                                 <Form.Label>Km inicial</Form.Label>
                                 <Form.Control type="number" disabled
-                                    value={selectedVeiculo ? selectedVeiculo.quilometragemInicial : 0}
+                                    value={selectedVeiculo ? selectedVeiculo.quilometragemAtual : 0}
                                 />
                             </Form.Group>
                         </Col>
