@@ -1,8 +1,10 @@
+
+
 import axios from 'axios'
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-
-import { initializeStore } from '../domain/store/store'
+import { HomeContainer } from '../presentation/containers/Home'
+import { initializeStore } from '../store/store'
 import styles from '../styles/Home.module.css'
 
 interface Props {
@@ -10,6 +12,7 @@ interface Props {
 }
 
 const Home: NextPage<Props> = ({ isAuthenticated }) => {
+
     return (
         <div className={styles.container}>
             <Head>
@@ -17,9 +20,11 @@ const Home: NextPage<Props> = ({ isAuthenticated }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main className={styles.main}>
-                <h2>
-                    SISTEMA DE TRANSPORTE
-                </h2>
+                <h1>
+                    Sistema de Transporte
+                </h1>
+
+                <HomeContainer />
             </main>
 
         </div>
@@ -31,9 +36,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async context => {
 
     const state = zustandStore.getState();
 
-    const { verifySession } = state;
-
-    const  isAuthenticated = await verifySession(context);
+    const isAuthenticated = true;
 
     if (!isAuthenticated) {
         return {
@@ -43,7 +46,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async context => {
             },
         }
     }
-
+    
     // Get Veiculos
     const veiculos = await axios.get("http://localhost:3000/api/veiculos");
 
@@ -56,5 +59,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async context => {
         }
     }
 }
+
 
 export default Home;

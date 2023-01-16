@@ -1,28 +1,14 @@
 .container {
-  background: #5c5c5c;
   padding: 0 2rem;
 }
 
 .main {
-  font-family: Inter;
-  gap:20px;
   min-height: 100vh;
   flex: 1;
   display: flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
-.title {
-  font-family: Inter;
-  color: #474646;
-}
-/* .main > h3 {
-  color:#FFFFFF;
-  font-weight: 500;
-} */
-
-.main > img {
-  width:500px;
-}

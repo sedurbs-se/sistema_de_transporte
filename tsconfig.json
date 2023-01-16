@@ -11,16 +11,9 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,  
+    "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true,
-    "baseUrl": ".",
-    "paths": {
-      "@components/*": ["src/presentation/components/*"],
-      "@domain/*": ["src/domain/*"],
-      "@shared/*": ["src/shared/*"],
-      "@utils/*": ["src/shared/utils/*"],
-    } 
+    "incremental": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
