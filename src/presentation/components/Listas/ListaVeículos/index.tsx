@@ -7,6 +7,9 @@ import { useState } from "react";
 import { api } from "@domain/config/api";
 import { deleteVeiculo } from "@domain/requests/delete/deleteVeiculo";
 import { WarningPopUp } from "@shared/swal";
+import usePagination from "@domain/hooks/usePagination";
+import fetchVeiculos from "@domain/requests/fetch/fetchVeiculos";
+import PaginationComponent from "@components/Pagination";
 
 
 const ListaVeiculos = () => {
@@ -14,7 +17,12 @@ const ListaVeiculos = () => {
     const [veiculo, setVeiculo] = useState([{ nome: "", placa: "", componentes: "", quilometragemInicial: 0, quilometragemAtual: 0, tipoFrota: "", setor: "", locadora: "", observacao: "" }])
     const [show, setShow] = useState(false);
 
-    const { veiculos, removeVeiculo } = useStore((state) => state, shallow);
+    const {
+        veiculos,
+        veiculoPages,
+        removeVeiculo,
+        setVeiculos,
+        setVeiculoPage } = useStore((state) => state, shallow);
 
     const tableColumns = [
         ["Placa", "placa"],
@@ -25,7 +33,7 @@ const ListaVeiculos = () => {
     ];
 
     const onDelete = async (id: string) => {
-        
+
         const onDeleteSuccess = () => {
             removeVeiculo(id);
         }
@@ -52,6 +60,21 @@ const ListaVeiculos = () => {
         setVeiculo([veiculo.data.veiculo])
         setShow(true)
     }
+
+    const action = (data: any) => {
+        const { veiculos, total } = data;
+
+        setVeiculos(veiculos);
+        setVeiculoPage(total)
+    }
+
+    const [page, setPage] = usePagination({
+        total: veiculoPages,
+        limit: 10,
+        onFetch: fetchVeiculos,
+        action
+    })
+
 
     return (
         <>
@@ -83,7 +106,11 @@ const ListaVeiculos = () => {
                     />
                 </Modal.Body>
             </Modal>
-
+            <PaginationComponent
+                totalPages={veiculoPages}
+                page={page}
+                onPageChange={setPage}
+            />
             <Button onClick={onAdd}>Adicionar</Button>
         </>
 

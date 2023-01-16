@@ -4,15 +4,17 @@ import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
 import PageContainer from "@components/PageContainer";
 import { initializeStore } from "@domain/store/store";
 import axios from "axios";
+import fetchLocadoras from "@domain/requests/fetch/fetchLocadoras";
+import { Locadora } from "@shared/types/Locadora";
 
-const Teste: NextPage  = () => {
+const Teste: NextPage = () => {
     return (
         <>
-        <PageContainer>
-            <h2 className={style["title"]}>Locadoras</h2>
-            <ListaLocadoras></ListaLocadoras>
-      </PageContainer>
-      </>
+            <PageContainer>
+                <h2 className={style["title"]}>Locadoras</h2>
+                <ListaLocadoras></ListaLocadoras>
+            </PageContainer>
+        </>
     )
 }
 
@@ -35,11 +37,16 @@ export const getServerSideProps: GetServerSideProps = async context => {
     }
 
     state.user = isAuthenticated;
-    
-    const locadoras = await axios.get("http://localhost:3000/api/locadora/list?page=1&limit=10");
 
-    state.locadoras = locadoras.data.locadoras;
-    
+    try {
+        const { locadoras, total } = await fetchLocadoras(1,10);
+
+        state.locadoras = locadoras;
+        state.locadoraPages = total;
+        console.log(total)
+    } catch (error) {
+    }
+
 
     return {
         props: {

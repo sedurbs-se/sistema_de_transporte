@@ -9,6 +9,8 @@ import { api } from "@domain/config/api"
 import PaginationComponent from "@components/Pagination"
 import { WarningPopUp } from "@shared/swal"
 import { deleteSetor } from "@domain/requests/delete/deleteSetor"
+import fetchSetores from "@domain/requests/fetch/fetchSetores"
+import usePagination from "@domain/hooks/usePagination"
 
 export interface ListaSetoresProps {
 }
@@ -16,15 +18,15 @@ export interface ListaSetoresProps {
 
 const ListaSetores = (props: ListaSetoresProps) => {
 
-    const { setores , removeSetor, selectedSetor ,setSelectedSetor, setorPages } = useStore((state) => state, shallow);
+    const { setores, removeSetor, setSetores, setSelectedSetor, setorPages, setSetorPages } = useStore((state) => state, shallow);
 
     const [setor, setSetor] = useState([{ nome: "", codigo: "", sigla: "", responsavel: "", ramal: "", createdAt: "", updatedAt: "" }]);
     const [show, setShow] = useState(false);
 
     const tableColumns = [
-        ["Código","codigo"],
+        ["Código", "codigo"],
         ["Sigla", "sigla"],
-        ['Ramal',"ramal"],
+        ['Ramal', "ramal"],
         ["", ""]
     ]
 
@@ -58,20 +60,31 @@ const ListaSetores = (props: ListaSetoresProps) => {
         setShow(true)
     }
 
+    const action = (data: any) => {
+        const { setores, total } = data;
 
-    const [page, setPage] = useState(1);
+        setSetores(setores)
+        setSetorPages(total)
+    }
 
-    return(
+    const [page, setPage] = usePagination({
+        total: setorPages,
+        limit: 10,
+        onFetch: fetchSetores,
+        action
+    })
+
+    return (
         <>
-        <TableComponent
-        tableHeaderData={tableColumns}
-        tableBodyData={setores}
-        onDelete={onDelete}
-        onEdit={onEdit}
-        onDetail={onDetail}
-        ></TableComponent>
+            <TableComponent
+                tableHeaderData={tableColumns}
+                tableBodyData={setores}
+                onDelete={onDelete}
+                onEdit={onEdit}
+                onDetail={onDetail}
+            ></TableComponent>
 
-<Modal show={show} fullscreen={true} onHide={() => setShow(false)}>
+            <Modal show={show} fullscreen={true} onHide={() => setShow(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>{setor[0].nome}</Modal.Title>
                 </Modal.Header>
@@ -91,15 +104,15 @@ const ListaSetores = (props: ListaSetoresProps) => {
                 </Modal.Body>
             </Modal>
 
-        <PaginationComponent
-        totalPages={setorPages}
-        page={page}
-        onPageChange={setPage}
-        />
-        <Button onClick={onAdd}>Adicionar</Button>
+            <PaginationComponent
+                totalPages={setorPages}
+                page={page}
+                onPageChange={setPage}
+            />
+            <Button onClick={onAdd}>Adicionar</Button>
         </>
 
-            )
+    )
 }
 
 export default ListaSetores;

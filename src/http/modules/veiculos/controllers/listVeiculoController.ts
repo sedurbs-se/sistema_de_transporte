@@ -25,8 +25,10 @@ const listVeiculoController = catchAsyncErrors(async (req: Request, res: Respons
         }
     })
 
+    const total = await prisma.veiculo.count();
     res.status(200).json({
-        veiculos
+        veiculos,
+        total
     });
 });
 

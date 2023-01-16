@@ -15,8 +15,11 @@ const listLocadoraController = catchAsyncErrors(async (req: Request, res: Respon
         skip: Number(page) - 1
     })
 
+    const total = await prisma.locadora.count();
+
     res.status(200).json({
-        locadoras
+        locadoras,
+        total
     });
 });
 

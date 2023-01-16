@@ -35,12 +35,18 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     state.user = isAuthenticated;
 
-    const { motoristas, count } = await fetchMotoristas(1, 10);
 
+    try {
+        const { motoristas, total } = await fetchMotoristas(1, 10);
 
-    state.motoristas = motoristas
+        state.motoristas = motoristas;
 
-    state.motoristaPages = count;
+        state.motoristaPages = total;
+        console.log(total)
+    } catch (error) {
+
+    }
+
 
     return {
         props: {

@@ -5,6 +5,7 @@ export interface ISetoresStore {
     setorPages: number;
     selectedSetor: Setor | null;
     setSelectedSetor: (selectedSetor?: Setor | string) => void;
+    setSetorPages: (setorPages: number) => void;
     setSetores: (setores: Setor[]) => void;
     addSetor: (setor: Setor) => void;
     updateSetor: (setor: Setor) => void;
@@ -17,6 +18,7 @@ export const initialSetoresStoreState: ISetoresStore = {
     setorPages: 0,
     selectedSetor: null,
     setSelectedSetor: (selectedSetor?: Setor | string) => { },
+    setSetorPages: (setorPages: number) => { },
     setSetores: (setores: Setor[]) => { },
     addSetor: (setor: Setor) => { },
     updateSetor: (setor: Setor) => { },
@@ -28,6 +30,7 @@ export const createSetoresStore = (set: any, get: any, api: any) => ({
     setSelectedSetor: (selectedSetor?: Setor | string) => set({
         selectedSetor: typeof selectedSetor === 'string' ? get().setores.find((m: Setor) => m.id === selectedSetor) : selectedSetor
     }),
+    setSetorPages: (setorPages: number) => set({ setorPages }),
     updateSetor: (setor: Setor) => {
         const setores = get().setores;
         const index = setores.findIndex((m: Setor) => m.id === setor.id);

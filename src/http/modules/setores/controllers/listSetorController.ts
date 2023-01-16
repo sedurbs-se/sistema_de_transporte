@@ -13,9 +13,12 @@ const listSetorController = catchAsyncErrors(async (req: Request, res: Response)
     }): await prisma.setor.findMany({
         skip: Number(page) - 1
     });
+
+    const total = await prisma.setor.count();
     
     res.status(200).json({
-        setores
+        setores,
+        total
     });
 });
 

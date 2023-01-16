@@ -3,7 +3,9 @@ import { Veiculo } from '@prisma/client';
 export interface IVeiculosStore {
     veiculos: Veiculo[];
     selectedVeiculo: Veiculo | null;
+    veiculoPages: number;
     setVeiculos: (veiculos: Veiculo[]) => void;
+    setVeiculoPage: (page: number) => void;
     addVeiculo: (veiculo: Veiculo) => void;
     removeVeiculo: (id: string) => void;
     updateVeiculo: (veiculo: Veiculo) => void;
@@ -12,7 +14,9 @@ export interface IVeiculosStore {
 
 export const initialVeiculosStoreState: IVeiculosStore = {
     veiculos: [],
+    veiculoPages: 1,
     setVeiculos: (veiculos: Veiculo[]) => { },
+    setVeiculoPage: (page: number) => { },
     addVeiculo: (veiculo: Veiculo) => { },
     removeVeiculo: (id: string) => { },
     updateVeiculo: (veiculo: Veiculo) => { },
@@ -30,6 +34,7 @@ export const createVeiculoStore = (set: any, get: any, api: any) => ({
         veiculos[index] = veiculo;
         set({ veiculos });
     },
+    setVeiculoPage: (page: number) => set({ veiculoPages: page }),
     setSelectedVeiculo: (selectedVeiculo?: Veiculo | string) => set({
         selectedVeiculo: typeof selectedVeiculo === 'string' ? get().veiculos.find((v: Veiculo) => v.id === selectedVeiculo) : selectedVeiculo
     })

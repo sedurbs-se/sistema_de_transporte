@@ -28,10 +28,10 @@ const listMotoristaController = catchAsyncErrors(async (req: Request, res: Respo
     })
 
 
-    const count = await prisma.motorista.count();
+    const total = await prisma.motorista.count();
     res.status(200).json({
-        motoristas:mappedMotoristas,
-        count: Math.ceil(count/Number(limit))
+        motoristas: mappedMotoristas,
+        total
     });
 });
 

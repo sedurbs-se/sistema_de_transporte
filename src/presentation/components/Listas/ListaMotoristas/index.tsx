@@ -10,6 +10,8 @@ import { api } from "@domain/config/api"
 import PaginationComponent from "@components/Pagination"
 import { deleteMotorista } from "@domain/requests/delete/deleteMotorista"
 import { WarningPopUp } from "@shared/swal"
+import usePagination from "@domain/hooks/usePagination"
+import fetchMotoristas from "@domain/requests/fetch/fetchMotoristas"
 
 export interface ListaMotoristasProps {
 }
@@ -17,7 +19,16 @@ export interface ListaMotoristasProps {
 
 const ListaMotoristas = (props: ListaMotoristasProps) => {
 
-    const { motoristas, motoristaPages, removeMotorista, selectedMotorista, setSelectedMotorista } = useStore((state) => state, shallow);
+    const {
+        motoristas,
+        motoristaPages,
+        removeMotorista,
+        selectedMotorista,
+        setSelectedMotorista,
+        setMotoristas,
+        setMotoristaPages
+
+    } = useStore((state) => state, shallow);
 
     const [motorista, setMotorista] = useState([{ nome: "", celular: "", data_nascimento: "", vinculo: "", bairro: "", endereco: "", createdAt: "", updatedAt: "" }]);
     const [show, setShow] = useState(false);
@@ -61,7 +72,20 @@ const ListaMotoristas = (props: ListaMotoristasProps) => {
 
 
 
-    const [page, setPage] = useState(1);
+    const action = (data: any) => {
+        const { motoristas, total } = data;
+
+        setMotoristas(motoristas)
+        setMotoristaPages(total)
+    }
+
+    const [page, setPage] = usePagination({
+        total: motoristaPages,
+        limit: 10,
+        onFetch: fetchMotoristas,
+        action
+    })
+
 
     return (
         <>
@@ -97,11 +121,7 @@ const ListaMotoristas = (props: ListaMotoristasProps) => {
             <PaginationComponent
                 page={page}
                 totalPages={motoristaPages}
-                onPageChange={async(page) => {
-                    setPage(page)
-                    const res = await api.get(`/motorista/list?page=${page}`)
-                    setMotorista(res.data.motoristas)
-                }}
+                onPageChange={setPage}
             />
             <Button variant="primary" onClick={onAdd}>Adicionar</Button>
         </>

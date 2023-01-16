@@ -1,12 +1,15 @@
 import Router from "next/router"
 import { Button, Modal } from "react-bootstrap"
 import shallow from "zustand/shallow"
-import {  useState } from "react"
+import { useState } from "react"
 import { useStore } from "@domain/store/store"
 import TableComponent from "@components/Table"
 import { api } from "@domain/config/api"
 import { WarningPopUp } from "@shared/swal"
 import { deleteLocadora } from "@domain/requests/delete/deleteLocadora"
+import usePagination from "@domain/hooks/usePagination"
+import fetchLocadoras from "@domain/requests/fetch/fetchLocadoras"
+import PaginationComponent from "@components/Pagination"
 
 
 export interface ListaLocadorasProps {
@@ -17,7 +20,15 @@ const ListaLocadoras = (props: ListaLocadorasProps) => {
     const [locadora, setLocadora] = useState([{ nome: "", sigla: "", bairro: "", endereco: "", telefone: "" }])
     const [show, setShow] = useState(false);
 
-    const { locadoras, removeLocadora, selectedLocadora, setSelectedLocadora } = useStore((state) => state, shallow);
+    const {
+        locadoras,
+        removeLocadora,
+        setLocadoras,
+        setLocadoraPages,
+        setSelectedLocadora,
+        locadoraPages
+
+    } = useStore((state) => state, shallow);
 
 
     const tableColumns = [
@@ -53,7 +64,22 @@ const ListaLocadoras = (props: ListaLocadorasProps) => {
         const locadora = await api.get(`/locadora?id=${id}`)
         setLocadora([locadora.data.locadora])
         setShow(true)
+    };
+
+    const action = (data: any) => {
+        const { locadoras, total } = data;
+
+        setLocadoras(locadoras)
+        setLocadoraPages(total)
     }
+
+    const [page, setPage] = usePagination({
+        total: locadoraPages,
+        limit: 10,
+        onFetch: fetchLocadoras,
+        action
+    })
+
 
     return (
         <>
@@ -63,6 +89,12 @@ const ListaLocadoras = (props: ListaLocadorasProps) => {
                 onEdit={onEdit}
                 onDelete={onDelete}
                 onDetail={onDetail}></TableComponent>
+
+            <PaginationComponent
+                totalPages={locadoraPages}
+                page={page}
+                onPageChange={setPage}
+            />
 
             <Button variant="primary" onClick={onAdd}>Adicionar</Button>
 
