@@ -1,0 +1,64 @@
+import { Request, Response } from "src/http/type";
+import catchAsyncErrors from "../../../middlewares/catchAsyncErrors";
+import prisma from "../../../../shared/prisma.index";
+import AppError from "../../../errors/AppError";
+import 'dayjs/locale/pt-br'
+import { getFormatedDateTimeString } from "@shared/utils/dateUtils";
+
+
+// get one note from with a note id request dynamically
+const getSolicitacaoController = catchAsyncErrors(async (req: Request, res: Response) => {
+
+    const { id } = req.query;
+
+    if (!id) {
+        throw new AppError('Id não informado', 400)
+    }
+
+    const solicitacao = await prisma.solicitacao.findUnique({
+        where: {
+            id: id as string
+        },
+        include: {
+            municipiosolicitacao: {
+                select: {
+                    municipio: {
+                        select: {
+                            nome: true,
+                            id: true
+                        }
+                    }
+                }
+            },
+            tiposolicitacao: true,
+            setor: true,
+            statussolicitacao: true,
+        }
+    });
+
+    const municiopiosId = solicitacao?.municipiosolicitacao?.map(municipio => municipio.municipio.id);
+
+    const municipios = await prisma.municipio.findMany({
+        where: {
+            id: {
+                in: municiopiosId
+            }
+        }
+    });
+
+
+    if (!solicitacao) {
+        throw new AppError('Solicitacao não encontrada', 404)
+    }
+
+    res.status(200).json({
+        solicitacao: {
+            ...solicitacao,
+            municipios,
+            createdAt: getFormatedDateTimeString(solicitacao.createdAt),
+            updatedAt: getFormatedDateTimeString(solicitacao.updatedAt)
+        }
+    });
+});
+
+export { getSolicitacaoController }

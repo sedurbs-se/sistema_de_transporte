@@ -1,63 +1,67 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import Router from "next/router";
 import { useState } from "react";
-import { useQuery } from "react-query";
-import { Usuario } from "../../../domain/types/Usuario";
-import { userStore  } from "../../../store/user";
+import { useStore } from "@domain/store/store";
 import style from "./index.module.scss";
+import { useAuthenticateUser, IAuthenticateUser, IAuthenticateUserResponse } from "@domain/query/authenticateUser";
+import shallow from "zustand/shallow";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { InputError } from "@components/InputError";
+import { useForm } from "react-hook-form";
 
 const LoginContainer = () => {
 
-    const { setUser } = userStore ();
+    const { createSession } = useStore((state) => state, shallow);
+
+    const validationSchema = yup.object().shape({
+        login: yup.string().required('Login é obrigatório'),
+        password: yup.string().required('Senha é obrigatório'),
+      });
 
 
-    const [loginForm, setLoginForm] = useState({
-        login: "",
-        password: ""
-    });
+    const { register, handleSubmit, watch, formState: { errors }, setValue } = useForm({resolver: yupResolver(validationSchema)});
 
-    const { isLoading, isError, error, refetch } = useQuery<Usuario, AxiosError>(['loginForm', loginForm], () =>
-        axios.post("/api/login", loginForm)
-            .then(({ data }: { data: Usuario }) => data),
-        {
-            enabled: false,
-            refetchOnWindowFocus: false,
-            retry: false,
-            onSuccess: (data) => {
-                setUser(data);
-                Router.push("/home");
-            }
-        }
-    );
+    const loginForm = watch() as IAuthenticateUser;
 
-    const errorMessage = axios.isAxiosError(error) && error.response?.data.error;
+    const onSuccess = ({ token }: IAuthenticateUserResponse) => {
+        createSession(token);
+        Router.push("/solicitacao");
+    };
 
-    const handleSubmit = () => {
+    const { isLoading, isError, error, refetch } = useAuthenticateUser(loginForm, onSuccess);
+
+    const errorMessage = axios.isAxiosError(error) && error.response?.data.message;
+
+    const onSubmit = () => {
         refetch()
     };
 
-    if (isLoading) {
-        return <div>Carregando...</div>
-    }
+    console.log(error,axios.isAxiosError(error),errorMessage)
 
     return (
         <div className={style["login-container"]}>
-            <input placeholder="Login" type="text"
-                onChange={(e) => setLoginForm({ ...loginForm, login: e.target.value })} />
 
-            <input placeholder="Senha" type="password"
-                onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })} />
+            {isLoading ? <div>Carregando...</div> : null}
+            <span>sistema de transporte</span>
+            <form onSubmit={handleSubmit(onSubmit)}>
+            <input className={ errors?.login ? style['error-input']: ''} placeholder="Login" type="text" {...register('login')}/>
+            {errors?.login?.type && <InputError type={errors.login.type} form="login" field='login' />}
+
+            <input className={ errors?.password ? style['error-input']: ''} placeholder="Senha" type="password" {...register('password')} />
+            {errors?.password?.type && <InputError type={errors.password.type} form="login" field='password' />}
 
             <div className={style["error-message"]}
                 style={{ visibility: isError ? "visible" : "hidden" }}
             >
                 {isError && errorMessage}
-
             </div>
 
-            <button onClick={() => handleSubmit()}>
+            <button type="submit">
                 Entrar
             </button>
+
+            </form>
 
         </div>
     )

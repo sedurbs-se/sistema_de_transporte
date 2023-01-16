@@ -1,16 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
+
+
+
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-color: #d0c3da;
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, Inter, sans-serif;
+  background-color: #ffffff;
 }
+
+.dropdown-toggle::after {
+  display: none!important;
+}
+
+
 
 a {
   color: inherit;
   text-decoration: none;
 }
+
+.test {
+  display:block;
+  padding:'5px';
+  text-decoration:none;
+}
+
 
 * {
   box-sizing: border-box;

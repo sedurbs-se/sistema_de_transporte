@@ -1,0 +1,130 @@
+{
+    "setor": {
+        "codigo": {
+            "required":"Código é obrigatório*"
+        },
+        "nome": {
+            "required":"Descrição é obrigatória*"
+        },
+        "sigla": {
+            "required":"Sigla é obrigatória*"
+        },
+        "responsavel": {
+            "required":"Responsável é obrigatório*"
+        },
+        "ramal": {
+            "required":"Ramal é obrigatório*"
+        }
+    },
+    "login": {
+        "login": {
+            "required":"Você deve informar o login!*"
+        },
+        "password": {
+            "required":"Informe a senha!*"
+        }
+    },
+    "veiculo": {
+        "placa": {
+            "required":"Informe a placa do veículo!",
+            "matches": "Informe uma placa válida!"
+        },
+        "nome": {
+            "required":"Informe o nome do veículo!"
+        },
+        "componentes": {
+            "required": "Informe os componentes do veículo!"
+        },
+        "quilometragemAtual": {
+            "required": "Informe a quilometragem atual!",
+            "min": "Quilometragem atual não pode ser menor que a quilometragem inicial"
+        },
+        "quilometragemInicial": {
+            "required": "Informe a quilometragem inicial!"
+        },
+        "tipo_frota_id": {
+            "required": "Selecione um tipo de frota!"
+        },
+        "locadora_id": {
+            "required": "Selecione uma locadora!"
+        },
+        "setor_id": {
+            "required": "Selecione um setor!"
+        },
+        "observacao": {
+            "required": "Informe a observação!"
+        }
+    },
+    "locadora": {
+        "nome": {
+            "required":"Informe o nome da locadora!"
+        },
+        "sigla": {
+            "required":"Informe a sigla da locadora!"
+        },
+        "endereco": {
+            "required": "Informe o endereço da locadora!"
+        },
+        "bairro": {
+            "required": "Informe o bairro da locadora!"
+        },
+        "telefone": {
+            "required": "Informe o telefone da locadora!"
+        }
+    },
+    "motorista": {
+        "nome": {
+            "required":"Informe o nome do motorista!"
+        },
+        "celular": {
+            "required":"Informe o celular do motorista!"
+        },
+        "telefone":{
+            "required":"Informe o telefone do motorista!"
+        },
+        "data_nascimento": {
+            "required": "Informe a data de nascimento do motorista!"
+        },
+        "bairro": {
+            "required": "Informe o bairro do motorista!"
+        },
+        "endereco": {
+            "required": "Informe o endereço do motorista!"
+        },
+        "vinculo_id":{
+            "required": "Informe o vínculo do motorista!"
+        }
+    },
+    "solicitacao": {
+        "usuario": {
+            "required":"Informe o usuário!"
+        },
+        "ramal":{ 
+            "required":"Informe o ramal!"
+        },
+        "num_ocupantes": {
+            "required":"Informe o número de ocupantes!"
+        },
+        "atividade": {
+            "required":"Informe a atividade!"
+        },
+        "data_saida": {
+            "required":"Informe a data de saída!"
+        },
+        "tipo_solicitacao": {
+            "required":"Informe o tipo de solicitação!"
+        },
+        "status_solicitacao" : {
+            "required":"Informe o status da solicitação!"
+        },
+        "setor": {
+            "required":"Informe o setor!"
+        },
+        "municipios": {
+            "required":"Selecione algum município!"
+        },
+        "observacao": {
+            "required":"Informe a observação!"
+        }
+    }
+}
