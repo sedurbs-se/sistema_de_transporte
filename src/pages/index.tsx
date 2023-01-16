@@ -1,15 +1,17 @@
-import type { GetServerSideProps, NextPage } from 'next'
+import type { GetServerSideProps, NextPage, PreviewData } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { initializeStore } from '@domain/store/store'
 import { LoginContainer } from '../presentation/containers/LoginContainer'
 import styles from '../styles/Home.module.css'
+import { Usuario } from '@shared/types/Usuario'
+import { ParsedUrlQuery } from 'querystring'
 
 interface Props {
-  isAuthenticated: boolean
+  initialZustandState: any
 }
 
-const Login: NextPage<Props> = ({ isAuthenticated }) => {
+const Login: NextPage<Props> = () => {
 
 
 
@@ -28,7 +30,7 @@ const Login: NextPage<Props> = ({ isAuthenticated }) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps<Props> = async context => {
+export const getServerSideProps: GetServerSideProps<Props, ParsedUrlQuery, PreviewData > = async context => {
   const zustandStore = initializeStore();
 
     const state = zustandStore.getState();

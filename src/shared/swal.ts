@@ -37,8 +37,9 @@ const WarningPopUp = async ({ message, errorMessage, action, onActionSuccess }: 
         try {
             showLoading();
             await action();
-            Swal.close();
             onActionSuccess();
+            Swal.close();
+            
         }
 
         catch {

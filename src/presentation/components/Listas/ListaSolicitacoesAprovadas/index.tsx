@@ -48,11 +48,11 @@ const ListaSolicitacoesAprovada = ({ handleSelectCheck, selectedValue }: IListaS
         data: getData(solicitacao.data_hora_saida),
         hora: getTime(solicitacao.data_hora_saida),
         municipios: solicitacao.municipiosolicitacao ?
-            solicitacao.municipiosolicitacao.map(municipio => municipio.nome).join(', ') : '',
+            solicitacao.municipiosolicitacao.map((municipio: any) => municipio.nome).join(', ') : '',
         ...solicitacao,
         status_solicitacao_id:
-            <Badge pill bg={getBadgeTypeByStatus(solicitacao.statussolicitacao.nome)}>
-                {solicitacao.statussolicitacao.nome}
+            <Badge pill bg={getBadgeTypeByStatus(solicitacao.statussolicitacao!.nome)}>
+                {solicitacao.statussolicitacao!.nome}
             </Badge>
     }))
 

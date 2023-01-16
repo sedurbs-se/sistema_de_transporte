@@ -1,12 +1,14 @@
+import { Usuario } from '@shared/types/Usuario'
 import axios from 'axios'
-import type { GetServerSideProps, NextPage } from 'next'
+import type { GetServerSideProps, NextPage, PreviewData } from 'next'
 import Head from 'next/head'
+import { ParsedUrlQuery } from 'querystring'
 
 import { initializeStore } from '../domain/store/store'
 import styles from '../styles/Home.module.css'
 
 interface Props {
-    isAuthenticated: boolean
+    isAuthenticated: Usuario
 }
 
 const Home: NextPage<Props> = ({ isAuthenticated }) => {
@@ -26,7 +28,7 @@ const Home: NextPage<Props> = ({ isAuthenticated }) => {
     )
 }
 
-export const getServerSideProps: GetServerSideProps<Props> = async context => {
+export const getServerSideProps: GetServerSideProps<Props, ParsedUrlQuery, PreviewData> = async context => {
     const zustandStore = initializeStore();
 
     const state = zustandStore.getState();
