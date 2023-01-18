@@ -1,7 +1,7 @@
 import { GetServerSideProps, NextPage } from "next";
 import ListaLocadoras from "@components/Listas/ListaLocadoras";
 import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
-import PageContainer from "@components/PageContainer";
+import PageContainer from "src/presentation/containers/PageContainer";
 import { initializeStore } from "@domain/store/store";
 import axios from "axios";
 import fetchLocadoras from "@domain/requests/fetch/fetchLocadoras";

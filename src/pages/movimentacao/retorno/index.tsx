@@ -1,5 +1,5 @@
 import ListaMovimentacoes from "@components/Listas/ListaMovimentacoes";
-import PageContainer from "@components/PageContainer";
+import PageContainer from "src/presentation/containers/PageContainer";
 import fetchMotoristasSemMovimentacao from "@domain/requests/fetch/fetchMotoristasSemMovimentacao";
 import fetchMovimentacaoStatus from "@domain/requests/fetch/fetchMovimentacaoStatus";
 import fetchMovimentacaoRetorno from "@domain/requests/fetch/fetchMovimentacoesRetorno";

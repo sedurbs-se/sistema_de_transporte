@@ -1,5 +1,5 @@
 import ListaSolicitacoesAprovada from "@components/Listas/ListaSolicitacoesAprovadas";
-import PageContainer from "@components/PageContainer";
+import PageContainer from "src/presentation/containers/PageContainer";
 import style from "../../styles/Home.module.css"
 import fetchSolicitacoes from "@domain/requests/fetch/fetchSolicitacoes";
 import { initializeStore } from "@domain/store/store";

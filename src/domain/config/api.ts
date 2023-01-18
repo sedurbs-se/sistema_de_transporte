@@ -6,8 +6,12 @@ function getAxiosInstance(ctx?: NextPageContext) {
 
   const { token } = getCookies(ctx)
 
+  const baseURL = process.env.NODE_ENV === 'production' ?
+    process.env.BASE_URL_PROD :
+    process.env.BASE_URL_DEV;
+
   return axios.create({
-    baseURL: 'http://localhost:3000/api',
+    baseURL,
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token ?? ''}`

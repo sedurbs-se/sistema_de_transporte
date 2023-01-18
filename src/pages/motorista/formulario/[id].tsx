@@ -4,8 +4,9 @@ import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
 import axios from "axios";
 import { initializeStore } from "@domain/store/store";
 import { ParsedUrlQuery } from "querystring";
-import PageContainer from "@components/PageContainer";
+import PageContainer from "src/presentation/containers/PageContainer";
 import fetchVinculos from "@domain/requests/fetch/fetchVinculos";
+import fetchMotorista from "@domain/requests/fetch/fetchMotorista";
 
 
 const CadastrarMotorista: NextPage = () => {
@@ -46,14 +47,14 @@ export const getServerSideProps: GetServerSideProps<QParams> = async context => 
         }
     };
 
-    const { data } = await axios.get(`http://localhost:3000/api/motorista?id=${id}`);
+    const { data } = await fetchMotorista(id as string);
 
     state.selectedMotorista = data.motorista;
-    
+
     const { vinculos } = await fetchVinculos();
 
     state.vinculos = vinculos;
-    
+
 
     return {
         props: {

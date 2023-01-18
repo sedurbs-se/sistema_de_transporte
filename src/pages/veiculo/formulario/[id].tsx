@@ -2,12 +2,13 @@ import { GetServerSideProps, NextPage } from "next";
 import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
 import { initializeStore } from "@domain/store/store";
 import CadastroVeiculo from "@components/Cadastros/CadastroVeiculo";
-import PageContainer from "@components/PageContainer";
+import PageContainer from "src/presentation/containers/PageContainer";
 import fetchTipoFrotas from "@domain/requests/fetch/fetchTipoFrotas";
 import fetchVeiculos from "@domain/requests/fetch/fetchVeiculos";
 import fetchLocadoras from "@domain/requests/fetch/fetchLocadoras";
 import axios from "axios";
 import fetchSetores from "@domain/requests/fetch/fetchSetores";
+import fetchVeiculo from "@domain/requests/fetch/fetchVeiculo";
 
 const Veiculos: NextPage = () => {
     return (
@@ -43,7 +44,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     // Pega setores e locadoras e tipo de frotas
 
     try {
-        const { data } = await axios.get(`http://localhost:3000/api/veiculo?id=${id}`)
+        const { data } = await fetchVeiculo(id as string)
 
         state.selectedVeiculo = data.veiculo;
     

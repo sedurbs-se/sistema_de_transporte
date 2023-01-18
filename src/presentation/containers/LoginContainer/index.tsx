@@ -9,6 +9,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { InputError } from "@components/InputError";
 import { useForm } from "react-hook-form";
+import Input from "@components/Basic/Input";
+import Button from "@components/Basic/Button";
 
 const LoginContainer = () => {
 
@@ -17,10 +19,10 @@ const LoginContainer = () => {
     const validationSchema = yup.object().shape({
         login: yup.string().required('Login é obrigatório'),
         password: yup.string().required('Senha é obrigatório'),
-      });
+    });
 
 
-    const { register, handleSubmit, watch, formState: { errors }, setValue } = useForm({resolver: yupResolver(validationSchema)});
+    const { register, handleSubmit, watch, formState: { errors }, setValue } = useForm({ resolver: yupResolver(validationSchema) });
 
     const loginForm = watch() as IAuthenticateUser;
 
@@ -37,29 +39,42 @@ const LoginContainer = () => {
         refetch()
     };
 
-    console.log(error,axios.isAxiosError(error),errorMessage)
+    console.log(loginForm)
 
     return (
         <div className={style["login-container"]}>
 
             {isLoading ? <div>Carregando...</div> : null}
-            <span>sistema de transporte</span>
-            <form onSubmit={handleSubmit(onSubmit)}>
-            <input className={ errors?.login ? style['error-input']: ''} placeholder="Login" type="text" {...register('login')}/>
-            {errors?.login?.type && <InputError type={errors.login.type} form="login" field='login' />}
+            <h4>Sistema de Transporte</h4>
 
-            <input className={ errors?.password ? style['error-input']: ''} placeholder="Senha" type="password" {...register('password')} />
-            {errors?.password?.type && <InputError type={errors.password.type} form="login" field='password' />}
 
-            <div className={style["error-message"]}
-                style={{ visibility: isError ? "visible" : "hidden" }}
-            >
-                {isError && errorMessage}
-            </div>
+            <form onSubmit={handleSubmit(onSubmit)} className={style["login-form"]}>
 
-            <button type="submit">
-                Entrar
-            </button>
+                <Input
+                    label="Login"
+                    type='text'
+                    {...register("login")}
+                    error={errors?.login?.message as string}
+                />
+
+                <Input
+                    label="Senha"
+                    type="password"
+                    {...register("password")}
+                    error={errors?.password?.message as string}
+                />
+
+
+                <div className={style["error-message"]}
+                    style={{ visibility: isError ? "visible" : "hidden" }}
+                >
+                    {isError && errorMessage}
+                </div>
+
+
+                <Button color="green" type="submit">
+                    Entrar
+                </Button>
 
             </form>
 

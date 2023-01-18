@@ -1,3 +1,5 @@
+import { createVeiculo } from "@domain/requests/post/createVeiculo";
+import { updateVeiculo } from "@domain/requests/post/updateVeiculo";
 import { Veiculo } from "@prisma/client";
 import axios, { AxiosResponse } from "axios";
 import { useQuery, UseQueryResult } from "react-query";
@@ -26,8 +28,8 @@ interface ICreateVeiculoResponse {
 function useCreateVeiculo({ params, onSuccess, id }: ICreateVeiculoDTO): UseQueryResult<ICreateVeiculoResponse> {
     return useQuery('createVeiculo', async () => {
         const { data }: AxiosResponse = id?
-        await axios.put(`http://localhost:3000/api/veiculo?id=${id}`, { ...params }) : 
-        await axios.post(`http://localhost:3000/api/veiculo`, { ...params });
+        await updateVeiculo(params, id) : 
+        await createVeiculo(params)
         return data;
     }, {
         onSuccess

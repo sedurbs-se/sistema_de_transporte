@@ -1,3 +1,5 @@
+import { createSetor } from "@domain/requests/post/createSetor";
+import { updateSetor } from "@domain/requests/post/updateSetor";
 import { Setor } from "@prisma/client";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { useQuery, UseQueryResult } from "react-query";
@@ -24,9 +26,9 @@ interface ICreateSetorResponse {
 
 function useCreateSetor({ params, onSuccess, onError, id }: ICreateSetorDTO): UseQueryResult<ICreateSetorResponse> {
     return useQuery('createSetor', async () => {
-        const { data }: AxiosResponse = id?
-        await axios.put(`http://localhost:3000/api/setor?id=${id}`, { ...params }) : 
-        await axios.post(`http://localhost:3000/api/setor`, { ...params });
+        const { data }: AxiosResponse = id ?
+            await updateSetor(params, id) :
+            await createSetor(params);
         return data;
     }, {
         enabled: false,
@@ -35,5 +37,5 @@ function useCreateSetor({ params, onSuccess, onError, id }: ICreateSetorDTO): Us
     });
 }
 
-export { useCreateSetor};
+export { useCreateSetor };
 export type { ICreateSetorDTO, ICreateSetorResponse }

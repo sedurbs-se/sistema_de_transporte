@@ -1,7 +1,7 @@
 import { GetServerSideProps, NextPage } from "next";
 import ListaSetores from "@components/Listas/ListaSetores";
 import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
-import PageContainer from "@components/PageContainer";
+import PageContainer from "src/presentation/containers/PageContainer";
 import { initializeStore } from "@domain/store/store";
 import fetchSetores from "@domain/requests/fetch/fetchSetores";
 

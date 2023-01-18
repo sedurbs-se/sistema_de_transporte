@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from "next";
 import ListaSolicitacoes from "@components/Listas/ListaSolicitacoes";
-import PageContainer from "@components/PageContainer";
+import PageContainer from "src/presentation/containers/PageContainer";
 import { initializeStore } from "@domain/store/store";
 import fetchSolicitacoes from "@domain/requests/fetch/fetchSolicitacoes";
 

@@ -1,6 +1,6 @@
 import CadastroRetorno from "@components/Cadastros/CadastroRetorno";
 import ListaMovimentacoes from "@components/Listas/ListaMovimentacoes";
-import PageContainer from "@components/PageContainer";
+import PageContainer from "src/presentation/containers/PageContainer";
 import fetchMotoristasSemMovimentacao from "@domain/requests/fetch/fetchMotoristasSemMovimentacao";
 import fetchMovimentacao from "@domain/requests/fetch/fetchMovimentacao";
 import fetchMovimentacaoStatus from "@domain/requests/fetch/fetchMovimentacaoStatus";

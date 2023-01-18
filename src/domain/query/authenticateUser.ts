@@ -1,3 +1,4 @@
+import authenticateUser from "@domain/requests/post/authenticateUser";
 import axios, { AxiosResponse } from "axios";
 import { useQuery, UseQueryResult } from "react-query";
 
@@ -12,9 +13,7 @@ interface IAuthenticateUserResponse {
 
 function useAuthenticateUser(params: IAuthenticateUser, onSuccess: (data: IAuthenticateUserResponse) => void): UseQueryResult<IAuthenticateUserResponse> {
     return useQuery('authenticateUser', async () => {
-        const { data }: AxiosResponse = await axios.post("http://localhost:3000/api/session",
-            { ...params });
-        return data;
+        return await authenticateUser(params)
     }, {
         enabled: false,
         refetchOnWindowFocus: false,

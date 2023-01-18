@@ -3,7 +3,7 @@ import ListaMotoristas from "@components/Listas/ListaMotoristas";
 import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
 import axios from "axios";
 import { initializeStore } from "@domain/store/store";
-import PageContainer from "@components/PageContainer";
+import PageContainer from "src/presentation/containers/PageContainer";
 import fetchMotoristas from "@domain/requests/fetch/fetchMotoristas";
 
 const Teste: NextPage = () => {

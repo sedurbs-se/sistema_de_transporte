@@ -3,7 +3,7 @@ import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
 import axios from "axios";
 import { initializeStore } from "@domain/store/store";
 import ListaVeiculos from "@components/Listas/ListaVeículos";
-import PageContainer from '@components/PageContainer';
+import PageContainer from 'src/presentation/containers/PageContainer';
 import fetchVeiculos from "@domain/requests/fetch/fetchVeiculos";
 
 const Veiculo: NextPage = () => {

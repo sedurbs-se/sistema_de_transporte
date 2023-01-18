@@ -1,7 +1,7 @@
 import { GetServerSideProps, NextPage } from "next";
 import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
 import { initializeStore } from "@domain/store/store";
-import PageContainer from "@components/PageContainer";
+import PageContainer from "src/presentation/containers/PageContainer";
 import fetchTiposSolicitacao from "@domain/requests/fetch/fetchTiposSolicitacao";
 import fetchStatusSolicitacao from "@domain/requests/fetch/fetchStatusSolicitacao";
 import CadastroSolicitacao from "@components/Cadastros/CadastroSolicitacao";

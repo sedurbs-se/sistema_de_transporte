@@ -1,0 +1,26 @@
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    padding: 0 15px;
+    font-size: 15px;
+    line-height: 1;
+    font-weight: 500;
+    height: 35px;
+    border: none;
+    transition: 0.8 ease-in-out;
+}
+
+.button.green {
+    background-color: rgb(221, 243, 228);
+    color: rgb(24, 121, 78);
+}
+
+.button.green:hover {
+    background-color: rgb(186, 209, 193);
+}
+
+.button.green:focus {
+    box-shadow: 0 0 0 2px rgb(221, 243, 228);
+}

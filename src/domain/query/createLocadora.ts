@@ -1,3 +1,5 @@
+import { createLocadora } from "@domain/requests/post/createLocadora";
+import { updateLocadora } from "@domain/requests/post/updateLocadora";
 import { Locadora } from "@prisma/client";
 import axios, { AxiosResponse } from "axios";
 import { useQuery, UseQueryResult } from "react-query";
@@ -22,9 +24,9 @@ interface ICreateLocadoraResponse {
 
 function useCreateLocadora({ params, onSuccess, id }: ICreateLocadoraDTO): UseQueryResult<ICreateLocadoraResponse> {
     return useQuery('createLocadora', async () => {
-        const { data }: AxiosResponse =  id?
-        await axios.put(`http://localhost:3000/api/locadora?id=${id}`, { ...params }) : 
-        await axios.post(`http://localhost:3000/api/locadora`, { ...params });
+        const { data }: AxiosResponse = id ?
+            await updateLocadora(params, id) :
+            await createLocadora(params);
         return data;
     }, {
         enabled: false,
@@ -32,5 +34,5 @@ function useCreateLocadora({ params, onSuccess, id }: ICreateLocadoraDTO): UseQu
     });
 }
 
-export { useCreateLocadora};
+export { useCreateLocadora };
 export type { ICreateLocadoraDTO, ICreateLocadoraResponse }

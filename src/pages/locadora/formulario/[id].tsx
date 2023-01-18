@@ -1,10 +1,11 @@
 import { GetServerSideProps, NextPage } from "next";
 import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
 import { initializeStore } from "@domain/store/store";
-import PageContainer from "@components/PageContainer";
+import PageContainer from "src/presentation/containers/PageContainer";
 import CadastroLocadoras from "@components/Cadastros/CadastroLocadora";
 import { ParsedUrlQuery } from "querystring";
 import axios from "axios";
+import fetchLocadora from "@domain/requests/fetch/fetchLocadora";
 
 
 const CadastrarLocadora: NextPage = () => {
@@ -44,9 +45,9 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     state.user = isAuthenticated;
 
-    const { data } = await axios.get(`http://localhost:3000/api/locadora?id=${id}`)
+    const { locadora } = await fetchLocadora(id as string);
 
-    state.selectedLocadora = data.locadora;
+    state.selectedLocadora = locadora
     
     return {
         props: {

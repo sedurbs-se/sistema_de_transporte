@@ -1,5 +1,5 @@
 import CadastroUsuario from '@components/Cadastros/CadastroUsuario'
-import PageContainer from '@components/PageContainer'
+import PageContainer from 'src/presentation/containers/PageContainer'
 import type { GetServerSideProps, NextPage } from 'next'
 import { initializeStore } from '../../domain/store/store'
 

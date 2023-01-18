@@ -1,10 +1,11 @@
 import { GetServerSideProps, NextPage } from "next";
 import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
 import { initializeStore } from "@domain/store/store";
-import PageContainer from "@components/PageContainer";
+import PageContainer from "src/presentation/containers/PageContainer";
 import CadastroSetor from "@components/Cadastros/CadastroSetor";
 import { ParsedUrlQuery } from "querystring";
 import axios from "axios";
+import fetchSetor from "@domain/requests/fetch/fetchSetor";
 
 const Setores: NextPage = () => {
     return (
@@ -41,7 +42,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     state.user = isAuthenticated;
 
-    const { data } = await axios.get(`http://localhost:3000/api/setor?id=${id}`);
+    const { data } = await fetchSetor(id as string);
 
     state.selectedSetor = data.setor;
 
