@@ -1,9 +1,12 @@
-import { Movimentacao, MovimentacaoStatus } from "@prisma/client";
+import { Movimentacao, MovimentacaoStatus, Veiculo, Motorista } from "@prisma/client";
 
 export interface IMovimentacaoStore {
     movimentacoes: Movimentacao[] | [];
     movimentacaoPages: number;
-    selectedMovimentacao: Movimentacao | null;
+    selectedMovimentacao: Movimentacao & {
+        veiculo?: Veiculo | null
+        motorista?: Motorista | null      
+    } | null;
     statusMovimentacao: MovimentacaoStatus[] | [];
 
     setSelectedMovimentacao: (selectedMovimentacao?: Movimentacao | string) => void;
