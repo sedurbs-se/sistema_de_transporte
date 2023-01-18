@@ -39,7 +39,7 @@ const LoginContainer = () => {
         refetch()
     };
 
-    console.log(loginForm)
+    console.log(errorMessage)
 
     return (
         <div className={style["login-container"]}>
@@ -53,14 +53,20 @@ const LoginContainer = () => {
                 <Input
                     label="Login"
                     type='text'
-                    {...register("login")}
+                    name="login"
+                    value={loginForm.login}
+                    onChange={(e) => setValue("login", e.target.value)}
+                    // {...register("login")}
                     error={errors?.login?.message as string}
                 />
 
                 <Input
                     label="Senha"
                     type="password"
-                    {...register("password")}
+                    name="password"
+                    value={loginForm.password}
+                    onChange={(e) => setValue("password", e.target.value)}
+                    // {...register("password")}
                     error={errors?.password?.message as string}
                 />
 

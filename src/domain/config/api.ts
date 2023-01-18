@@ -6,10 +6,9 @@ function getAxiosInstance(ctx?: NextPageContext) {
 
   const { token } = getCookies(ctx)
 
-  const baseURL = process.env.NODE_ENV === 'production' ?
-    process.env.BASE_URL_PROD :
-    process.env.BASE_URL_DEV;
-
+  const baseURL = process.env.NEXT_PUBLIC_NODE_ENV === 'production' ?
+    process.env.NEXT_PUBLIC_BASE_URL_PROD :
+    process.env.NEXT_PUBLIC_BASE_URL_DEV;
   return axios.create({
     baseURL,
     headers: {
