@@ -10,8 +10,8 @@ const Solicitacao: NextPage = () => {
 
         <PageContainer>
 
-
-            <ListaSolicitacoes></ListaSolicitacoes>
+            <h2 >Solicitações</h2>
+                <ListaSolicitacoes></ListaSolicitacoes>
         </PageContainer>
 
     )

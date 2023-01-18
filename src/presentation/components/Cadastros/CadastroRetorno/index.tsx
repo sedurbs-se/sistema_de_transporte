@@ -10,6 +10,7 @@ import { IRetornoMovimentacaoDTO, IRetornoMovimentacaoResponse, useRetornoMovime
 import { Movimentacao } from "@prisma/client";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import CadastroContainer from "../../../containers/CadastroContainer"
 
 
 
@@ -64,7 +65,7 @@ const CadastroRetorno = () => {
     }, [selectedMovimentacao])
 
     return (
-        <>
+        <CadastroContainer>
 
             <fieldset>
                 <Form onSubmit={handleSubmit(onSubmit)}>
@@ -165,7 +166,7 @@ const CadastroRetorno = () => {
                     </Button>
                 </Form>
             </fieldset>
-        </>
+        </CadastroContainer>
 
     )
 }

@@ -13,7 +13,6 @@ const CadastrarMotorista: NextPage = () => {
     return (
         <>
             <PageContainer>
-                <h2 className={style["title"]}>Motoristas</h2>
                 <CadastroMotorista></CadastroMotorista>
             </PageContainer>
         </>

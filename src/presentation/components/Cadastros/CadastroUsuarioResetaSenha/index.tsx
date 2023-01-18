@@ -8,6 +8,7 @@ import CampoDeBusca from "@components/CampoDeBusca";
 import { useResetUsuario } from "@domain/query/resetSenhaUsuario";
 import { useStore } from "@domain/store/store";
 import shallow from "zustand/shallow";
+import CadastroContainer from "src/presentation/containers/CadastroContainer";
 
 
 const CadastroUsuarioResetaSenha = () => {
@@ -38,10 +39,9 @@ const CadastroUsuarioResetaSenha = () => {
     };
 
     return (
-        <Container
-            style={{ border: '1px solid gray', width: "450px", borderRadius: '4px', padding: '15px', marginBottom: '15px' }}
+        <CadastroContainer size="sm"
         >
-            <h3 className={style["title"]}>Resetar senha de Usuario</h3>
+            <h4>Resetar senha de Usuario</h4>
 
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <Row >
@@ -63,7 +63,7 @@ const CadastroUsuarioResetaSenha = () => {
 
             </Form>
 
-        </Container>
+        </CadastroContainer>
     )
 }
 

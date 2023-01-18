@@ -10,7 +10,6 @@ import fetchSetores from "@domain/requests/fetch/fetchSetores";
 const Veiculos: NextPage = () => {
     return (
         <PageContainer>
-            <h2 className={style["title"]}>Veiculos</h2>
             <CadastroVeiculo />
         </PageContainer>
     )

@@ -22,7 +22,6 @@ const CadastrarMotorista: NextPage = () => {
                     </Breadcrumb.Item>
                     <Breadcrumb.Item active>Formulário</Breadcrumb.Item>
                 </Breadcrumb> */}
-                <h2 className={style["title"]}>Motoristas</h2>
                 <CadastroMotorista></CadastroMotorista>
             </PageContainer>
         </>

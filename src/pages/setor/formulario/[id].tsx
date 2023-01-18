@@ -10,7 +10,6 @@ import fetchSetor from "@domain/requests/fetch/fetchSetor";
 const Setores: NextPage = () => {
     return (
         <PageContainer>
-            <h2 className={style["title"]}>Setores</h2>
             <CadastroSetor />
         </PageContainer>
     )

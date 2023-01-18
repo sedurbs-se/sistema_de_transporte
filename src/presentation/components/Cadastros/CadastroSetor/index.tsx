@@ -11,6 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { InputError } from "@components/InputError";
 import Swal from "sweetalert2";
+import CadastroContainer from "../../../containers/CadastroContainer"
 
 export interface CadastroSetorProps {
   setor?: Setor
@@ -91,9 +92,7 @@ const CadastroSetor = (props: CadastroSetorProps) => {
   }, [selectedSetor])
 
   return (
-    <Container
-      style={{ border: '1px solid gray', borderRadius: '4px', padding: '15px', marginBottom: '15px' }}
-    >
+    <CadastroContainer>
       <h3
         className={style["title"]}
       >Cadastro</h3>
@@ -153,7 +152,7 @@ const CadastroSetor = (props: CadastroSetorProps) => {
           {isFetching ? 'Aguarde...' : 'Salvar'}
         </Button>
       </Form>
-    </Container>
+    </CadastroContainer>
   )
 }
 

@@ -11,7 +11,6 @@ import fetchSolicitacao from "@domain/requests/fetch/fetchSolicitacao";
 const Solicitacao: NextPage = () => {
     return (
         <PageContainer>
-            <h2 className={style["title"]}>Solicitacao</h2>
             <CadastroSolicitacao />
         </PageContainer>
     )

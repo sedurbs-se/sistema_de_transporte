@@ -79,7 +79,7 @@ const TableComponent = ({
         );
 
     return (
-        <Table striped bordered responsive>
+        <Table striped bordered responsive className={style["table"]}>
             <thead>
                 <tr>
                     {generatedTableHead(tableHeaderData)}

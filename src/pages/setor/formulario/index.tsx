@@ -7,7 +7,6 @@ import CadastroSetor from "@components/Cadastros/CadastroSetor";
 const Setores: NextPage = () => {
     return (
         <PageContainer>
-            <h2 className={style["title"]}>Setores</h2>
             <CadastroSetor />
         </PageContainer>
     )

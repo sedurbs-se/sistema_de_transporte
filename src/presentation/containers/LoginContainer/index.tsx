@@ -11,6 +11,7 @@ import { InputError } from "@components/InputError";
 import { useForm } from "react-hook-form";
 import Input from "@components/Basic/Input";
 import Button from "@components/Basic/Button";
+import CadastroContainer from "../CadastroContainer";
 
 const LoginContainer = () => {
 
@@ -39,10 +40,8 @@ const LoginContainer = () => {
         refetch()
     };
 
-    console.log(errorMessage)
-
     return (
-        <div className={style["login-container"]}>
+        <CadastroContainer size="sm">
 
             {isLoading ? <div>Carregando...</div> : null}
             <h4>Sistema de Transporte</h4>
@@ -71,11 +70,11 @@ const LoginContainer = () => {
                 />
 
 
-                <div className={style["error-message"]}
+                {isError && <div className={style["error-message"]}
                     style={{ visibility: isError ? "visible" : "hidden" }}
                 >
-                    {isError && errorMessage}
-                </div>
+                    {errorMessage}
+                </div>}
 
 
                 <Button color="green" type="submit">
@@ -84,7 +83,7 @@ const LoginContainer = () => {
 
             </form>
 
-        </div>
+        </CadastroContainer>
     )
 };
 

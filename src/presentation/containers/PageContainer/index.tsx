@@ -4,7 +4,14 @@ import { Container } from "react-bootstrap"
 
 const PageContainer = ({children}: any) => {
     return (
-        <Container style={{marginTop:'15px', display:'flex',  justifyContent:'center', flexDirection:'column'}}>
+        <Container 
+        style={{
+            height:'100vh',
+            marginTop:'15px', 
+            display:'flex',  
+            
+            flexDirection:'column',
+            }}>
             {children}
         </Container>
     )

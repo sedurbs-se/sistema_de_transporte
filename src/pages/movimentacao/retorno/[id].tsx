@@ -16,7 +16,6 @@ import style from "../../../styles/Home.module.css"
 const MovimentacaoPageRetorno: NextPage  = () => {
     return (
         <PageContainer>
-           <h2 className={style["title"]}>Movimentação Retorno</h2>
             {
                <CadastroRetorno/>
             }

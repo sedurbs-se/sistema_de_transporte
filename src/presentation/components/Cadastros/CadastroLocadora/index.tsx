@@ -10,6 +10,7 @@ import { setModalSuccess } from "@shared/utils/modalUtils";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { InputError } from "@components/InputError";
+import CadastroContainer from "../../../containers/CadastroContainer"
 
 export interface CadastroLocadoraProps {
 }
@@ -66,8 +67,7 @@ const CadastroLocadoras = (props: CadastroLocadoraProps) => {
 
 
   return (
-    <Container
-      style={{ border: '1px solid gray', borderRadius: '4px', padding: '15px', marginBottom: '15px' }}
+    <CadastroContainer
     >
       <h3
         className={style["title"]}
@@ -140,7 +140,7 @@ const CadastroLocadoras = (props: CadastroLocadoraProps) => {
           {isFetching ? 'Aguarde..' : 'Salvar'}
         </Button>
       </Form>
-    </Container>
+    </CadastroContainer>
   )
 }
 

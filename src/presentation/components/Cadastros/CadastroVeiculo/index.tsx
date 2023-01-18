@@ -11,6 +11,7 @@ import * as yup from 'yup';
 import { normalizePlaca, placaVeiculoRegex } from "@shared/utils/formUtils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { InputError } from "@components/InputError";
+import CadastroContainer from "../../../containers/CadastroContainer";
 
 
 const CadastroVeiculo = () => {
@@ -88,8 +89,7 @@ const CadastroVeiculo = () => {
 
 
     return (
-        <Container
-            style={{ border: '1px solid gray', borderRadius: '4px', padding: '15px', marginBottom: '15px' }}
+        <CadastroContainer size="md"
         >
             <h3 className={style["title"]}>Cadastro</h3>
 
@@ -217,7 +217,7 @@ const CadastroVeiculo = () => {
 
             </Form>
 
-        </Container>
+        </CadastroContainer>
     )
 }
 

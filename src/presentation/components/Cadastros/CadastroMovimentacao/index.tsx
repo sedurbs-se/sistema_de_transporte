@@ -6,6 +6,7 @@ import { useStore } from "@domain/store/store";
 import { setModalSuccess } from "@shared/utils/modalUtils";
 import { ISaidaMovimentacaoDTO, ISaidaMovimentacaoResponse, useSaidaMovimentacao } from "@domain/query/saidaMovimentacao";
 import ListaSolicitacoesAprovada from "@components/Listas/ListaSolicitacoesAprovadas";
+import CadastroContainer from "../../../containers/CadastroContainer"
 
 
 
@@ -58,7 +59,7 @@ const CadastroMovimentacao = () => {
     };
 
     return (
-        <>
+        <CadastroContainer>
             <ListaSolicitacoesAprovada handleSelectCheck={handleSelectCheck} selectedValue={form.solicitacao_id} />
 
             <fieldset>
@@ -134,7 +135,7 @@ const CadastroMovimentacao = () => {
                     </Button>
                 </Form>
             </fieldset>
-        </>
+        </CadastroContainer>
 
     )
 }

@@ -10,6 +10,7 @@ import { useStore } from "@domain/store/store";
 import shallow from "zustand/shallow";
 import { useEffect } from "react";
 import { Usuario } from "@shared/types/Usuario";
+import CadastroContainer from "src/presentation/containers/CadastroContainer";
 
 interface ICadastroUsuario {
     atualizando: boolean;
@@ -61,10 +62,8 @@ const CadastroUsuario = ({ atualizando }: ICadastroUsuario) => {
     }, [user])
 
     return (
-        <Container
-            style={{ border: '1px solid gray', width: "450px", borderRadius: '4px', padding: '15px', marginBottom: '15px' }}
-        >
-            <h3 className={style["title"]}>Cadastro</h3>
+        <CadastroContainer size="sm">
+            <h4>Cadastro de Usuários</h4>
 
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <Row >
@@ -106,7 +105,7 @@ const CadastroUsuario = ({ atualizando }: ICadastroUsuario) => {
 
             </Form>
 
-        </Container>
+        </CadastroContainer>
     )
 }
 

@@ -10,6 +10,7 @@ import { ICreateSolicitacaoDTO, ICreateSolicitacaoResponse, useCreateSolicitacao
 import { useEffect } from "react";
 import { Solicitacao } from "@shared/types/Solicitação"
 import { useRouter } from "next/router";
+import CadastroContainer from "../../../containers/CadastroContainer"
 const CadastroSolicitacao = () => {
 
     const {
@@ -86,8 +87,7 @@ const CadastroSolicitacao = () => {
 
 
     return (
-        <Container
-            style={{ border: '1px solid gray', borderRadius: '4px', padding: '15px', marginBottom: '15px' }}
+        <CadastroContainer
         >
             <fieldset>
                 <legend>Cadastro de Solicitação</legend>
@@ -265,7 +265,7 @@ const CadastroSolicitacao = () => {
 
                 </Form>
             </fieldset>
-        </Container>
+        </CadastroContainer>
     )
 
 };
