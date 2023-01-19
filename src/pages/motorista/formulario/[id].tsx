@@ -46,9 +46,9 @@ export const getServerSideProps: GetServerSideProps<QParams> = async context => 
         }
     };
 
-    const { data } = await fetchMotorista(id as string);
+    const { motorista } = await fetchMotorista(id as string);
 
-    state.selectedMotorista = data.motorista;
+    state.selectedMotorista = motorista;
 
     const { vinculos } = await fetchVinculos();
 

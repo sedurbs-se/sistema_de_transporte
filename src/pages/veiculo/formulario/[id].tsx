@@ -43,10 +43,10 @@ export const getServerSideProps: GetServerSideProps = async context => {
     // Pega setores e locadoras e tipo de frotas
 
     try {
-        const { data } = await fetchVeiculo(id as string)
+        const { veiculo } = await fetchVeiculo(id as string)
 
-        state.selectedVeiculo = data.veiculo;
-    
+        state.selectedVeiculo = veiculo;
+
 
         const { tipos } = await fetchTipoFrotas();
 
@@ -60,10 +60,8 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
         state.setores = setores;
 
-    
-        
-        
-        
+
+
 
     } catch (error: any) {
         console.log(error.message)

@@ -41,9 +41,9 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     state.user = isAuthenticated;
 
-    const { data } = await fetchSetor(id as string);
+    const { setor } = await fetchSetor(id as string);
 
-    state.selectedSetor = data.setor;
+    state.selectedSetor = setor;
 
     return {
         props: {
