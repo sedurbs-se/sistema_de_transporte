@@ -4,7 +4,7 @@ import style from './index.module.scss';
 
 interface CadastroContainerProps {
     children: any;
-    size: 'sm' | 'md' | undefined;
+    size?: 'sm' | 'md';
 }
 
 const CadastroContainer = ({ children, size }: CadastroContainerProps) => {
