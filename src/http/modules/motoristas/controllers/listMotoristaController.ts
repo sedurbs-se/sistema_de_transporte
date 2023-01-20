@@ -9,6 +9,13 @@ const listMotoristaController = catchAsyncErrors(async (req: Request, res: Respo
     const { page, limit } = req.query;
 
     const motoristas = await prisma.motorista.findMany({
+        where: {
+            vinculo: {
+                nome: {
+                    in: ["EFETIVO", "TERCEIRIZADO", "COMISSIONADO"]
+                }
+            }
+        },
         include: {
             vinculo: {
                 select: {
