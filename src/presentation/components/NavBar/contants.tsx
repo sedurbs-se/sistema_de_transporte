@@ -7,15 +7,18 @@ const availableDropDown = [
         items: [
             {
                 text: "Solicitação",
-                href: "/solicitacao"
+                href: "/solicitacao",
+                disabled: false
             },
             {
                 text: "Saída",
-                href: "/movimentacao"
+                href: "/movimentacao",
+                disabled: false
             },
             {
                 text: "Retorno",
-                href: "/movimentacao/retorno"
+                href: "/movimentacao/retorno",
+                disabled: false
             }
         ]
     },
@@ -27,19 +30,23 @@ const availableDropDown = [
         items: [
             {
                 text: "Setor",
-                href: "/setor"
+                href: "/setor",
+                disabled: false
             },
             {
                 text: "Veículo",
-                href: "/veiculo"
+                href: "/veiculo",
+                disabled: false
             },
             {
                 text: "Locadora",
-                href: "/locadora"
+                href: "/locadora",
+                disabled: false
             },
             {
                 text: "Motorista",
-                href: "/motorista"
+                href: "/motorista",
+                disabled: false
             }
         ]
     },
@@ -51,15 +58,18 @@ const availableDropDown = [
         items: [
             {
                 text: "Viagens por mês",
-                href: "/relatorios/viagens_mes"
+                href: "/relatorios/viagens_mes",
+                disabled: false
             },
             {
                 text: "Quilometragem geral",
-                href: "/relatorios/quilometragem_geral"
+                href: "/relatorios/quilometragem_geral",
+                disabled: false
             },
             {
                 text: "Quilometragem por veículo",
-                href: "/relatorios/quilometragem_veiculo"
+                href: "/relatorios/quilometragem_veiculo",
+                disabled: false
             }
         ]
     },
@@ -71,15 +81,18 @@ const availableDropDown = [
         items: [
             {
                 text: "Cria novo usuário",
-                href: "/usuarios/create-usuario"
+                href: "/usuarios/create-usuario",
+                disabled: false
             },
             {
                 text: "Atualiza usuário",
-                href: "/usuarios/atualiza"
+                href: "/usuarios/atualiza",
+                disabled: false
             },
             {
                 text: "Renicia senha",
-                href: "/usuarios/renicia-senha"
+                href: "/usuarios/renicia-senha",
+                disabled: false
             }
         ]
     }

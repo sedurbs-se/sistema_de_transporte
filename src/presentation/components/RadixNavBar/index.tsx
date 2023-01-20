@@ -2,12 +2,6 @@
 
 import React from 'react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import {
-    HamburgerMenuIcon,
-    DotFilledIcon,
-    CheckIcon,
-    ChevronRightIcon,
-} from '@radix-ui/react-icons';
 import styles from './styles.module.css';
 import { availableDropDown } from '@components/NavBar/contants';
 import { Container, Navbar } from 'react-bootstrap';
@@ -25,9 +19,20 @@ const RadixNavBar = () => {
     React.useEffect(() => {
         if (user && user?.tipo?.nome != "admin") {
             const newsAvailableDropDown = ItemsDropDown.map(drop => {
-                if (drop.id == "gerencia" || drop.id == "relatorios" || drop.id == "usuarios") {
+                if (drop.id == "gerencia" || drop.id == "relatorios") {
                     drop.disabled = true;
                 };
+
+                // Se o usuario não for admin e não for motorista,
+                // não pode acessar a tela de movimentacao
+                if(drop.id === "movimentacao") {
+                    drop.items = drop.items.filter(item => item.href == "/solicitacao");
+                };
+
+                if(drop.id === "usuarios") {
+                    drop.items = drop.items.filter(item => item.href == "/usuarios/atualiza");
+                };
+
                 return drop;
             });
             setItemsDropDown(newsAvailableDropDown)
@@ -35,7 +40,8 @@ const RadixNavBar = () => {
             setItemsDropDown(availableDropDown)
         }
 
-    }, [user])
+    }, [user]);
+
     const showModaLogout = (e: any) => {
         e.preventDefault();
         {

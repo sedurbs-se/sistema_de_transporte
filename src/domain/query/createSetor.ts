@@ -33,6 +33,7 @@ function useCreateSetor({ params, onSuccess, onError, id }: ICreateSetorDTO): Us
     }, {
         enabled: false,
         onSuccess,
+        refetchOnMount: false,
         onError,
     });
 }

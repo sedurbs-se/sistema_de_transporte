@@ -14,8 +14,12 @@
     background-color: white;
     min-height: 260px;
     border-radius: 10px;
-    max-width: 520px;
+    max-width: 620px;
     padding: 20px;
+
+    .lg {
+        max-width: 620px;
+    }
 
     .md {
         max-width: 520px;

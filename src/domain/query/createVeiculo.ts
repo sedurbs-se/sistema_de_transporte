@@ -32,7 +32,9 @@ function useCreateVeiculo({ params, onSuccess, id }: ICreateVeiculoDTO): UseQuer
         await createVeiculo(params)
         return data;
     }, {
-        onSuccess
+        enabled: false,
+        onSuccess,
+        refetchOnMount: false,
     });
 }
 

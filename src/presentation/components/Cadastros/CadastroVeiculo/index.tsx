@@ -91,7 +91,7 @@ const CadastroVeiculo = () => {
     return (
         <CadastroContainer size="md"
         >
-            <h3 className={style["title"]}>Cadastro</h3>
+            <h4 >Cadastro de Veiculo</h4>
 
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <Row>
@@ -211,7 +211,7 @@ const CadastroVeiculo = () => {
                     </Col>
                 </Row>
 
-                <Button variant="primary" type="submit" disabled={isFetching}>
+                <Button className="mt-2" variant="primary" type="submit" disabled={isFetching}>
                     {isFetching ? 'Aguarde...' : 'Confirmar'}
                 </Button>
 

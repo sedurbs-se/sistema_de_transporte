@@ -65,7 +65,7 @@ const CadastroRetorno = () => {
     }, [selectedMovimentacao])
 
     return (
-        <CadastroContainer>
+        <CadastroContainer size="lg">
 
             <fieldset>
                 <Form onSubmit={handleSubmit(onSubmit)}>

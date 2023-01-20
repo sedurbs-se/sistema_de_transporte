@@ -70,7 +70,7 @@ const CadastroMotorista = () => {
     return (
         <CadastroContainer>
             <fieldset>
-                <legend>Cadastro de Motorista</legend>
+                <h4>Cadastro de Motorista</h4>
                 <Form onSubmit={handleSubmit(onSubmit)}>
 
                     <Form.Group className="mb-3" controlId="formBasicEmail">

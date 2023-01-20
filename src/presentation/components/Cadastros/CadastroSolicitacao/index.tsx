@@ -94,7 +94,7 @@ const CadastroSolicitacao = () => {
                 <Form onSubmit={handleSubmit(onSubmit)}>
 
                     <Row>
-                        <Col md={6} xs={6} xl={6} xls={6}>
+                        <Col md={6} xs={12} xl={12} xls={12}>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Usuario</Form.Label>
                                 <Form.Control
@@ -108,7 +108,7 @@ const CadastroSolicitacao = () => {
                                     <InputError type={errors.usuario.type} form="solicitacao" field='usuario' />}
                             </Form.Group>
                         </Col>
-                        <Col md={3} xs={1} xl={1} xls={1}>
+                        <Col md={6} xs={6} xl={6} xls={6}>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Ramal</Form.Label>
                                 <Form.Control type="text" placeholder="Ramal"
@@ -122,7 +122,7 @@ const CadastroSolicitacao = () => {
                             </Form.Group>
                         </Col>
 
-                        <Col md={3} xs={3} xl={3} xls={3}>
+                        <Col md={6} xs={6} xl={6} xls={6}>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Setor</Form.Label>
                                 <Form.Select
@@ -143,7 +143,7 @@ const CadastroSolicitacao = () => {
 
                     <Row>
 
-                        <Col md={2} xs={2} xl={2} xls={2}>
+                        <Col md={6} xs={3} xl={3} xls={3}>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>N. Ocupates</Form.Label>
                                 <Form.Control
@@ -160,7 +160,7 @@ const CadastroSolicitacao = () => {
                                     <InputError type={errors.num_ocupantes.type} form="solicitacao" field='num_ocupantes' />}
                             </Form.Group>
                         </Col>
-                        <Col md={4} xs={4} xl={4} xls={4}>
+                        <Col md={6} xs={4} xl={4} xls={4}>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Atividade</Form.Label>
                                 <Form.Control type="text" placeholder="Atividade"
@@ -172,7 +172,7 @@ const CadastroSolicitacao = () => {
                                     <InputError type={errors.atividade.type} form="solicitacao" field='atividade' />}
                             </Form.Group>
                         </Col>
-                        <Col md={3} xs={3} xl={3} xls={3}>
+                        <Col md={6} xs={5} xl={5} xls={5}>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Data e Hora de saída</Form.Label>
                                 <Form.Control type="datetime-local" placeholder="Data de saída"
@@ -190,7 +190,7 @@ const CadastroSolicitacao = () => {
                     </Row>
 
                     <Row>
-                        <Col md={3} xs={3} xl={3} xls={3}>
+                        <Col md={6} xs={6} xl={6} xls={6}>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Tipo</Form.Label>
                                 <Form.Select {...register("tipo_solicitacao_id")}
@@ -207,7 +207,7 @@ const CadastroSolicitacao = () => {
                                     <InputError type={errors.tipo_solicitacao.type} form="solicitacao" field='tipo_solicitacao' />}
                             </Form.Group>
                         </Col>
-                        <Col md={3} xs={3} xl={3} xls={3}>
+                        <Col md={6} xs={6} xl={6} xls={6}>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Status</Form.Label>
                                 <Form.Select {...register("status_solicitacao_id")}
@@ -258,11 +258,11 @@ const CadastroSolicitacao = () => {
                         {errors?.observacao?.type &&
                             <InputError type={errors.observacao.type} form="solicitacao" field='observacao' />}
                     </Form.Group>
-
-                    <Button variant="primary" type="submit" disabled={isFetching}>
-                        {isFetching ? 'Aguarde...' : 'Confirmar'}
-                    </Button>
-
+                    <Col md={12} xs={12} xl={12} xls={12}>
+                        <Button variant="primary" type="submit" disabled={isFetching}>
+                            {isFetching ? 'Aguarde...' : 'Confirmar'}
+                        </Button>
+                    </Col>
                 </Form>
             </fieldset>
         </CadastroContainer>

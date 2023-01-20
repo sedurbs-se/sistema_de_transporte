@@ -69,9 +69,7 @@ const CadastroLocadoras = (props: CadastroLocadoraProps) => {
   return (
     <CadastroContainer
     >
-      <h3
-        className={style["title"]}
-      >Cadastro</h3>
+ <h4>Cadastro de Locadora</h4>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Row>
           <Col>

@@ -93,9 +93,7 @@ const CadastroSetor = (props: CadastroSetorProps) => {
 
   return (
     <CadastroContainer>
-      <h3
-        className={style["title"]}
-      >Cadastro</h3>
+      <h4>Cadastro de Setor</h4>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Código</Form.Label>

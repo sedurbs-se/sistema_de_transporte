@@ -20,7 +20,7 @@ const CadastroMovimentacao = () => {
 
     } = useStore(state => state, shallow);
 
-    const { register, handleSubmit, watch, formState: { errors }, setValue,reset } = useForm();
+    const { register, handleSubmit, watch, formState: { errors }, setValue, reset } = useForm();
 
     const onSuccess = ({ }: ISaidaMovimentacaoResponse) => {
         setModalSuccess();
@@ -59,7 +59,7 @@ const CadastroMovimentacao = () => {
     };
 
     return (
-        <CadastroContainer>
+        <CadastroContainer size="lg">
             <ListaSolicitacoesAprovada handleSelectCheck={handleSelectCheck} selectedValue={form.solicitacao_id} />
 
             <fieldset>
@@ -67,7 +67,7 @@ const CadastroMovimentacao = () => {
                 <Form onSubmit={handleSubmit(onSubmit)}>
 
                     <Row>
-                        <Col>
+                        <Col md={12} xs={6} xl={6} xls={6}>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Placa</Form.Label>
                                 <Form.Select {...register("veiculos_id")}>
@@ -81,7 +81,7 @@ const CadastroMovimentacao = () => {
                             </Form.Group>
                         </Col>
 
-                        <Col>
+                        <Col md={12} xs={6} xl={6} xls={6}>
                             <Form.Group className="mb-3" controlId="formBasicDataNascimento">
                                 <Form.Label>Km inicial</Form.Label>
                                 <Form.Control type="number" disabled
@@ -89,7 +89,7 @@ const CadastroMovimentacao = () => {
                                 />
                             </Form.Group>
                         </Col>
-                        <Col>
+                        <Col md={6} xs={12} xl={12} xls={12}>
                             <Form.Group className="mb-3" controlId="formBasicBairro">
                                 <Form.Label>Motorista</Form.Label>
                                 <Form.Select {...register("motorista_id")}>
@@ -101,7 +101,7 @@ const CadastroMovimentacao = () => {
                                 </Form.Select>
                             </Form.Group>
                         </Col>
-                        <Col>
+                        <Col md={6} xs={12} xl={12} xls={12}>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Data e Hora de saída</Form.Label>
                                 <Form.Control type="datetime-local" placeholder="Data de saída"
@@ -130,9 +130,12 @@ const CadastroMovimentacao = () => {
                         <Form.Control as="textarea" rows={3} {...register("observacoes")} />
                     </Form.Group>
 
-                    <Button variant="primary" type="submit">
-                        Salvar
-                    </Button>
+                    <Col md={12} xs={12} xl={12} xls={12}>
+                        <Button className="mt-2" variant="primary" type="submit">
+                            Salvar
+                        </Button>
+                    </Col>
+
                 </Form>
             </fieldset>
         </CadastroContainer>

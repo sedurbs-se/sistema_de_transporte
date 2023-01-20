@@ -14,7 +14,7 @@ function useDeleteSolicitacao({ onSuccess, onError, id }: IDeleteSolicitacaoDTO)
     return useQuery('deleteSolicitacao', async () => {
         await deleteSolicitacao({ id })
     }, {
-        enabled: true,
+        enabled: false,
         onSuccess,
         onError,
     });

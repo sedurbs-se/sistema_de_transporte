@@ -4,15 +4,15 @@ import style from './index.module.scss';
 
 interface CadastroContainerProps {
     children: any;
-    size?: 'sm' | 'md';
+    size?: 'sm' | 'md' | 'lg';
 }
 
 const CadastroContainer = ({ children, size }: CadastroContainerProps) => {
-    const sizeClass = size === 'sm' ? style['sm'] : style['md'];
-    return ( 
+
+    return (
         <Container className={style['container']}>
             <div
-                className={`${style['cadastro-container']} ${style[sizeClass]}`}
+                className={`${style['cadastro-container']} ${style[size ? size : 'sm']}`}
             >
                 {children}
             </div>
