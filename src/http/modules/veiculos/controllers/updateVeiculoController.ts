@@ -36,7 +36,7 @@ const updateVeiculoController = catchAsyncErrors(async (req: Request, res: Respo
         data: {
             nome,
             placa, 
-            quilometragemAtual, 
+            quilometragemAtual:Number(quilometragemAtual), 
             quilometragemInicial, 
             tipo_frota_id, 
             locadora_id,
