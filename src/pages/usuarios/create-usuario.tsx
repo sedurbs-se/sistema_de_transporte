@@ -2,6 +2,8 @@ import CadastroUsuario from '@components/Cadastros/CadastroUsuario'
 import PageContainer from 'src/presentation/containers/PageContainer'
 import type { GetServerSideProps, NextPage } from 'next'
 import { initializeStore } from '../../domain/store/store'
+import tipoUsuario from 'prisma/seeds/insert/tipoUsuario';
+import fetchTiposUsuario from '@domain/requests/fetch/fetchTiposUsuario';
 
 
 interface Props {
@@ -11,9 +13,7 @@ interface Props {
 const CreateUser: NextPage<Props> = ({ isAuthenticated }) => {
     return (
         <PageContainer>
-            <h2>
-                SISTEMA DE TRANSPORTE
-            </h2>
+
             <CadastroUsuario atualizando={false} />
         </PageContainer>
     )
@@ -38,6 +38,15 @@ export const getServerSideProps: GetServerSideProps = async context => {
     }
 
     state.user = isAuthenticated;
+
+    try {
+
+        const { tiposUsuario } = await fetchTiposUsuario();
+        state.tiposUsuario = tiposUsuario
+    } catch (err) {
+        //
+    }
+
     return {
         props: {
             isAuthenticated,

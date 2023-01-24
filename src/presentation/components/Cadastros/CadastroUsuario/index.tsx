@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { Usuario } from "@shared/types/Usuario";
 import CadastroContainer from "src/presentation/containers/CadastroContainer";
 
+
 interface ICadastroUsuario {
     atualizando: boolean;
 };
@@ -19,13 +20,13 @@ interface ICadastroUsuario {
 
 const CadastroUsuario = ({ atualizando }: ICadastroUsuario) => {
 
-    const { user, setUser } = useStore(state => state, shallow);
+    const { user, setUser, tiposUsuario } = useStore(state => state, shallow);
 
     const validationSchema = yup.object().shape({
         nome: yup.string().required(),
         login: yup.string().required(),
         password: yup.string().min(5).required(),
-
+        tipo_id: yup.string().required(),
     })
 
     const { register, handleSubmit, watch, formState: { errors }, setValue, reset } = useForm({ resolver: yupResolver(validationSchema) });
@@ -52,12 +53,12 @@ const CadastroUsuario = ({ atualizando }: ICadastroUsuario) => {
         refetch();
     };
 
-
     useEffect(() => {
-        if (user) {
-            setValue("nome", user.nome)
-            setValue("login", user.login)
-            setValue("password", user.password)
+        if (atualizando && user) {
+            setValue("nome", user.nome);
+            setValue("login", user.login);
+            setValue("password", user.password);
+            setValue("tipo_id", user.tipo_id);
         }
     }, [user])
 
@@ -75,7 +76,24 @@ const CadastroUsuario = ({ atualizando }: ICadastroUsuario) => {
                             {...register("nome")} />
                         {errors?.nome?.type && <InputError type={errors.nome.type} form="veiculo" field='nome' />}
                     </Form.Group>
+                    {!atualizando ? <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Cargo</Form.Label>
+                        <Form.Select
 
+                            isValid={!errors.tipo_id && form.tipo_id !== ""}
+                            isInvalid={errors.tipo_id != undefined}
+
+                            {...register("tipo_id")}>
+                            <option value="">Selecione um cargo</option>
+                            {
+                                tiposUsuario.map(tipo => (
+                                    <option key={tipo.id} value={tipo.id}>{tipo.nome}</option>
+                                ))
+                            }
+                            {errors?.tipo_id?.type && <InputError type={errors.tipo_id.type} form="tipo" field='nome' />}
+
+                        </Form.Select>
+                    </Form.Group> : null}
 
                     <Form.Group className="mb-3" controlId="formBasicLogin">
                         <Form.Label>Login</Form.Label>
@@ -85,7 +103,6 @@ const CadastroUsuario = ({ atualizando }: ICadastroUsuario) => {
                             {...register("login")} />
                         {errors?.login?.type && <InputError type={errors.login.type} form="veiculo" field='placa' />}
                     </Form.Group>
-
 
                     <Form.Group className="mb-3" controlId="formBasicLogin">
                         <Form.Label>Senha</Form.Label>

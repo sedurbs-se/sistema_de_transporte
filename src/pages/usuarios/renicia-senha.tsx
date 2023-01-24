@@ -7,6 +7,7 @@ import axios from 'axios'
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import { Form } from 'react-bootstrap'
+import PageContainer from 'src/presentation/containers/PageContainer'
 
 import { initializeStore } from '../../domain/store/store'
 import styles from '../../styles/Home.module.css'
@@ -17,22 +18,9 @@ interface Props {
 
 const PageUsuarioResetaSenha: NextPage<Props> = ({ isAuthenticated }) => {
     return (
-        <div className={styles.container}>
-            <Head>
-                <title>Sistema de Transporte</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
-            <main className={styles.main}>
-                <h2>
-                    SISTEMA DE TRANSPORTE
-                </h2>
-                <div>
-
-                    <CadastroUsuarioResetaSenha />
-
-                </div>
-            </main>
-        </div>
+        <PageContainer>
+            <CadastroUsuarioResetaSenha />
+        </PageContainer>
     )
 }
 

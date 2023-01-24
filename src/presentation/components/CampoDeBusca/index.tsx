@@ -16,7 +16,7 @@ interface IPropsCampoDeBusca extends PropsWithChildren<HtmlHTMLAttributes<{}>> {
     setValue: any;
 }
 
-const CampoDeBusca = 
+const CampoDeBusca =
     ({ list, setValue, selected_id }: IPropsCampoDeBusca) => {
         const [search, setSearch] = React.useState("");
 
@@ -47,7 +47,7 @@ const CampoDeBusca =
         );
 
         CustomToggle.displayName = "CustomToggle";
-        
+
         const CustomMenu = React.forwardRef(
             ({ style, className, "aria-labelledby": labeledBy }: any, ref) => {
                 return (
@@ -62,7 +62,7 @@ const CampoDeBusca =
                         <ul className="list-unstyled">
                             {filteredList.map((data) => (
                                 <Dropdown.Item
-                                    key = {data.id}
+                                    key={data.id}
                                     onClick={() => {
                                         setValue(data.id)
                                     }}
@@ -83,8 +83,8 @@ const CampoDeBusca =
             <Dropdown className={style.dropdown}>
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
                     {!selected_id
-                        ? "Selecione uma opção"
-                        : list.find((item) => item.id === selected_id)?.nome
+                        ? <p>Selecione uma opção</p>
+                        : <p>{list.find((item) => item.id === selected_id)?.nome}</p>
                     }
                 </Dropdown.Toggle>
                 <Dropdown.Menu as={CustomMenu}></Dropdown.Menu>

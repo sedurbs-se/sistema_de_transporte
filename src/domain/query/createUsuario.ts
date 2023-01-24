@@ -5,6 +5,7 @@ import { useQuery, UseQueryResult } from "react-query";
 
 interface ICreateUsuarioDTO {
     params: {
+        tipo_id: string;
         nome: string;
         login: string;
         password: string;

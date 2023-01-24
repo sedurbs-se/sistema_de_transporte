@@ -8,7 +8,6 @@ const handler = nc({ onError });
 
 handler.get(listUsuarioController);
 
-
 // handler.put(updateMotoristaController);
 // handler.put()
 export default handler;

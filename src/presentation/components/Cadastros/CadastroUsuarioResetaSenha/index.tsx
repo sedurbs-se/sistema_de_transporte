@@ -46,13 +46,13 @@ const CadastroUsuarioResetaSenha = () => {
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <Row >
 
-                    <Col>
-                        <CampoDeBusca
-                            list={usuarios.map(usuario => ({ id: usuario.id, nome: usuario.nome }))}
-                            setValue={(user_id: string) => setValue('user_id', user_id)}
-                            selected_id={form.user_id}
-                        />
-                    </Col>
+
+                    <CampoDeBusca
+                        list={usuarios.map(usuario => ({ id: usuario.id, nome: usuario.nome }))}
+                        setValue={(user_id: string) => setValue('user_id', user_id)}
+                        selected_id={form.user_id}
+                    />
+
 
                 </Row>
 

@@ -14,27 +14,19 @@ const createUsuarioController = catchAsyncErrors(async (req: Request, res: Respo
     
     if (responsavel?.tipo === null) throw new AppError('Usuário não autenticado', 401);
 
-    if (responsavel?.tipo.nome !== 'admin') {
+
+    if(responsavel?.tipo.nome != 'gerente' && responsavel?.tipo.nome != 'admin' ) {
         throw new AppError('Você não tem permissão para realizar essa ação', 401);
     }
 
-    const { nome, login, password } = req.body;
+
+    const { nome, login, password, tipo_id } = req.body;
 
     const existUser = await prisma.usuario.findUnique({ where: { login: login as string } });
 
     if (existUser) {
         throw new AppError('Usuário já cadastrado', 400);
     }
-
-    const { id: tipo_id } = await prisma.tipoUsuario.upsert({
-        where: {
-            nome: 'colaborador'
-        },
-        create: {
-            nome: 'colaborador'
-        },
-        update: {}
-    });
 
     await prisma.usuario.create({
         data: {
