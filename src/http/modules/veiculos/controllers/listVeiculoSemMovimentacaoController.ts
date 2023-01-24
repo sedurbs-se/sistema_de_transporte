@@ -4,7 +4,6 @@ import prisma from "../../../../shared/prisma.index";
 
 const listVeiculoSemMovimentacaoController = catchAsyncErrors(async (req: Request, res: Response) => {
 
-    const { page, limit } = req.query;
 
     const statusAtivo = await prisma.movimentacaoStatus.findFirst({
         where: {
@@ -31,7 +30,6 @@ const listVeiculoSemMovimentacaoController = catchAsyncErrors(async (req: Reques
                     }
                 }
             },
-            skip: (Number(page) - 1) * Number(limit), take: Number(limit),
         });
 
     const veiculos = veiculosQuery.map(veiculo => {

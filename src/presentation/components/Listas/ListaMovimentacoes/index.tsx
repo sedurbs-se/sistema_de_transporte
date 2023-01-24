@@ -77,8 +77,7 @@ const ListaMovimentacoes = () => {
                 onEdit={(id) => onEdit(id)}
             ></TableComponent>
 
-            <Button variant="primary" onClick={onAdd}>Adicionar</Button>
-        </>
+                   </>
 
     )
 }
