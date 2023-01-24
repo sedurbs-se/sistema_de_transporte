@@ -11,7 +11,6 @@ const createUsuarioController = catchAsyncErrors(async (req: Request, res: Respo
 
     const { user: responsavel } = req;
 
-    console.log(responsavel);
     
     if (responsavel?.tipo === null) throw new AppError('Usuário não autenticado', 401);
 

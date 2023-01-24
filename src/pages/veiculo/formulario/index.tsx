@@ -47,7 +47,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
         state.locadoras = locadoras;
 
     } catch (error: any) {
-        console.log(error.message)
     }
 
     return {

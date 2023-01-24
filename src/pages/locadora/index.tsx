@@ -43,7 +43,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
         state.locadoras = locadoras;
         state.locadoraPages = total;
-        console.log(total)
     } catch (error) {
     }
 

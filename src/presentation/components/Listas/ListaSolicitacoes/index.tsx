@@ -38,8 +38,6 @@ const ListaSolicitacoes = () => {
         return `${hours}:${minutes}:${seconds}`;
     }
 
-    console.log('Solicitacoes', solicitacoes);
-
     if(!solicitacoes || solicitacoes === undefined) return (<div>Carregando...</div>);
 
     const tableBody = solicitacoes.map((solicitacao) => ({

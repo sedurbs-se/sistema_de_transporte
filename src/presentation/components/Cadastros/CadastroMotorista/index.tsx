@@ -39,9 +39,7 @@ const CadastroMotorista = () => {
 
     const form = watch() as ICreateMotoristaDTO['params'];
 
-    useEffect(() => {
-        console.log(form)
-    }, [form])
+
 
     const { refetch, isError } = useCreateMotorista({
         params: form,
@@ -50,7 +48,6 @@ const CadastroMotorista = () => {
     });
 
     const onSubmit = async () => {
-        console.log('e')
         refetch();
     };
 

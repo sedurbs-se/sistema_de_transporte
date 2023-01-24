@@ -42,7 +42,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
         state.motoristas = motoristas;
 
         state.motoristaPages = total;
-        console.log(total)
     } catch (error) {
 
     }

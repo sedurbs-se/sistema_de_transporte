@@ -53,7 +53,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
         state.vinculos = vinculos;
     } catch (err: any) {
-        console.log(err);
+        (err);
     }
 
 

@@ -17,7 +17,7 @@ const retornoMovimentacaoController = catchAsyncErrors(async (req: Request, res:
     if (!movimentacaoExist) {
         throw new AppError("Movimentação não encontrada", 400);
     };
-    console.log('alo')
+
 
     const {
         dtsaida,

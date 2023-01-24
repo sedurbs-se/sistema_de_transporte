@@ -43,7 +43,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
         state.setorPages =  total;
 
     } catch (error) {
-        // console.log(error);
     }
 
     return {

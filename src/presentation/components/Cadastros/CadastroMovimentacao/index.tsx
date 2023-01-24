@@ -29,9 +29,7 @@ const CadastroMovimentacao = () => {
 
     const form = watch() as ISaidaMovimentacaoDTO['params'];
 
-    useEffect(() => {
-        console.log(form)
-    }, [form])
+
 
     const { refetch, isError } = useSaidaMovimentacao({
         params: form,

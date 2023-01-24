@@ -15,3 +15,13 @@ Depois essa Movimentação será editada como status de retorno
 
 Quando tiver 3 solicitações que forem fora de aracaju, não permitir a quarta!
 
+
+
+
+## TODO
+
+Usuario só pode editar sua conta
+
+Deve ser possível aumentar o cargo de um usuário pelo sistema
+
+Todas as rotas devem ser error free

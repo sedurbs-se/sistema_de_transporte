@@ -57,7 +57,6 @@ const CadastroRetorno = () => {
     useEffect(() => {
         
         if (selectedMovimentacao) {
-            console.log('selectedMovimentacao', selectedMovimentacao)
             Object.keys(form).forEach(key => {
                     setValue(key, selectedMovimentacao[key as keyof Movimentacao])
             })

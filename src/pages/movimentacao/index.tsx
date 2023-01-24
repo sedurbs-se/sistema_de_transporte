@@ -55,7 +55,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
         state.motoristas = motoristas;
         state.statusMovimentacao = statusMovimentacao;
     } catch (error) {
-        console.log(error);
     }
 
 
