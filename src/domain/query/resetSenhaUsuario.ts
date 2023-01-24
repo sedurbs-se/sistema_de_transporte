@@ -1,11 +1,12 @@
 import { api } from "@domain/config/api";
 import { AxiosError, AxiosResponse } from "axios";
 import { useQuery, UseQueryResult } from "react-query";
+import { onErrorResponse } from "./createUsuario";
 
 interface IResetUsuarioDTO {
     id: string;
     onSuccess: (data: IResetUsuarioResponse) => void;
-    onError?: (data: AxiosError) => void;
+    onError?: (data: onErrorResponse) => void;
 }
 
 
@@ -22,6 +23,7 @@ function useResetUsuario({ id, onSuccess, onError }: IResetUsuarioDTO): UseQuery
         enabled: false,
         onSuccess,
         onError,
+        retry: false,
     });
 }
 

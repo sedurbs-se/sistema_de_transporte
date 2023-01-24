@@ -1,16 +1,17 @@
 import { Form, Button, Container, Col, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import style from "../CadastroLocadora/index.module.scss"
-import { setModalSuccess } from "@shared/utils/modalUtils";
+import { setModalError, setModalSuccess } from "@shared/utils/modalUtils";
 import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { InputError } from "@components/InputError";
-import { ICreateUsuarioDTO, ICreateUsuarioResponse, useCreateUsuario } from "@domain/query/createUsuario";
+import { ICreateUsuarioDTO, ICreateUsuarioResponse, onErrorResponse, useCreateUsuario } from "@domain/query/createUsuario";
 import { useStore } from "@domain/store/store";
 import shallow from "zustand/shallow";
 import { useEffect } from "react";
 import { Usuario } from "@shared/types/Usuario";
 import CadastroContainer from "src/presentation/containers/CadastroContainer";
+import { AxiosError } from "axios";
 
 
 interface ICadastroUsuario {
@@ -26,7 +27,7 @@ const CadastroUsuario = ({ atualizando }: ICadastroUsuario) => {
         nome: yup.string().required(),
         login: yup.string().required(),
         password: yup.string().min(5).required(),
-        tipo_id: yup.string().required(),
+        tipo_id: !atualizando ? yup.string().required() : yup.string(),
     })
 
     const { register, handleSubmit, watch, formState: { errors }, setValue, reset } = useForm({ resolver: yupResolver(validationSchema) });
@@ -39,26 +40,31 @@ const CadastroUsuario = ({ atualizando }: ICadastroUsuario) => {
             setUser(user)
         }
     };
+    
+    const onError = (data: onErrorResponse) => {
+        setModalError(data?.response?.data?.message);
+    };
 
     const form = watch() as ICreateUsuarioDTO["params"]
-
 
     const { refetch, isError, isFetching } = useCreateUsuario({
         id: atualizando ? user?.id : undefined,
         params: form,
         onSuccess,
+        onError
     });
 
     const onSubmit = async () => {
+        console.log(form)
         refetch();
     };
+
+
 
     useEffect(() => {
         if (atualizando && user) {
             setValue("nome", user.nome);
             setValue("login", user.login);
-            setValue("password", user.password);
-            setValue("tipo_id", user.tipo_id);
         }
     }, [user])
 

@@ -36,6 +36,12 @@ const updateUsuarioController = catchAsyncErrors(async (req: Request, res: Respo
 
     const { nome, login, password } = req.body;
 
+    const usedLogin = await prisma.usuario.findUnique({ where: { login } });
+
+    if (usedLogin && usedLogin.id !== id) {
+        throw new AppError('Login já cadastrado', 400);
+    };
+    
     const user = await prisma.usuario.update({
         where: {
             id: id as string

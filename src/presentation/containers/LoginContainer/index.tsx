@@ -12,6 +12,8 @@ import { useForm } from "react-hook-form";
 import Input from "@components/Basic/Input";
 import Button from "@components/Basic/Button";
 import CadastroContainer from "../CadastroContainer";
+import { onErrorResponse } from "@domain/query/createUsuario";
+import { setModalError } from "@shared/utils/modalUtils";
 
 const LoginContainer = () => {
 
@@ -32,7 +34,15 @@ const LoginContainer = () => {
         Router.push("/solicitacao");
     };
 
-    const { isLoading, isError, error, refetch } = useAuthenticateUser(loginForm, onSuccess);
+    const onError = (data: onErrorResponse) => {
+        setModalError(data?.response?.data?.message);
+    };
+    
+    const { isLoading, isError, error, refetch } = useAuthenticateUser({
+        params: loginForm,
+        onSuccess,
+        onError
+    });
 
     const errorMessage = axios.isAxiosError(error) && error.response?.data.message;
 

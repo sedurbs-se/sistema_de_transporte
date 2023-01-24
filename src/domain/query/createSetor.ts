@@ -3,6 +3,7 @@ import { updateSetor } from "@domain/requests/post/updateSetor";
 import { Setor } from "@prisma/client";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { useQuery, UseQueryResult } from "react-query";
+import { onErrorResponse } from "./createUsuario";
 
 
 interface ICreateSetorDTO {
@@ -14,7 +15,7 @@ interface ICreateSetorDTO {
         ramal: string;
     };
     onSuccess: (data: ICreateSetorResponse) => void;
-    onError?: (data: AxiosError) => void;
+    onError?: (data: onErrorResponse) => void;
     id?: string;
 
 }
@@ -34,6 +35,7 @@ function useCreateSetor({ params, onSuccess, onError, id }: ICreateSetorDTO): Us
         enabled: false,
         onSuccess,
         refetchOnMount: false,
+        retry: false,
         onError,
     });
 }

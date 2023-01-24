@@ -15,8 +15,8 @@ const listSolicitacaoController = catchAsyncErrors(async (req: Request, res: Res
         where: {
             statussolicitacao: {
                 nome: {
-                    not: 'AUTORIZADO'
-                }
+                    notIn: ["CANCELADO", "AUTORIZADO"]
+                 }
             }
         },
         include: {

@@ -2,17 +2,17 @@ import { useStore } from "@domain/store/store";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import shallow from "zustand/shallow";
-import { setModalSuccess } from "@shared/utils/modalUtils";
+import { setModalError, setModalSuccess } from "@shared/utils/modalUtils";
 import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { InputError } from "@components/InputError";
 import { ICreateSolicitacaoDTO, ICreateSolicitacaoResponse, useCreateSolicitacao } from "@domain/query/createSolicitacao";
 import { useEffect } from "react";
 import { Solicitacao } from "@shared/types/Solicitação"
-import { useRouter } from "next/router";
 import CadastroContainer from "../../../containers/CadastroContainer"
-const CadastroSolicitacao = () => {
+import { onErrorResponse } from "@domain/query/createUsuario";
 
+const CadastroSolicitacao = () => {
     const {
         selectedSolicitacao,
         setSelectedSolicitacao,
@@ -58,12 +58,15 @@ const CadastroSolicitacao = () => {
 
         reset()
     };
-
+    const onError = (data: onErrorResponse) => {
+        setModalError(data?.response?.data?.message);
+    };
     const form = watch() as ICreateSolicitacaoDTO["params"]
 
     const { refetch, isError } = useCreateSolicitacao({
         params: form,
         onSuccess,
+        onError,
         id: selectedSolicitacao?.id
     });
 

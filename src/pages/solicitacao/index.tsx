@@ -35,11 +35,14 @@ export const getServerSideProps: GetServerSideProps = async context => {
         }
     }
 
-    const { solicitacoes } = await fetchSolicitacoes()
-
-
     state.user = isAuthenticated;
-    state.solicitacoes = solicitacoes;
+    try {
+        const { solicitacoes } = await fetchSolicitacoes();
+        state.solicitacoes = solicitacoes;
+
+    } catch (error) {
+        
+    }
 
     return {
         props: {

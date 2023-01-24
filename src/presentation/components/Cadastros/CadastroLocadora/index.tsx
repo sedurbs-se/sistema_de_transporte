@@ -6,11 +6,12 @@ import { ICreateLocadoraDTO, ICreateLocadoraResponse, useCreateLocadora } from "
 import { useStore } from "@domain/store/store";
 import { Locadora } from "@prisma/client";
 import style from "./index.module.scss"
-import { setModalSuccess } from "@shared/utils/modalUtils";
+import { setModalError, setModalSuccess } from "@shared/utils/modalUtils";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { InputError } from "@components/InputError";
 import CadastroContainer from "../../../containers/CadastroContainer"
+import { onErrorResponse } from "@domain/query/createUsuario";
 
 export interface CadastroLocadoraProps {
 }
@@ -43,12 +44,16 @@ const CadastroLocadoras = (props: CadastroLocadoraProps) => {
     reset()
   };
 
+  const onError = (data: onErrorResponse) => {
+    setModalError(data?.response?.data?.message);
+  };
 
   const form = watch() as ICreateLocadoraDTO['params'];
 
   const { refetch, isError, isFetching } = useCreateLocadora({
     params: form,
     onSuccess,
+    onError,
     id: selectedLocadora?.id
   });
 
@@ -69,7 +74,7 @@ const CadastroLocadoras = (props: CadastroLocadoraProps) => {
   return (
     <CadastroContainer
     >
- <h4>Cadastro de Locadora</h4>
+      <h4>Cadastro de Locadora</h4>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Row>
           <Col>

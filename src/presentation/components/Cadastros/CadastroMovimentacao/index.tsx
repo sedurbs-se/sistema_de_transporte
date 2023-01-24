@@ -3,10 +3,11 @@ import { Button, Col, Form, Row } from "react-bootstrap"
 import { useForm } from "react-hook-form";
 import shallow from "zustand/shallow";
 import { useStore } from "@domain/store/store";
-import { setModalSuccess } from "@shared/utils/modalUtils";
+import { setModalError, setModalSuccess } from "@shared/utils/modalUtils";
 import { ISaidaMovimentacaoDTO, ISaidaMovimentacaoResponse, useSaidaMovimentacao } from "@domain/query/saidaMovimentacao";
 import ListaSolicitacoesAprovada from "@components/Listas/ListaSolicitacoesAprovadas";
 import CadastroContainer from "../../../containers/CadastroContainer"
+import { onErrorResponse } from "@domain/query/createUsuario";
 
 
 
@@ -16,33 +17,34 @@ const CadastroMovimentacao = () => {
         motoristas,
         statusMovimentacao,
         // Vinculo
-        veiculos
-
+        veiculos,
+         removeSolicitacao,
     } = useStore(state => state, shallow);
 
     const { register, handleSubmit, watch, formState: { errors }, setValue, reset } = useForm();
 
     const onSuccess = ({ }: ISaidaMovimentacaoResponse) => {
+        removeSolicitacao(form.solicitacao_id)
         setModalSuccess();
-        reset()
+        reset();
     };
 
     const form = watch() as ISaidaMovimentacaoDTO['params'];
 
-
+    const onError = (data: onErrorResponse) => {
+        setModalError(data?.response?.data?.message);
+    };
 
     const { refetch, isError } = useSaidaMovimentacao({
         params: form,
         onSuccess,
+        onError
     });
 
     const onSubmit = async () => {
         refetch();
     };
 
-    const onError = (errors: any) => {
-        console.log(errors);
-    }
 
     const selectedVeiculo = veiculos.find(veiculo => veiculo.id === form.veiculos_id);
 

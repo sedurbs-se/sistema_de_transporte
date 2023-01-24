@@ -8,4 +8,15 @@ export const setModalSuccess = (isEdit = false, message = '') => {
         timer: 1500,
         toast: true
     })
+};
+
+
+export const setModalError = (message = '') => {
+    Swal.fire({
+        text: message ? message : 'Erro ao efetuar a operação',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1500,
+        toast: true
+    })
 }

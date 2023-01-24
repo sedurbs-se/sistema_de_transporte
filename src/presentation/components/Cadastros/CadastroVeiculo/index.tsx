@@ -6,12 +6,13 @@ import shallow from "zustand/shallow";
 import { useCreateVeiculo, ICreateVeiculoDTO, ICreateVeiculoResponse } from "@domain/query/createVeiculo";
 import { useStore } from "@domain/store/store";
 import style from "../CadastroLocadora/index.module.scss"
-import { setModalSuccess } from "@shared/utils/modalUtils";
+import { setModalError, setModalSuccess } from "@shared/utils/modalUtils";
 import * as yup from 'yup';
 import { normalizePlaca, placaVeiculoRegex } from "@shared/utils/formUtils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { InputError } from "@components/InputError";
 import CadastroContainer from "../../../containers/CadastroContainer";
+import { onErrorResponse } from "@domain/query/createUsuario";
 
 
 const CadastroVeiculo = () => {
@@ -60,7 +61,9 @@ const CadastroVeiculo = () => {
 
         reset()
     };
-
+    const onError = (data: onErrorResponse) => {
+        setModalError(data?.response?.data?.message);
+    };
     const form = watch() as ICreateVeiculoDTO['params'];
 
     const placaValue = form.placa
@@ -72,6 +75,7 @@ const CadastroVeiculo = () => {
     const { refetch, isError, isFetching } = useCreateVeiculo({
         params: form,
         onSuccess,
+        onError,
         id: selectedVeiculo?.id
     });
 

@@ -3,6 +3,7 @@ import { updateMotorista } from "@domain/requests/post/updateMotorista";
 import { Motorista } from "@prisma/client";
 import axios, { AxiosResponse } from "axios";
 import { useQuery, UseQueryResult } from "react-query";
+import { onErrorResponse } from "./createUsuario";
 
 interface ICreateMotoristaParams {
         nome: string;
@@ -38,6 +39,7 @@ interface ICreateMotoristaDTO {
         vinculo_id: string;
     };
     onSuccess: (data: ICreateMotoristaResponse) => void;
+    onError?: (data: onErrorResponse) => void;
     id?: string;
 }
 
@@ -46,14 +48,16 @@ interface ICreateMotoristaResponse {
 }
 
 
-function useCreateMotorista({ params, onSuccess, id }: ICreateMotoristaDTO): UseQueryResult<ICreateMotoristaResponse> {
+function useCreateMotorista({ params, onSuccess,onError, id }: ICreateMotoristaDTO): UseQueryResult<ICreateMotoristaResponse> {
     return useQuery('createMotorista', async () => {
         const { data }: AxiosResponse =
             id ? await updateMotorista({params, id }) : await createMotorista({...params});
         return data;
     }, {
         enabled: false,
-        onSuccess
+        retry: false,
+        onSuccess,
+        onError
     });
 }
 

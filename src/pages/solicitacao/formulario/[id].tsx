@@ -38,15 +38,21 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     state.user = isAuthenticated;
 
-    const { tiposSolicitacoes } = await fetchTiposSolicitacao();
-    const { statusSolicitacoes } = await fetchStatusSolicitacao();
-    const { setores } = await fetchSetores(1);
-    const { solicitacao } = await fetchSolicitacao(id as string)
+    try {
 
-    state.selectedSolicitacao = solicitacao;
-    state.tiposSolcitacao = tiposSolicitacoes;
-    state.statusSolicitacao = statusSolicitacoes;
-    state.setores = setores;
+        const { setores } = await fetchSetores(1);
+        const { solicitacao } = await fetchSolicitacao(id as string)
+        const { tiposSolicitacoes } = await fetchTiposSolicitacao();
+        const { statusSolicitacoes } = await fetchStatusSolicitacao();
+        
+        state.selectedSolicitacao = solicitacao;
+        state.tiposSolcitacao = tiposSolicitacoes;
+        state.statusSolicitacao = statusSolicitacoes;
+        state.setores = setores;
+
+    } catch (error) {
+        console.log(error)
+    };
 
     return {
         props: {

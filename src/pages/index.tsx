@@ -3,7 +3,7 @@ import { initializeStore } from '@domain/store/store'
 import { LoginContainer } from '../presentation/containers/LoginContainer'
 import { ParsedUrlQuery } from 'querystring'
 import PageContainer from 'src/presentation/containers/PageContainer'
-
+import icon from 'src/assets/sedurbs-logo.png'
 interface Props {
   initialZustandState: any
 }
@@ -30,7 +30,7 @@ const Login: NextPage<Props> = () => {
             margin: '10px 0 ',
           }}
 
-          src="https://sedurbs.se.gov.br/wp-content/themes/sedurbs/img/sedurbs-logo.png" />
+          src={icon.src} />
         <LoginContainer />
       </div>
     </PageContainer>

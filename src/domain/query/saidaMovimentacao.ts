@@ -1,6 +1,7 @@
 import { saidaMovimentacao } from "@domain/requests/post/saidaMovimentacao";
 import { AxiosResponse } from "axios";
 import { useQuery, UseQueryResult } from "react-query";
+import { onErrorResponse } from "./createUsuario";
 
 interface ISaidaMovimentacaoDTO {
     params: {
@@ -13,6 +14,7 @@ interface ISaidaMovimentacaoDTO {
         observacao: string,
     };
     onSuccess: (data: ISaidaMovimentacaoResponse) => void;
+    onError?: (data: onErrorResponse) => void;
     id?: string;
 
 }
@@ -21,14 +23,16 @@ interface ISaidaMovimentacaoResponse {
 
 }
 
-function useSaidaMovimentacao({ params, onSuccess }: ISaidaMovimentacaoDTO): UseQueryResult<ISaidaMovimentacaoResponse> {
+function useSaidaMovimentacao({ params, onSuccess, onError }: ISaidaMovimentacaoDTO): UseQueryResult<ISaidaMovimentacaoResponse> {
     return useQuery('createVeiculo', async () => {
         const { data }: AxiosResponse = await saidaMovimentacao(params);
         return data;
     }, {
         enabled: false,
         onSuccess,
+        onError,
         refetchOnMount: false,
+        retry: false,
     });
 }
 

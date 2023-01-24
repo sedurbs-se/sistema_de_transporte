@@ -6,12 +6,13 @@ import { ICreateSetorDTO, ICreateSetorResponse, useCreateSetor } from "@domain/q
 import { useStore } from "@domain/store/store";
 import { Setor } from "@prisma/client"
 import style from "../CadastroLocadora/index.module.scss"
-import { setModalSuccess } from "@shared/utils/modalUtils";
+import { setModalError, setModalSuccess } from "@shared/utils/modalUtils";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { InputError } from "@components/InputError";
 import Swal from "sweetalert2";
 import CadastroContainer from "../../../containers/CadastroContainer"
+import { onErrorResponse } from "@domain/query/createUsuario";
 
 export interface CadastroSetorProps {
   setor?: Setor
@@ -49,18 +50,9 @@ const CadastroSetor = (props: CadastroSetorProps) => {
     reset()
   };
 
-  const onError = (errors: any) => {
-    if (errors.response.status === 409) {
-      Swal.fire({
-        title: "Setor já cadastrado!",
-        icon: "error",
-        text: "Insira um código diferente",
-        showCloseButton: true,
-        confirmButtonColor: '#3085d6',
-      })
-    }
-  }
-
+  const onError = (data: onErrorResponse) => {
+    setModalError(data?.response?.data?.message);
+};
   const clearFields = () => {
     Object.keys(form).forEach(key => {
       setValue(key, "")

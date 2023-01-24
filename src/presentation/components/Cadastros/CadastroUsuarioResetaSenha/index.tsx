@@ -1,7 +1,7 @@
 import { Form, Button, Container, Col, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import style from "../CadastroLocadora/index.module.scss"
-import { setModalSuccess } from "@shared/utils/modalUtils";
+import { setModalError, setModalSuccess } from "@shared/utils/modalUtils";
 import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup";
 import CampoDeBusca from "@components/CampoDeBusca";
@@ -9,6 +9,7 @@ import { useResetUsuario } from "@domain/query/resetSenhaUsuario";
 import { useStore } from "@domain/store/store";
 import shallow from "zustand/shallow";
 import CadastroContainer from "src/presentation/containers/CadastroContainer";
+import { onErrorResponse } from "@domain/query/createUsuario";
 
 
 const CadastroUsuarioResetaSenha = () => {
@@ -24,7 +25,9 @@ const CadastroUsuarioResetaSenha = () => {
     const onSuccess = () => {
         setModalSuccess(false, "Senha resetada com sucesso");
     };
-
+    const onError = (data: onErrorResponse) => {
+        setModalError(data?.response?.data?.message);
+    };
     const form = watch();
     register('user_id')
 
@@ -32,6 +35,7 @@ const CadastroUsuarioResetaSenha = () => {
     const { refetch, isError, isFetching } = useResetUsuario({
         id: form.user_id,
         onSuccess,
+        onError
     });
 
     const onSubmit = async () => {

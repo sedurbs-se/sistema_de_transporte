@@ -26,6 +26,30 @@ const createSolicitacaoController = catchAsyncErrors(async (req: Request, res: R
         };
     })
 
+    // Verifica se existem mais de 4 solicitacoes para fora de aracaju 
+    const solicitacoesForaAracaju = await prisma.solicitacao.findMany({
+        where: {
+            municipiosolicitacao: {
+                some: {
+                    municipio: {
+                        nome: {
+                            not: "Aracaju"
+                        }
+                    }
+                }
+            },
+            statussolicitacao: {
+                nome: {
+                   notIn: ["CANCELADO", "AUTORIZADO"]
+                }
+            }
+        }
+    });
+
+    if (municipios.find(m => m != "Aracaju") && solicitacoesForaAracaju.length >= 4) {
+        throw new AppError("Não é possível realizar mais de 4 solicitações para fora de Aracaju", 400);
+    }
+
     const solicitacao = await prisma.solicitacao.create({
         data: {
             usuario,
@@ -39,6 +63,7 @@ const createSolicitacaoController = catchAsyncErrors(async (req: Request, res: R
             observacao,
         }
     });
+
 
     const municipiosInDB = await prisma.municipio.findMany({
         where: {

@@ -15,7 +15,6 @@ const AtualizaUser: NextPage<Props> = ({ isAuthenticated }) => {
     return (
         <PageContainer>
             <CadastroUsuario atualizando={true} />
-
         </PageContainer>
     )
 }

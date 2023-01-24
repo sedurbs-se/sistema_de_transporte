@@ -11,6 +11,11 @@ const listMovimentacaoController = catchAsyncErrors(async (req: Request, res: Re
         where: {
             solicitacao_id: {
                 not: undefined
+            },
+            status: {
+                nome: {
+                    notIn: ["RETORNO", "CANCELADO"]
+                }
             }
         },
         include: {

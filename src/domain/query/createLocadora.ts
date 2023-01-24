@@ -3,6 +3,7 @@ import { updateLocadora } from "@domain/requests/post/updateLocadora";
 import { Locadora } from "@prisma/client";
 import axios, { AxiosResponse } from "axios";
 import { useQuery, UseQueryResult } from "react-query";
+import { onErrorResponse } from "./createUsuario";
 
 interface ICreateLocadoraDTO {
     params: {
@@ -13,6 +14,7 @@ interface ICreateLocadoraDTO {
         endereco: string;
     };
     onSuccess: (data: ICreateLocadoraResponse) => void;
+    onError?: (data: onErrorResponse) => void;
     id?: string;
 
 }
@@ -22,7 +24,7 @@ interface ICreateLocadoraResponse {
 }
 
 
-function useCreateLocadora({ params, onSuccess, id }: ICreateLocadoraDTO): UseQueryResult<ICreateLocadoraResponse> {
+function useCreateLocadora({ params, onSuccess, onError, id }: ICreateLocadoraDTO): UseQueryResult<ICreateLocadoraResponse> {
     return useQuery('createLocadora', async () => {
         const { data }: AxiosResponse = id ?
             await updateLocadora(params, id) :
@@ -30,7 +32,9 @@ function useCreateLocadora({ params, onSuccess, id }: ICreateLocadoraDTO): UseQu
         return data;
     }, {
         enabled: false,
-        onSuccess
+        onSuccess,
+        onError,
+        retry: false,
     });
 }
 

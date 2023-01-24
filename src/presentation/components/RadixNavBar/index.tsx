@@ -17,7 +17,7 @@ const RadixNavBar = () => {
     const [ItemsDropDown, setItemsDropDown] = React.useState(availableDropDown);
 
     React.useEffect(() => {
-        if (user && user?.tipo?.nome != "admin") {
+        if (user && user?.tipo?.nome != "admin" && user?.tipo?.nome != "gerencia") {
             const newsAvailableDropDown = ItemsDropDown.map(drop => {
                 if (drop.id == "gerencia" || drop.id == "relatorios") {
                     drop.disabled = true;

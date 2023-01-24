@@ -42,16 +42,21 @@ export const getServerSideProps: GetServerSideProps = async context => {
         }
     }
 
-    const { movimentacoes } = await fetchMovimentacaoRetorno()
-    const { veiculos } = await fetchVeiculosSemMovimentacao();
-    const { motoristas } = await fetchMotoristasSemMovimentacao();
-    const { statusMovimentacao } = await fetchMovimentacaoStatus();
-
-    state.user = isAuthenticated;
-    state.movimentacoes = movimentacoes;
-    state.veiculos = veiculos;
-    state.motoristas = motoristas;
-    state.statusMovimentacao = statusMovimentacao;
+    try {
+        const { movimentacoes } = await fetchMovimentacaoRetorno()
+        const { veiculos } = await fetchVeiculosSemMovimentacao();
+        const { motoristas } = await fetchMotoristasSemMovimentacao();
+        const { statusMovimentacao } = await fetchMovimentacaoStatus();
+    
+        state.user = isAuthenticated;
+        state.movimentacoes = movimentacoes;
+        state.veiculos = veiculos;
+        state.motoristas = motoristas;
+        state.statusMovimentacao = statusMovimentacao;
+    } catch(error) {
+        
+    }
+  
 
 
     return {

@@ -1,11 +1,12 @@
 import { deleteSolicitacao } from "@domain/requests/delete/deleteSolicitacao";
 import { AxiosError } from "axios";
 import { useQuery, UseQueryResult } from "react-query";
+import { onErrorResponse } from "./createUsuario";
 
 interface IDeleteSolicitacaoDTO {
     id: string;
     onSuccess: () => void;
-    onError?: (data: AxiosError) => void;
+    onError?: (data: onErrorResponse) => void;
 
 
 };
@@ -17,6 +18,7 @@ function useDeleteSolicitacao({ onSuccess, onError, id }: IDeleteSolicitacaoDTO)
         enabled: false,
         onSuccess,
         onError,
+        retry: false,
     });
 }
 

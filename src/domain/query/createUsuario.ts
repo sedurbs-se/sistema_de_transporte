@@ -3,6 +3,13 @@ import { Usuario } from "@shared/types/Usuario";
 import { AxiosError, AxiosResponse } from "axios";
 import { useQuery, UseQueryResult } from "react-query";
 
+interface onErrorResponse extends AxiosError {
+    response: AxiosResponse<{
+        message: string;
+        status: number;
+    }>;
+}
+
 interface ICreateUsuarioDTO {
     params: {
         tipo_id: string;
@@ -12,7 +19,7 @@ interface ICreateUsuarioDTO {
     },
     id?: string;
     onSuccess: (data: ICreateUsuarioResponse) => void;
-    onError?: (data: AxiosError) => void;
+    onError?: (data: onErrorResponse) => void;
 }
 
 
@@ -31,8 +38,9 @@ function useCreateUsuario({ params, id, onSuccess, onError }: ICreateUsuarioDTO)
         enabled: false,
         onSuccess,
         onError,
+        retry: false
     });
 }
 
 export { useCreateUsuario };
-export type { ICreateUsuarioDTO, ICreateUsuarioResponse }
+export type { ICreateUsuarioDTO, ICreateUsuarioResponse,onErrorResponse }
