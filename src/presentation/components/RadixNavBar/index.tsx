@@ -25,11 +25,11 @@ const RadixNavBar = () => {
 
                 // Se o usuario não for admin e não for motorista,
                 // não pode acessar a tela de movimentacao
-                if(drop.id === "movimentacao") {
+                if (drop.id === "movimentacao") {
                     drop.items = drop.items.filter(item => item.href == "/solicitacao");
                 };
 
-                if(drop.id === "usuarios") {
+                if (drop.id === "usuarios") {
                     drop.items = drop.items.filter(item => item.href == "/usuarios/atualiza");
                 };
 
@@ -71,7 +71,7 @@ const RadixNavBar = () => {
         }
     }
 
-    const handleItemClick = (item: {text: string,href: string}) => { 
+    const handleItemClick = (item: { text: string, href: string }) => {
         Router.push(item.href)
     }
 
@@ -98,7 +98,7 @@ const RadixNavBar = () => {
                                                     <DropdownMenu.Item className={styles.DropdownMenuItem} onClick={() => {
                                                         handleItemClick(item);
                                                     }}
-                                                    key={item.text}
+                                                        key={item.text}
                                                     >
                                                         {item.text}
                                                         {/* <div className={styles.RightSlot}> </div> */}
@@ -115,9 +115,9 @@ const RadixNavBar = () => {
                 </div>
 
                 {user ?
-                    <>Olá, {"  "}
+                    <p className={styles["usuario-nome"]}>Olá, {"  "}
                         <span className={styles.user}
-                            onClick={handleOnClick}>{user?.nome}</span></>
+                            onClick={handleOnClick}>{user?.nome}</span></p>
                     : null}
 
             </Container>

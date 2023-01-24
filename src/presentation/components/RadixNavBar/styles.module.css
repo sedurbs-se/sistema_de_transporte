@@ -194,3 +194,11 @@
     transform: translateX(0);
   }
 }
+
+.usuario-nome {
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  width: 320px;
+  margin: 0;
+}
