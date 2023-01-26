@@ -1,6 +1,6 @@
 
 
-export interface Veiculos {
+export interface Veiculo {
     id: string;
     placa: string;
     descricao: string;

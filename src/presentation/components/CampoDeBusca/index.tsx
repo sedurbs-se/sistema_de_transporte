@@ -2,6 +2,7 @@ import React, {
     forwardRef,
     HtmlHTMLAttributes,
     PropsWithChildren,
+    useEffect,
 } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 import Form from "react-bootstrap/Form";
@@ -14,17 +15,18 @@ interface IPropsCampoDeBusca extends PropsWithChildren<HtmlHTMLAttributes<{}>> {
     }[]
     selected_id?: string;
     setValue: any;
+    handleSearch?: (search: string) => void;
 }
 
 const CampoDeBusca =
-    ({ list, setValue, selected_id }: IPropsCampoDeBusca) => {
+    ({ list, setValue, selected_id, handleSearch }: IPropsCampoDeBusca) => {
         const [search, setSearch] = React.useState("");
-
 
         const filteredList = list.filter((data: any) => {
             if (search === "" || search === undefined) {
+                
                 return data.nome
-            } else if (data.nome.toLowerCase().includes(search)) {
+            } else if (data.nome.toLowerCase().includes(search.toLowerCase())) {
                 return data.nome;
             }
         });
@@ -78,6 +80,13 @@ const CampoDeBusca =
         );
 
         CustomMenu.displayName = "CustomMenu";
+
+        useEffect(() => {
+            if (search.length < 3 || !handleSearch) return;
+
+            handleSearch(search)
+
+        }, [search])
 
         return (
             <Dropdown className={style.dropdown}>

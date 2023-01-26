@@ -1,4 +1,4 @@
-import { Veiculo } from '@prisma/client';
+import { Veiculo } from "@shared/types/Veiculo";
 
 export interface IVeiculosStore {
     veiculos: Veiculo[];

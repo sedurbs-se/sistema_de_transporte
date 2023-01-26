@@ -82,7 +82,10 @@ const ListaMotoristas = (props: ListaMotoristasProps) => {
     const [page, setPage] = usePagination({
         total: motoristaPages,
         limit: 10,
-        onFetch: fetchMotoristas,
+        onFetch: (page: number, limit: number) => fetchMotoristas({
+            page,
+            limit,
+        }),
         action
     })
 

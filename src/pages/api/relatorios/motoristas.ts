@@ -1,0 +1,218 @@
+
+
+import prisma from "@shared/prisma.index";
+import { getData, getTime } from "@shared/utils/dateUtils";
+import nc from "next-connect";
+import PdfPrinter from "pdfmake";
+import AppError from "src/http/errors/AppError";
+import catchAsyncErrors from "src/http/middlewares/catchAsyncErrors";
+import { Request, Response } from "src/http/type";
+import onError from "../../../http/middlewares/onErrors";
+
+const handler = nc({ onError })
+
+
+handler.get(
+    catchAsyncErrors(
+        async (req: Request, res: Response) => {
+
+            const { id, ano, mes } = req.query;
+
+            if (!id) {
+                throw new AppError("Id não informado", 400);
+            }
+
+            const motorista = await prisma.motorista.findUnique({
+                where: {
+                    id: id as string
+                },
+                include: {
+                    vinculo: {
+                        select: {
+                            nome: true
+                        }
+                    },
+                    Movimentacao: {
+                        where: {
+                            createdAt: {
+                                gte: new Date(`${ano}-${mes}-01`),
+                                lte: new Date(`${ano}-${mes}-31`)
+                            },
+                            status: {
+                                nome:
+                                    { in: ['RETORNO', 'CANCELADO'] }
+                            },
+                        },
+                        include: {
+                            Solicitacao: {
+                                include: {
+                                    municipiosolicitacao: {
+                                        select: {
+                                            municipio: {
+                                                select: {
+                                                    nome: true
+                                                }
+                                            },
+
+                                        }
+                                    },
+                                    setor: true,
+
+
+                                }
+                            },
+                            veiculo: true,
+                            status: true,
+                        }
+                    }
+                }
+            })
+
+            if (!motorista) {
+                throw new AppError("Motorista não encontrado", 404);
+            }
+
+            var fonts = {
+                Courier: {
+                    normal: 'Courier',
+                    bold: 'Courier-Bold',
+                    italics: 'Courier-Oblique',
+                    bolditalics: 'Courier-BoldOblique'
+                },
+                Helvetica: {
+                    normal: 'Helvetica',
+                    bold: 'Helvetica-Bold',
+                    italics: 'Helvetica-Oblique',
+                    bolditalics: 'Helvetica-BoldOblique'
+                },
+                Times: {
+                    normal: 'Times-Roman',
+                    bold: 'Times-Bold',
+                    italics: 'Times-Italic',
+                    bolditalics: 'Times-BoldItalic'
+                },
+
+            };
+
+            let styles = {
+                header: {
+                    fontSize: 18,
+                },
+                bigger: {
+                    fontSize: 14,
+                    italics: true
+                },
+                medium: {
+                    fontSize: 12,
+                    italics: true
+                },
+                small: {
+                    fontSize: 10,
+                    italics: true
+                },
+                table: {
+                    fontSize: 8,
+                },
+                tableHeader: {
+                    bold: true,
+                    fontSize: 13,
+                    color: 'black'
+                }
+            }
+
+            let header = [
+                {
+                    text: 'Governo de Sergipe\n\n',
+                    style: 'header',
+                    alignment: 'center'
+                },
+                {
+                    text: 'SECRETARIA DE ESTADO DO DESENVOLVIMENTO URBANO E INFRAESTRUTURA - SEDURB\n\n',
+                    style: 'bigger',
+                    alignment: 'center'
+                },
+                {
+                    text: 'Rua Vila Cristina, nº 1051 Bairro 13 de Julho - Aracaju/SE CEP: 49020-150',
+                    style: 'small',
+                    alignment: 'center'
+                }
+            ];
+
+            const motoristaTable = motorista.Movimentacao.map(movimentacao => {
+                const data_saida = getData(movimentacao.dtsaida);
+                const hora_saida = getTime(movimentacao.dtsaida);
+                const data_retorno = getData(movimentacao?.dtretorno);
+                const hora_retorno = getTime(movimentacao?.dtretorno);
+
+                return [
+                    data_saida,
+                    hora_saida,
+                    data_retorno,
+                    hora_retorno,
+                    movimentacao.Solicitacao.municipiosolicitacao.map(municipio => municipio.municipio.nome).join(', '),
+                    movimentacao.veiculo.placa,
+                    movimentacao.Solicitacao.setor.nome,
+                    movimentacao.Solicitacao.usuario
+                ]
+            })
+
+            let table = {
+                body: [
+                    ['Data Saída', 'Hora Saída', 'Data Retorno', 'Hora Retorno', 'Destino', 'Placa', 'Setor', 'Solictante'],
+                    ...motoristaTable
+                ]
+            }
+
+            let body = [
+                {
+                    text: '\n\n',
+                    style: 'medium',
+                },
+                {
+                    text: 'Relatório de Motorista\n\n',
+                    style: 'medium',
+                    alignment: 'center'
+                },
+                {
+                    text: `Motorista: ${motorista.nome}    Vinculo: ${motorista.vinculo.nome}   Celular: ${motorista.celular} \n\n`,
+                    style: 'medium',
+                    bold: true,
+                },
+                {
+                    text: 'Movimentações\n\n',
+                    alignment: 'center'
+                },
+                {
+                    style: 'table',
+                    table
+                },
+            ]
+
+            let content = {
+                content: [
+                    ...header,
+                    ...body
+                ],
+                styles,
+                defaultStyle: {
+                    font: Object.keys(fonts)[1], // Any already loaded font
+                },
+            }
+
+            const printer = new PdfPrinter(fonts);
+
+            const docs = printer.createPdfKitDocument(content);
+
+            docs.on('data', (chunk) => {
+                res.write(chunk)
+            });
+
+            docs.end();
+
+            docs.on('end', () => {
+                res.end()
+            });
+
+        }));
+
+export default handler

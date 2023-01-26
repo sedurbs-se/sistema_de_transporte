@@ -9,6 +9,7 @@ import fetchVeiculosSemMovimentacao from "@domain/requests/fetch/fetchVeiculosSe
 import fetchMotoristasSemMovimentacao from "@domain/requests/fetch/fetchMotoristasSemMovimentacao";
 import fetchSolicitacoesAutorizadas from "@domain/requests/fetch/fetchSolicitacoesAutorizadas";
 import fetchMovimentacaoStatus from "@domain/requests/fetch/fetchMovimentacaoStatus";
+import { Veiculo } from "@shared/types/Veiculo";
 
 const MovimentacaoPageSaida: NextPage = () => {
     return (
@@ -43,7 +44,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     try {
         const { solicitacoes } = await fetchSolicitacoesAutorizadas();
 
-        const { veiculos } = await fetchVeiculosSemMovimentacao();
+        const { veiculos }: { veiculos: Veiculo[] } = await fetchVeiculosSemMovimentacao();
 
         const { motoristas } = await fetchMotoristasSemMovimentacao();
 

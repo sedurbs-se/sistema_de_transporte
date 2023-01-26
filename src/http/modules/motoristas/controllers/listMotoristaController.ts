@@ -6,7 +6,9 @@ import prisma from "../../../../shared/prisma.index";
 // get one note from with a note id request dynamically
 const listMotoristaController = catchAsyncErrors(async (req: Request, res: Response) => {
 
-    const { page, limit } = req.query;
+    const { page, limit, nome } = req.query;
+
+    const motoristaNome = nome ? String(nome) : "";
 
     const motoristas = await prisma.motorista.findMany({
         where: {
@@ -14,7 +16,11 @@ const listMotoristaController = catchAsyncErrors(async (req: Request, res: Respo
                 nome: {
                     in: ["EFETIVO", "TERCEIRIZADO", "COMISSIONADO"]
                 }
-            }
+            },
+            nome : {
+                contains: motoristaNome 
+            },
+            
         },
         include: {
             vinculo: {
@@ -23,7 +29,8 @@ const listMotoristaController = catchAsyncErrors(async (req: Request, res: Respo
                 },
             }
         },
-        skip: (Number(page) - 1) * Number(limit), take: Number(limit),
+        skip: (Number(page) - 1) * Number(limit), 
+        take: Number(limit),
     })
 
 

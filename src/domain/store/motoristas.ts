@@ -1,10 +1,10 @@
+import { Motorista } from "@shared/types/Motorista";
 
-import { Motorista } from '@prisma/client';
 
 export interface IMotoristasStore {
     motoristas: Motorista[] | [];
     motoristaPages: number;
-    selectedMotorista: Motorista | null;
+    selectedMotorista: Motorista | undefined;
     setSelectedMotorista: (selectedMotorista?: Motorista | string) => void;
     setMotoristas: (motoristas: Motorista[]) => void;
     setMotoristaPages: (motoristaPages: number) => void;
@@ -17,7 +17,7 @@ export interface IMotoristasStore {
 export const initialMotoristasStoreState: IMotoristasStore = {
     motoristas: [],
     motoristaPages: 0,
-    selectedMotorista: null,
+    selectedMotorista: undefined,
     setSelectedMotorista: (selectedMotorista?: Motorista | string) => { },
     setMotoristas: (motoristas: Motorista[]) => { },
     addMotorista: (motorista: Motorista) => { },
@@ -38,7 +38,15 @@ export const createMotoristasStore = (set: any, get: any, api: any) => ({
         set({ motoristas });
     },
     setMotoristaPages: (motoristaPages: number) => set({ motoristaPages }),
-    setMotoristas: (motoristas: Motorista[]) => set({ motoristas }),
+    setMotoristas: (motoristas: Motorista[]) => {
+
+        const stateMotoristas = get().motoristas;
+
+        const newMotoristas = motoristas.filter(
+            (m: Motorista) => !stateMotoristas.find((sm: Motorista) => sm.id === m.id));
+
+        set({ motoristas: [...stateMotoristas, ...newMotoristas] })
+    },
     addMotorista: (motorista: Motorista) => set((state: IMotoristasStore) => ({ motoristas: [...state.motoristas, motorista] })),
     removeMotorista: (id: string) => set((state: IMotoristasStore) => ({ motoristas: state.motoristas.filter((m: Motorista) => m.id !== id) }))
 })

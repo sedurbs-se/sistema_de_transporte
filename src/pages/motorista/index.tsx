@@ -1,7 +1,6 @@
 import { GetServerSideProps, NextPage } from "next";
 import ListaMotoristas from "@components/Listas/ListaMotoristas";
 import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
-import axios from "axios";
 import { initializeStore } from "@domain/store/store";
 import PageContainer from "src/presentation/containers/PageContainer";
 import fetchMotoristas from "@domain/requests/fetch/fetchMotoristas";
@@ -37,7 +36,10 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
 
     try {
-        const { motoristas, total } = await fetchMotoristas(1, 10);
+        const { motoristas, total } = await fetchMotoristas({
+            page: 1,
+            limit: 10
+        });
 
         state.motoristas = motoristas;
 
