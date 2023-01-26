@@ -85,6 +85,9 @@ model Movimentacao {
   status_id    String
   status       MovimentacaoStatus @relation(fields: [status_id], references: [id], map: "Movimentacao_status_id_fkey")
 
+  km_saida     Int?
+  km_retorno   Int?
+  
   solicitacao_id String      @unique
   Solicitacao    Solicitacao @relation(fields: [solicitacao_id], references: [id], map: "Movimentacao_solicitacao_id_fkey")
 }

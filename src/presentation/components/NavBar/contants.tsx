@@ -95,6 +95,24 @@ const availableDropDown = [
                 disabled: false
             }
         ]
+    },
+    {
+        id: 'relatorios',
+        title: "Relatórios",
+        disabled: false,
+        show: false,
+        items: [
+            {
+                text: "Viagens por mês",
+                href: "/relatorios/viagens_mes",
+                disabled: false
+            },
+            {
+                text: "Relatório por Motorista",
+                href: "/relatorios/relatorio_motorista",
+                disabled: false
+            }
+        ]
     }
 ]
 

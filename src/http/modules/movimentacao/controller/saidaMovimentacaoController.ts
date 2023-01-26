@@ -1,6 +1,7 @@
 import prisma from "@shared/prisma.index";
 import { Request, Response } from "src/http/type";
 import catchAsyncErrors from "src/http/middlewares/catchAsyncErrors";
+import AppError from "src/http/errors/AppError";
 
 
 const saidaMovimentacaoController = catchAsyncErrors(async (req: Request, res: Response) => {
@@ -14,6 +15,19 @@ const saidaMovimentacaoController = catchAsyncErrors(async (req: Request, res: R
         observacao,
     } = req.body;
 
+    const veiculo = await prisma.veiculo.findUnique(
+        {
+            where: {
+                id: veiculos_id
+            }
+        }
+    )
+
+    if (!veiculo) {
+        throw new AppError("Veículo não encontrado", 400);
+    }
+
+
     await prisma.movimentacao.create({
         data: {
             solicitacao_id,
@@ -22,6 +36,7 @@ const saidaMovimentacaoController = catchAsyncErrors(async (req: Request, res: R
             dtsaida: new Date(dtsaida),
             status_id,
             observacao,
+            km_saida: veiculo?.quilometragemInicial,
         }
     })
 

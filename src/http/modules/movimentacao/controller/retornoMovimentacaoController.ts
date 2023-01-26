@@ -34,7 +34,6 @@ const retornoMovimentacaoController = catchAsyncErrors(async (req: Request, res:
         data: {
             quilometragemAtual: Number(quilometragemFinal)
         }
-
     })
 
     const movimentacao = await prisma.movimentacao.update({
@@ -42,9 +41,10 @@ const retornoMovimentacaoController = catchAsyncErrors(async (req: Request, res:
             id: id as string,
         },
         data: {
-            dtretorno:  new Date(dtretorno),
+            dtretorno: new Date(dtretorno),
             status_id,
-            observacao
+            observacao,
+            km_retorno: Number(quilometragemFinal),
         }
     })
 
