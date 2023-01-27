@@ -1,4 +1,3 @@
-import { Veiculo } from "@prisma/client";
 import { useEffect } from "react";
 import { Form, Button, Container, Col, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
@@ -13,6 +12,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { InputError } from "@components/InputError";
 import CadastroContainer from "../../../containers/CadastroContainer";
 import { onErrorResponse } from "@domain/query/createUsuario";
+import { Veiculo } from "@shared/types/Veiculo";
 
 
 const CadastroVeiculo = () => {

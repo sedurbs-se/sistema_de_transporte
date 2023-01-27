@@ -1,4 +1,3 @@
-import { Motorista } from "@prisma/client";
 import { useEffect } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap"
 import { useForm } from "react-hook-form";
@@ -8,6 +7,7 @@ import { useStore } from "@domain/store/store";
 import { setModalError, setModalSuccess } from "@shared/utils/modalUtils";
 import CadastroContainer from "../../../containers/CadastroContainer"
 import { onErrorResponse } from "@domain/query/createUsuario";
+import { Motorista } from "@shared/types/Motorista";
 
 
 const CadastroMotorista = () => {
@@ -43,7 +43,6 @@ const CadastroMotorista = () => {
     const onError = (data: onErrorResponse) => {
         setModalError(data?.response?.data?.message);
     };
-
 
     const { refetch, isError } = useCreateMotorista({
         params: form,

@@ -141,8 +141,8 @@ handler.get(
             const motoristaTable = motorista.Movimentacao.map(movimentacao => {
                 const data_saida = getData(movimentacao.dtsaida);
                 const hora_saida = getTime(movimentacao.dtsaida);
-                const data_retorno = getData(movimentacao?.dtretorno);
-                const hora_retorno = getTime(movimentacao?.dtretorno);
+                const data_retorno = getData(movimentacao?.dtretorno as Date);
+                const hora_retorno = getTime(movimentacao?.dtretorno as Date);
 
                 return [
                     data_saida,
@@ -201,7 +201,7 @@ handler.get(
 
             const printer = new PdfPrinter(fonts);
 
-            const docs = printer.createPdfKitDocument(content);
+            const docs = printer.createPdfKitDocument(content as any);
 
             docs.on('data', (chunk) => {
                 res.write(chunk)

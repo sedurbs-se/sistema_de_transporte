@@ -33,9 +33,12 @@ export const createMotoristasStore = (set: any, get: any, api: any) => ({
     }),
     updateMotorista: (motorista: Motorista) => {
         const motoristas = get().motoristas;
+
         const index = motoristas.findIndex((m: Motorista) => m.id === motorista.id);
         motoristas[index] = motorista;
+
         set({ motoristas });
+
     },
     setMotoristaPages: (motoristaPages: number) => set({ motoristaPages }),
     setMotoristas: (motoristas: Motorista[]) => {

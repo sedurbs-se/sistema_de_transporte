@@ -1,6 +1,6 @@
 import { createVeiculo } from "@domain/requests/post/createVeiculo";
 import { updateVeiculo } from "@domain/requests/post/updateVeiculo";
-import { Veiculo } from "@prisma/client";
+import { Veiculo } from "@shared/types/Veiculo";
 import axios, { AxiosResponse } from "axios";
 import { useQuery, UseQueryResult } from "react-query";
 import { onErrorResponse } from "./createUsuario";
