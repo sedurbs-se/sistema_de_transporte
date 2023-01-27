@@ -10,6 +10,7 @@ import PageContainer from "src/presentation/containers/PageContainer";
 import RelatorioContainer from "src/presentation/containers/RelatorioContainer";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { api } from "@domain/config/api";
 
 const RelatorioMotorista = () => {
 
@@ -42,8 +43,7 @@ const RelatorioMotorista = () => {
 
     const onSubmit = async () => {
         if (selectedMotorista) {
-            window.location.href =
-                `http://localhost:3000/api/relatorios/motoristas?id=${selectedMotorista.id}&ano=${form.ano}&mes=${form.mes}`
+            window.location.href = api.getUri() + `relatorios/motoristas?id=${selectedMotorista.id}&ano=${form.ano}&mes=${form.mes}`
         }
     };
 
