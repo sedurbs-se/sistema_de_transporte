@@ -3,13 +3,13 @@ import CampoDeBusca from "@components/CampoDeBusca";
 import fetchMotoristas from "@domain/requests/fetch/fetchMotoristas";
 import { initializeStore, useStore } from "@domain/store/store";
 import { Motorista } from "@shared/types/Motorista";
-import axios from "axios";
 import { GetServerSideProps } from "next";
-import { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
+import { useForm } from "react-hook-form";
 import PageContainer from "src/presentation/containers/PageContainer";
 import RelatorioContainer from "src/presentation/containers/RelatorioContainer";
-
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const RelatorioMotorista = () => {
 
@@ -20,19 +20,30 @@ const RelatorioMotorista = () => {
         setSelectedMotorista } =
         useStore(state => state);
 
-
     const handleSearch = async (search: string) => {
         const data = await fetchMotoristas({ nome: search });
         setMotoristas(data.motoristas);
     };
 
-    const [ano, setAno] = useState('');
-    const [mes, setMes] = useState('');
+    const validationSchema = yup.object().shape({
+        ano: yup.number().required().min(2023),
+        mes: yup.number().required().min(1).max(12)
+    });
 
-    const handleGerarRelatorio = async () => {
+    const {
+        register,
+        handleSubmit,
+        watch,
+        setValue,
+        formState: { errors }
+    } = useForm({ resolver: yupResolver(validationSchema) });
+
+    const form = watch() as { ano: number, mes: number };
+
+    const onSubmit = async () => {
         if (selectedMotorista) {
-            window.location.href = `http://localhost:3000/api/relatorios/motoristas?id=${selectedMotorista.id}&ano=${ano}&mes=${mes}`
-
+            window.location.href =
+                `http://localhost:3000/api/relatorios/motoristas?id=${selectedMotorista.id}&ano=${form.ano}&mes=${form.mes}`
         }
     };
 
@@ -49,35 +60,36 @@ const RelatorioMotorista = () => {
                     handleSearch={handleSearch}
                     selected_id={selectedMotorista?.id}
                 />
-                <form>
+
+                <Form onSubmit={handleSubmit(onSubmit)}>
                     <Input
                         label="Ano"
                         type='text'
                         name="ano"
-                        value={ano}
-                        onChange={(e) => setAno(e.target.value)}
-                    // {...register("login")}
-                    // error={errors?.login?.message as string}
+                        value={form.ano}
+                        onChange={(e) => setValue('ano', e.target.value)}
+                        error={errors?.ano?.message as string}
                     />
+
                     <Input
                         label="Mês"
                         type='text'
                         name="mes"
-                        value={mes}
-                        onChange={(e) => setMes(e.target.value)}
-                    // {...register("login")}
-                    // error={errors?.login?.message as string}
+                        value={form.mes}
+                        onChange={(e) => setValue('mes', e.target.value)}
+                        error={errors?.mes?.message as string}
+
                     />
-                </form>
+                    <Button variant="primary" type="submit"
+                        disabled={!selectedMotorista}
+                    >
+                        Gerar relatório
+                        {/* {isFetching ? 'Aguarde...' : 'Confirmar'} */}
+                    </Button>
+                </Form>
 
 
-                <Button variant="primary" type="submit"
-                    disabled={!selectedMotorista && !ano && !mes}
-                    onClick={handleGerarRelatorio}
-                >
-                    Gerar relatório
-                    {/* {isFetching ? 'Aguarde...' : 'Confirmar'} */}
-                </Button>
+
 
             </RelatorioContainer>
         </PageContainer>

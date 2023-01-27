@@ -16,7 +16,6 @@ export const getTime = (data: Date) => {
 
     const hours = date.getHours();
     const minutes = date.getMinutes();
-    const seconds = date.getSeconds();
 
     return `${hours}:${minutes}`;
 };
@@ -26,5 +25,4 @@ export const getLocalDate = (date: string) => {
     let offset = new Date().getTimezoneOffset() * 60000;
     let d = new Date(date);
     return new Date(d.getTime() - offset);
-
 }
