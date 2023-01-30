@@ -25,10 +25,15 @@ const createSolicitacaoController = catchAsyncErrors(async (req: Request, res: R
             throw new AppError('Todos os campos são obrigatórios', 400)
         };
     })
-
+    
+    
     // Verifica se existem mais de 4 solicitacoes para fora de aracaju 
     const solicitacoesForaAracaju = await prisma.solicitacao.findMany({
         where: {
+            data_hora_saida:{
+              lte:new Date(new Date().setDate(new Date().getDate() + 1)),
+              gte:new Date(new Date().setHours(0,0,0,0))
+            },
             municipiosolicitacao: {
                 some: {
                     municipio: {
@@ -45,6 +50,7 @@ const createSolicitacaoController = catchAsyncErrors(async (req: Request, res: R
             }
         }
     });
+    console.log(solicitacoesForaAracaju)
 
     if (municipios.find(m => m != "Aracaju") && solicitacoesForaAracaju.length >= 4) {
         throw new AppError("Não é possível realizar mais de 4 solicitações para fora de Aracaju", 400);
