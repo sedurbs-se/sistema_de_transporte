@@ -3,7 +3,6 @@ import { Request, Response } from "src/http/type";
 import AppError from "src/http/errors/AppError";
 import catchAsyncErrors from "src/http/middlewares/catchAsyncErrors";
 
-
 const retornoMovimentacaoController = catchAsyncErrors(async (req: Request, res: Response) => {
 
     const { id } = req.query;

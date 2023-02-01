@@ -2,8 +2,6 @@ import prisma from "@shared/prisma.index";
 import { Request, Response } from "src/http/type";
 import catchAsyncErrors from "src/http/middlewares/catchAsyncErrors";
 import AppError from "src/http/errors/AppError";
-import { getLocalDate } from "@shared/utils/dateUtils";
-
 
 const saidaMovimentacaoController = catchAsyncErrors(async (req: Request, res: Response) => {
 
@@ -33,7 +31,7 @@ const saidaMovimentacaoController = catchAsyncErrors(async (req: Request, res: R
             solicitacao_id,
             motorista_id,
             veiculos_id,
-            dtsaida: getLocalDate(dtsaida),
+            dtsaida: new Date(dtsaida),
             status_id,
             observacao,
             km_saida: veiculo?.quilometragemInicial,

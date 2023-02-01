@@ -50,7 +50,6 @@ const createSolicitacaoController = catchAsyncErrors(async (req: Request, res: R
             }
         }
     });
-    console.log(solicitacoesForaAracaju)
 
     if (municipios.find(m => m != "Aracaju") && solicitacoesForaAracaju.length >= 4) {
         throw new AppError("Não é possível realizar mais de 4 solicitações para fora de Aracaju", 400);

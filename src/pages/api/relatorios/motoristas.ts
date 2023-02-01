@@ -16,15 +16,17 @@ handler.get(
     catchAsyncErrors(
         async (req: Request, res: Response) => {
 
-            const { id, ano, mes } = req.query;
+            const { id, start_date, final_date } = req.query as { id: string, start_date: string, final_date: string };
 
             if (!id) {
                 throw new AppError("Id não informado", 400);
             }
 
             const motorista = await prisma.motorista.findUnique({
+
                 where: {
-                    id: id as string
+                    id: id as string,
+                    
                 },
                 include: {
                     vinculo: {
@@ -35,13 +37,14 @@ handler.get(
                     Movimentacao: {
                         where: {
                             createdAt: {
-                                gte: new Date(`${ano}-${mes}-01`),
-                                lte: new Date(`${ano}-${mes}-31`)
+                                gte: new Date(start_date),
+                                lte: new Date(final_date)
                             },
                             status: {
                                 nome:
                                     { in: ['RETORNO', 'CANCELADO'] }
                             },
+                            
                         },
                         include: {
                             Solicitacao: {
@@ -65,7 +68,9 @@ handler.get(
                             status: true,
                         }
                     }
-                }
+                    
+                },
+                
             })
 
             if (!motorista) {
@@ -138,6 +143,8 @@ handler.get(
                 }
             ];
 
+
+
             const motoristaTable = motorista.Movimentacao.map(movimentacao => {
                 const data_saida = getData(movimentacao.dtsaida);
                 const hora_saida = getTime(movimentacao.dtsaida);
@@ -155,6 +162,16 @@ handler.get(
                     movimentacao.Solicitacao.usuario
                 ]
             })
+
+            motoristaTable.sort((a, b) => {
+                if (a[0] < b[0]) {
+                    return -1;
+                }
+                if (a[0] > b[0]) {
+                    return 1;
+                }
+                return 0;
+            });
 
             let table = {
                 body: [

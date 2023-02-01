@@ -13,118 +13,119 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { api } from "@domain/config/api";
 
 const RelatorioMotorista = () => {
+  const { motoristas, selectedMotorista, setMotoristas, setSelectedMotorista } =
+    useStore((state) => state);
 
-    const {
-        motoristas,
-        selectedMotorista,
-        setMotoristas,
-        setSelectedMotorista } =
-        useStore(state => state);
+  const handleSearch = async (search: string) => {
+    const data = await fetchMotoristas({ nome: search });
+    setMotoristas(data.motoristas);
+  };
 
-    const handleSearch = async (search: string) => {
-        const data = await fetchMotoristas({ nome: search });
-        setMotoristas(data.motoristas);
-    };
+  let minDate = new Date("2023-01-01");
 
-    const validationSchema = yup.object().shape({
-        ano: yup.number().required().min(2023),
-        mes: yup.number().required().min(1).max(12)
-    });
+  const validationSchema = yup.object().shape({
+    start_date: yup
+      .date()
+      .required()
+      .min(minDate, "Data inicial não pode ser menor que 2023"),
+    final_date: yup
+      .date()
+      .required()
+      .min(minDate, "Data final não pode ser menor que a data inicial"),
+  });
 
-    const {
-        register,
-        handleSubmit,
-        watch,
-        setValue,
-        formState: { errors }
-    } = useForm({ resolver: yupResolver(validationSchema) });
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(validationSchema) });
 
-    const form = watch() as { ano: number, mes: number };
+  const form = watch() as { start_date: Date; final_date: Date };
 
-    const onSubmit = async () => {
-        if (selectedMotorista) {
-            window.location.href = api.getUri() + `relatorios/motoristas?id=${selectedMotorista.id}&ano=${form.ano}&mes=${form.mes}`
-        }
-    };
+  const onSubmit = async () => {
+    if (selectedMotorista) {
+      window.location.href =
+        api.getUri() +
+        `/relatorios/motoristas?id=${selectedMotorista.id}&start_date=${form.start_date}&final_date=${form.final_date}`;
+    }
+  };
 
-    return (
-        <PageContainer>
-            <h2>Relatorio Motorista</h2>
+  return (
+    <PageContainer>
+      <h2>Relatorio Motorista</h2>
 
-            <RelatorioContainer size="lg">
-                <CampoDeBusca
-                    list={motoristas.map(motorista => ({ id: motorista.id, nome: motorista.nome }))}
-                    setValue={
-                        (motorista_id: string) => setSelectedMotorista(motorista_id)
-                    }
-                    handleSearch={handleSearch}
-                    selected_id={selectedMotorista?.id}
-                />
+      <RelatorioContainer size="lg">
+        <CampoDeBusca
+          list={motoristas.map((motorista) => ({
+            id: motorista.id,
+            nome: motorista.nome,
+          }))}
+          setValue={(motorista_id: string) =>
+            setSelectedMotorista(motorista_id)
+          }
+          handleSearch={handleSearch}
+          selected_id={selectedMotorista?.id}
+        />
 
-                <Form onSubmit={handleSubmit(onSubmit)}>
-                    <Input
-                        label="Ano"
-                        type='text'
-                        name="ano"
-                        value={form.ano}
-                        onChange={(e) => setValue('ano', e.target.value)}
-                        error={errors?.ano?.message as string}
-                    />
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <Input
+            label="Data Inicial"
+            type="date"
+            name="start_date"
+            value={form.start_date?.toString()}
+            onChange={(e) => setValue("start_date", e.target.value)}
+            error={errors?.start_date?.message as string}
+          />
+          <Input
+            label="Data Final"
+            type="date"
+            name="final_date"
+            value={form.final_date?.toString()}
+            onChange={(e) => setValue("final_date", e.target.value)}
+            error={errors?.final_date?.message as string}
+          />
 
-                    <Input
-                        label="Mês"
-                        type='text'
-                        name="mes"
-                        value={form.mes}
-                        onChange={(e) => setValue('mes', e.target.value)}
-                        error={errors?.mes?.message as string}
-
-                    />
-                    <Button variant="primary" type="submit"
-                        disabled={!selectedMotorista}
-                    >
-                        Gerar relatório
-                        {/* {isFetching ? 'Aguarde...' : 'Confirmar'} */}
-                    </Button>
-                </Form>
-
-
-
-
-            </RelatorioContainer>
-        </PageContainer>
-    )
+          <Button variant="primary" type="submit" disabled={!selectedMotorista}>
+            Gerar relatório
+            {/* {isFetching ? 'Aguarde...' : 'Confirmar'} */}
+          </Button>
+        </Form>
+      </RelatorioContainer>
+    </PageContainer>
+  );
 };
 
-export const getServerSideProps: GetServerSideProps = async context => {
-    const zustandStore = initializeStore();
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const zustandStore = initializeStore();
 
-    const state = zustandStore.getState();
+  const state = zustandStore.getState();
 
-    const { verifySession } = state;
+  const { verifySession } = state;
 
-    const isAuthenticated = await verifySession(context);
+  const isAuthenticated = await verifySession(context);
 
-    if (!isAuthenticated) {
-        return {
-            redirect: {
-                destination: '/',
-                permanent: false,
-            },
-        }
-    }
-
-    const { motoristas }: { motoristas: Motorista[] } = await fetchMotoristas({});
-
-    state.motoristas = motoristas
-    state.user = isAuthenticated;
-
+  if (!isAuthenticated) {
     return {
-        props: {
-            isAuthenticated,
-            initialZustandState: JSON.parse(JSON.stringify(state)),
-        }
-    }
-}
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  const { motoristas }: { motoristas: Motorista[] } = await fetchMotoristas({});
+
+  state.motoristas = motoristas;
+  state.user = isAuthenticated;
+
+  return {
+    props: {
+      isAuthenticated,
+      initialZustandState: JSON.parse(JSON.stringify(state)),
+    },
+  };
+};
 
 export default RelatorioMotorista;
