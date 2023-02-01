@@ -4,7 +4,6 @@ import prisma from "../../../../shared/prisma.index";
 import { ICreateSolicitacaoDTO } from "@domain/query/createSolicitacao";
 import AppError from "src/http/errors/AppError";
 
-
 const updateSolicitacaoController = catchAsyncErrors(async (req: Request, res: Response) => {
 
     const { id } = req.query;
@@ -48,7 +47,7 @@ const updateSolicitacaoController = catchAsyncErrors(async (req: Request, res: R
             usuario,
             ramal,
             num_ocupantes,
-            data_hora_saida: new Date(data_hora_saida),
+            data_hora_saida:new Date(data_hora_saida),
             atividade,
             tipo_solicitacao_id,
             status_solicitacao_id,
