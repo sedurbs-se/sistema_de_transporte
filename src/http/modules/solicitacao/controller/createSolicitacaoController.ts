@@ -3,6 +3,8 @@ import catchAsyncErrors from "../../../middlewares/catchAsyncErrors";
 import prisma from "../../../../shared/prisma.index";
 import { ICreateSolicitacaoDTO } from "@domain/query/createSolicitacao";
 import AppError from "src/http/errors/AppError";
+import { getLocalDate } from "@shared/utils/dateUtils";
+import dayjs from "dayjs";
 
 
 const createSolicitacaoController = catchAsyncErrors(async (req: Request, res: Response) => {
@@ -54,13 +56,13 @@ const createSolicitacaoController = catchAsyncErrors(async (req: Request, res: R
     if (municipios.find(m => m != "Aracaju") && solicitacoesForaAracaju.length >= 4) {
         throw new AppError("Não é possível realizar mais de 4 solicitações para fora de Aracaju", 400);
     }
-
+    console.log(dayjs(data_hora_saida).locale('pt-br').format())
     const solicitacao = await prisma.solicitacao.create({
         data: {
             usuario,
             ramal,
             num_ocupantes,
-            data_hora_saida: new Date(data_hora_saida),
+            data_hora_saida: dayjs(data_hora_saida).locale('pt-br').format(),
             atividade,
             tipo_solicitacao_id,
             status_solicitacao_id,

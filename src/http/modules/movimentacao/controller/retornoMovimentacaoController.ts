@@ -2,6 +2,7 @@ import prisma from "@shared/prisma.index";
 import { Request, Response } from "src/http/type";
 import AppError from "src/http/errors/AppError";
 import catchAsyncErrors from "src/http/middlewares/catchAsyncErrors";
+import dayjs from "dayjs";
 
 const retornoMovimentacaoController = catchAsyncErrors(async (req: Request, res: Response) => {
 
@@ -40,7 +41,7 @@ const retornoMovimentacaoController = catchAsyncErrors(async (req: Request, res:
             id: id as string,
         },
         data: {
-            dtretorno: new Date(dtretorno),
+            dtretorno:  dayjs(dtretorno).locale('pt-br').format(),
             status_id,
             observacao,
             km_retorno: Number(quilometragemFinal),
