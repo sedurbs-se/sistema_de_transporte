@@ -103,13 +103,13 @@ const availableDropDown = [
         show: false,
         items: [
             {
-                text: "Viagens por mês",
-                href: "/relatorios/viagens_mes",
+                text: "Relatório por Motorista",
+                href: "/relatorios/relatorio_motorista",
                 disabled: false
             },
             {
-                text: "Relatório por Motorista",
-                href: "/relatorios/relatorio_motorista",
+                text: "Relatório por Setor",
+                href: "/relatorios/relatorio_setor",
                 disabled: false
             }
         ]

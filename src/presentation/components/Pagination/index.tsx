@@ -11,7 +11,7 @@ const PaginationComponent = ({ page, totalPages, onPageChange }: PaginationProps
     const generatePaginationItems = () => {
         const items = [];
 
-        const paginationCount = totalPages / 10
+        const paginationCount = Math.ceil(totalPages / 10)
 
         for (let number = 1; number <= paginationCount; number++) {
 

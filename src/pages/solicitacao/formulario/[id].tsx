@@ -40,7 +40,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     try {
 
-        const { setores } = await fetchSetores(1);
+        const { setores } = await fetchSetores({});
         const { solicitacao } = await fetchSolicitacao(id as string)
         const { tiposSolicitacoes } = await fetchTiposSolicitacao();
         const { statusSolicitacoes } = await fetchStatusSolicitacao();
