@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { Solicitacao } from "@shared/types/Solicitação"
 import CadastroContainer from "../../../containers/CadastroContainer"
 import { onErrorResponse } from "@domain/query/createUsuario";
+import dayjs from "dayjs";
 
 const CadastroSolicitacao = () => {
     const {
@@ -79,9 +80,10 @@ const CadastroSolicitacao = () => {
         if (selectedSolicitacao) {
             Object.keys(form).forEach(key => {
                 if (key == "municipios") {
-
                     setValue("municipios", selectedSolicitacao.municipiosolicitacao?.map(m => m.municipio.nome))
-                } else {
+                } else if(key == "data_hora_saida") {
+                    setValue("data_hora_saida", dayjs(selectedSolicitacao.data_hora_saida).locale("pt-br").format())
+                }else {
                     setValue(key, selectedSolicitacao[key as keyof Solicitacao])
                 }
             })

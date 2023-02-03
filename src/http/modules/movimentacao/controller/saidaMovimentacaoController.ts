@@ -2,7 +2,8 @@ import prisma from "@shared/prisma.index";
 import { Request, Response } from "src/http/type";
 import catchAsyncErrors from "src/http/middlewares/catchAsyncErrors";
 import AppError from "src/http/errors/AppError";
-
+import { getLocalDate } from "@shared/utils/dateUtils";
+import dayjs from "dayjs";
 const saidaMovimentacaoController = catchAsyncErrors(async (req: Request, res: Response) => {
 
     const {
@@ -31,7 +32,7 @@ const saidaMovimentacaoController = catchAsyncErrors(async (req: Request, res: R
             solicitacao_id,
             motorista_id,
             veiculos_id,
-            dtsaida: new Date(dtsaida),
+            dtsaida:  dayjs(dtsaida).locale('pt-br').format(),
             status_id,
             observacao,
             km_saida: veiculo?.quilometragemInicial,

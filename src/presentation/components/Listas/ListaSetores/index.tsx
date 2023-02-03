@@ -70,7 +70,10 @@ const ListaSetores = (props: ListaSetoresProps) => {
     const [page, setPage] = usePagination({
         total: setorPages,
         limit: 10,
-        onFetch: fetchSetores,
+        onFetch: (page: number, limit: number) => fetchSetores({
+            page,
+            limit,
+        }),
         action
     })
 

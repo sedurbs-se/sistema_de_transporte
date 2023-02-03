@@ -37,7 +37,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     state.user = isAuthenticated;
 
     try {
-        const { setores,  total } = await fetchSetores(1,10);
+        const { setores,  total } = await fetchSetores({});
 
         state.setores = setores;
         state.setorPages =  total;

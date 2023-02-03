@@ -42,7 +42,15 @@ const listMotoristaController = catchAsyncErrors(async (req: Request, res: Respo
     })
 
 
-    const total = await prisma.motorista.count();
+    const total = await prisma.motorista.count({
+        where: {
+            vinculo: {
+                nome: {
+                    in: ["EFETIVO", "TERCEIRIZADO", "COMISSIONADO"]
+                }
+            },
+        }
+    });
     res.status(200).json({
         motoristas: mappedMotoristas,
         total

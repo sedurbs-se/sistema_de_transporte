@@ -3,6 +3,8 @@ import catchAsyncErrors from "../../../middlewares/catchAsyncErrors";
 import prisma from "../../../../shared/prisma.index";
 import { ICreateSolicitacaoDTO } from "@domain/query/createSolicitacao";
 import AppError from "src/http/errors/AppError";
+import { getLocalDate } from "@shared/utils/dateUtils";
+import dayjs from "dayjs";
 
 const updateSolicitacaoController = catchAsyncErrors(async (req: Request, res: Response) => {
 
@@ -47,7 +49,7 @@ const updateSolicitacaoController = catchAsyncErrors(async (req: Request, res: R
             usuario,
             ramal,
             num_ocupantes,
-            data_hora_saida:new Date(data_hora_saida),
+            data_hora_saida:  dayjs(data_hora_saida).locale('pt-br').format(),
             atividade,
             tipo_solicitacao_id,
             status_solicitacao_id,

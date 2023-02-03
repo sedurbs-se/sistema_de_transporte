@@ -56,7 +56,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
         state.locadoras = locadoras;
 
-        const { setores } = await fetchSetores(1);
+        const { setores } = await fetchSetores({});
 
         state.setores = setores;
 

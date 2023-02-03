@@ -28,7 +28,7 @@ const ListaMovimentacoes = () => {
     const getTime = (data: Date) => {
         const date = new Date(data);
 
-        const hours = date.getHours() +  3;
+        const hours = date.getHours();
         const minutes = date.getMinutes();
         const seconds = date.getSeconds();
 

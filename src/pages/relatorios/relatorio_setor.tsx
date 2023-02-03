@@ -11,14 +11,16 @@ import RelatorioContainer from "src/presentation/containers/RelatorioContainer";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { api } from "@domain/config/api";
+import { Setor } from "@prisma/client";
+import fetchSetores from "@domain/requests/fetch/fetchSetores";
 
-const RelatorioMotorista = () => {
-  const { motoristasSearch, selectedMotoristaSearch, setMotoristasSearch, setSelectedMotoristaSearch } =
+const RelatorioSetor = () => {
+  const { setoresSearch, selectedSetorSearch, setSetoresSearch, setSelectedSetorSearch } =
     useStore((state) => state);
 
   const handleSearch = async (search: string) => {
-    const data = await fetchMotoristas({ nome: search });
-    setMotoristasSearch(data.motoristas);
+    const data = await fetchSetores({ nome: search });
+    setSetoresSearch(data.setores);
   };
 
   let minDate = new Date("2023-01-01");
@@ -45,28 +47,28 @@ const RelatorioMotorista = () => {
   const form = watch() as { start_date: Date; final_date: Date };
 
   const onSubmit = async () => {
-    if (selectedMotoristaSearch) {
+    if (selectedSetorSearch) {
       window.location.href =
         api.getUri() +
-        `/relatorios/motoristas?id=${selectedMotoristaSearch.id}&start_date=${form.start_date}&final_date=${form.final_date}`;
+        `/relatorios/setores?id=${selectedSetorSearch.id}&start_date=${form.start_date}&final_date=${form.final_date}`;
     }
   };
 
   return (
     <PageContainer>
-      <h2>Relatorio Motorista</h2>
+      <h2>Relatorio Setor</h2>
 
       <RelatorioContainer size="lg">
         <CampoDeBusca
-          list={motoristasSearch.map((motorista) => ({
-            id: motorista.id,
-            nome: motorista.nome,
+          list={setoresSearch.map((setor) => ({
+            id: setor.id,
+            nome: setor.sigla,
           }))}
-          setValue={(motorista_id: string) =>
-            setSelectedMotoristaSearch(motorista_id)
+          setValue={(setor_id: string) =>
+            setSelectedSetorSearch(setor_id)
           }
           handleSearch={handleSearch}
-          selected_id={selectedMotoristaSearch?.id}
+          selected_id={selectedSetorSearch?.id}
         />
 
         <Form onSubmit={handleSubmit(onSubmit)}>
@@ -87,7 +89,7 @@ const RelatorioMotorista = () => {
             error={errors?.final_date?.message as string}
           />
 
-          <Button variant="primary" type="submit" disabled={!selectedMotoristaSearch}>
+          <Button variant="primary" type="submit" disabled={!selectedSetorSearch}>
             Gerar relatório
             {/* {isFetching ? 'Aguarde...' : 'Confirmar'} */}
           </Button>
@@ -115,9 +117,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
-  const { motoristas }: { motoristas: Motorista[] } = await fetchMotoristas({});
+  const { setores }: { setores: Setor[] } = await fetchSetores({});
 
-  state.motoristasSearch = motoristas;
+  state.setoresSearch = setores;
   state.user = isAuthenticated;
 
   return {
@@ -128,4 +130,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-export default RelatorioMotorista;
+export default RelatorioSetor;
