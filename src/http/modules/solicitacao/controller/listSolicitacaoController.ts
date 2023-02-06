@@ -43,6 +43,9 @@ const listSolicitacaoController = catchAsyncErrors(async (req: Request, res: Res
                 }
             }
             
+        },
+        orderBy: {
+            data_hora_saida: 'asc'
         }
     })
 
