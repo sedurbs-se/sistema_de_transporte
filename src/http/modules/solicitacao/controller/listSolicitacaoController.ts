@@ -11,7 +11,6 @@ const listSolicitacaoController = catchAsyncErrors(async (req: Request, res: Res
     const { page, limit } = req.query;
 
     const solicitacoes = await prisma.solicitacao.findMany({
-        skip: (Number(page) - 1) * Number(limit), take: Number(limit),
         where: {
             statussolicitacao: {
                 nome: {
