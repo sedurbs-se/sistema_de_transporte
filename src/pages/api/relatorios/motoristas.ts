@@ -140,13 +140,19 @@ handler.get(
         fontWeight: 400,
       },
     ];
-
+    motorista.Movimentacao.sort((a, b): any => {
+      if (a.dtsaida.getTime() < b.dtsaida.getTime()) {
+        return -1;
+      } else {
+        return 1;
+      }
+    });
     const motoristaTable = motorista.Movimentacao.map((movimentacao) => {
       const data_saida = getData(movimentacao.dtsaida);
       const hora_saida = getTime(movimentacao.dtsaida);
       const data_retorno = getData(movimentacao?.dtretorno as Date);
       const hora_retorno = getTime(movimentacao?.dtretorno as Date);
-
+     
       return [
         data_saida,
         hora_saida,
@@ -159,16 +165,6 @@ handler.get(
         movimentacao.Solicitacao.setor.nome,
         movimentacao.Solicitacao.usuario,
       ];
-    });
-
-    motoristaTable.sort((a, b) => {
-      if (a[0] < b[0]) {
-        return -1;
-      }
-      if (a[0] > b[0]) {
-        return 1;
-      }
-      return 0;
     });
 
     const whiteSpaceTable = new Array(8).fill("\n");
