@@ -16,11 +16,23 @@ handler.get(
       start_date: string;
       final_date: string;
     };
-
+    
     if (!id) {
       throw new AppError("Id não informado", 400);
     }
+    const setor = await prisma.setor.findUnique({
+        where: {
+            id: id as string,
+          },
+          select:{
+            nome:true,
+        }
 
+      
+    })
+    if(!setor){
+        throw new AppError("Setor não encontrado", 404);
+    }
     const movimentacoes = await prisma.movimentacao.findMany({
       where: {
         Solicitacao: {
@@ -54,13 +66,9 @@ handler.get(
         motorista: true,
       },
     });
-
     if (!movimentacoes) {
       throw new AppError("Setor não encontrado", 404);
     }
-    // if( movimentacoes.length === 0){
-    //     return
-    // }
 
     var fonts = {
       Courier: {
@@ -169,7 +177,6 @@ handler.get(
         ...setorTable,
       ],
     };
-
     let body = [
       {
         text: "\n\n",
@@ -181,7 +188,7 @@ handler.get(
         alignment: "center",
       },
       {
-        text: `Setor: ${movimentacoes[0].Solicitacao.setor.sigla}\n\n`,
+        text: `Setor: ${setor.nome}\n\n`,
         style: "medium",
         bold: true,
       },
@@ -194,7 +201,6 @@ handler.get(
         table,
       },
     ];
-
     let content = {
       content: [...header, ...body],
       styles,
