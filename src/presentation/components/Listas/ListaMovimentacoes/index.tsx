@@ -2,7 +2,6 @@ import { Badge, Button} from "react-bootstrap"
 import getBadgeTypeByStatus from "@shared/utils/getBadgeTypeByStatus"
 import TableComponent from "@components/Table"
 import { useStore } from "@domain/store/store"
-import shallow from "zustand/shallow"
 import Router from "next/router"
 import { WarningPopUp } from "@shared/swal"
 import { deleteMovimentacao } from "@domain/requests/delete/deleteMovimentacao"
@@ -18,8 +17,8 @@ const ListaMovimentacoes = () => {
         ["", ""],
     ]
 
-    const { movimentacoes, removeMovimentacao } = useStore(state => state, shallow)
-
+    const { movimentacoes, removeMovimentacao } = useStore(state => state)
+    console.log(movimentacoes)
     const getData = (data: Date) => {
         const date = new Date(data);
         return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;

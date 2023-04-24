@@ -22,7 +22,7 @@ const ListaSolicitacoes = () => {
     ]
 
     const { solicitacoes, removeSolicitacao } = useStore(state => state, shallow)
-
+    console.log(solicitacoes)
     const getData = (data: Date) => {
         const date = new Date(data);
         return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;

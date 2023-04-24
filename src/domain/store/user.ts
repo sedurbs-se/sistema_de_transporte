@@ -14,6 +14,8 @@ export interface IUserStore {
     deleteSession: () => void;
     verifySession: (context: GetServerSidePropsContext) => boolean;
     isAuthenticated: boolean;
+    setUsuarios: (usuarios: Usuario[]) => void;
+    setTiposUsuario: (tiposUsuario: TipoUsuario[]) => void;
 }
 
 export const initialUserStoreState: IUserStore = {
@@ -25,6 +27,9 @@ export const initialUserStoreState: IUserStore = {
     deleteSession: async () => { },
     verifySession: (context: GetServerSidePropsContext) => false,
     isAuthenticated: false,
+
+    setUsuarios: (usuarios: Usuario[]) => { },
+    setTiposUsuario: (tiposUsuario: TipoUsuario[]) => { },
 }
 
 export const createUserStore = (set: any, get: any, api: any) => ({
@@ -62,6 +67,8 @@ export const createUserStore = (set: any, get: any, api: any) => ({
 
         return null;
     },
+    setUsuarios: (usuarios: Usuario[]) => set({ usuarios }),
+    setTiposUsuario: (tiposUsuario: TipoUsuario[]) => set({ tiposUsuario }),
 })
 
 

@@ -33,7 +33,7 @@ export const initialMovimentacaoStoreState: IMovimentacaoStore = {
 
 }
 
-export const createMotoristasStore = (set: any, get: any, api: any) => ({
+export const createMovimentacaoStore = (set: any, get: any, api: any) => ({
     setSelectedMovimentacao: (selectedMovimentacao?: Movimentacao | string) => set({
         selectedMovimentacao: typeof selectedMovimentacao === 'string' ? get().movimentacoes.find((m: Movimentacao) => m.id === selectedMovimentacao) : selectedMovimentacao
     }),

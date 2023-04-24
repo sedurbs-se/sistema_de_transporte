@@ -10,6 +10,21 @@ export const setModalSuccess = (isEdit = false, message = '') => {
     })
 };
 
+export const setLoading = async (message = '') => {
+    Swal.fire({
+        text: message ? message : 'Carregando...',
+        icon: 'info',
+        showConfirmButton: false,
+        toast: true,
+        didOpen: () => {
+            Swal.showLoading()
+        },
+    });
+};
+
+export const removeModal = () => {
+    Swal.close();
+}
 
 export const setModalError = (message = '') => {
     Swal.fire({

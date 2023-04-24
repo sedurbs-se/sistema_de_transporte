@@ -1,55 +1,47 @@
 import { GetServerSideProps, NextPage } from "next";
 import ListaSetores from "@components/Listas/ListaSetores";
-import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
+import style from "../../styles/Home.module.css"
 import PageContainer from "src/presentation/containers/PageContainer";
 import { initializeStore } from "@domain/store/store";
-import fetchSetores from "@domain/requests/fetch/fetchSetores";
+import useSetores from "@domain/hooks/useSetores";
 
-const Teste: NextPage  = () => {
-    return (
-        <>
-        <PageContainer>
-        <h2 className={style["title"]}>Setores</h2>
-        <ListaSetores></ListaSetores>
-      </PageContainer>
-      </>
-    )
-}
+const Setor: NextPage = () => {
 
-export const getServerSideProps: GetServerSideProps = async context => {
-    const zustandStore = initializeStore();
+    useSetores(1)
 
-    const state = zustandStore.getState();
+  return (
+    <PageContainer>
+      <h2 className={style["title"]}>Setores</h2>
+      <ListaSetores></ListaSetores>
+    </PageContainer>
+  );
+};
 
-    const { verifySession } = state;
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const zustandStore = initializeStore();
 
-    const isAuthenticated = await verifySession(context);
+  const state = zustandStore.getState();
 
-    if (!isAuthenticated) {
-        return {
-            redirect: {
-                destination: '/',
-                permanent: false,
-            },
-        }
-    }
+  const { verifySession } = state;
 
-    state.user = isAuthenticated;
+  const isAuthenticated = await verifySession(context);
 
-    try {
-        const { setores,  total } = await fetchSetores({});
-
-        state.setores = setores;
-        state.setorPages =  total;
-
-    } catch (error) {
-    }
-
+  if (!isAuthenticated) {
     return {
-        props: {
-            initialZustandState: JSON.parse(JSON.stringify(state)),
-        }
-    }
-}
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
 
-export default Teste
+  state.user = isAuthenticated;
+
+  return {
+    props: {
+      initialZustandState: JSON.parse(JSON.stringify(state)),
+    },
+  };
+};
+
+export default Setor;

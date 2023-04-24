@@ -1,13 +1,12 @@
 import { GetServerSideProps, NextPage } from "next";
-import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
-import { initializeStore } from "@domain/store/store";
+import { initializeStore, useStore } from "@domain/store/store";
 import PageContainer from "src/presentation/containers/PageContainer";
-import fetchTiposSolicitacao from "@domain/requests/fetch/fetchTiposSolicitacao";
-import fetchStatusSolicitacao from "@domain/requests/fetch/fetchStatusSolicitacao";
 import CadastroSolicitacao from "@components/Cadastros/CadastroSolicitacao";
-import fetchSetores from "@domain/requests/fetch/fetchSetores";
+import useSolicitacao from "@domain/hooks/useSolicitacao";
 
 const Solicitacao: NextPage = () => {
+
+    useSolicitacao()
     return (
         <PageContainer>
             <CadastroSolicitacao />
@@ -34,17 +33,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
     };
 
     state.user = isAuthenticated;
-
-    try {
-        const { tiposSolicitacoes } = await fetchTiposSolicitacao();
-        const { statusSolicitacoes } = await fetchStatusSolicitacao();
-        const { setores } = await fetchSetores({all: 1});
-        state.tiposSolcitacao = tiposSolicitacoes;
-        state.statusSolicitacao = statusSolicitacoes;
-        state.setores = setores;
-
-    } catch (error) {
-    };
 
 
     return {

@@ -1,12 +1,14 @@
 import { GetServerSideProps, NextPage } from "next";
-import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
-import axios from "axios";
+import style from "../../styles/Home.module.css"
 import { initializeStore } from "@domain/store/store";
 import ListaVeiculos from "@components/Listas/ListaVeículos";
 import PageContainer from 'src/presentation/containers/PageContainer';
-import fetchVeiculos from "@domain/requests/fetch/fetchVeiculos";
+import useVeiculos from "@domain/hooks/useVeiculos";
 
 const Veiculo: NextPage = () => {
+
+    useVeiculos(1);
+    
     return (
         <PageContainer>
             <h2 className={style["title"]}>Veiculos</h2>
@@ -32,22 +34,12 @@ export const getServerSideProps: GetServerSideProps = async context => {
             },
         }
     }
-
     state.user = isAuthenticated;
 
-
-    try {
-        const { veiculos, total} = await fetchVeiculos(1, 10);
-
-        state.veiculos = veiculos;
-        state.veiculoPages = total;
-    } catch (error) {
-    }
-
     return {
-        props: {
-            initialZustandState: JSON.parse(JSON.stringify(state)),
-        }
+      props: {
+        initialZustandState: JSON.parse(JSON.stringify(state)),
+      },
     }
 }
 

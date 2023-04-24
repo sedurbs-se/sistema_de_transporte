@@ -1,13 +1,13 @@
 import { GetServerSideProps, NextPage } from "next";
 import ListaLocadoras from "@components/Listas/ListaLocadoras";
-import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
+import style from "../../styles/Home.module.css"
 import PageContainer from "src/presentation/containers/PageContainer";
 import { initializeStore } from "@domain/store/store";
-import axios from "axios";
-import fetchLocadoras from "@domain/requests/fetch/fetchLocadoras";
-import { Locadora } from "@shared/types/Locadora";
+import useLocadoras from "@domain/hooks/useLocadoras";
 
-const Teste: NextPage = () => {
+const Locadoras: NextPage = () => {
+
+    useLocadoras(1)
     return (
         <>
             <PageContainer>
@@ -38,15 +38,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     state.user = isAuthenticated;
 
-    try {
-        const { locadoras, total } = await fetchLocadoras(1,10);
-
-        state.locadoras = locadoras;
-        state.locadoraPages = total;
-    } catch (error) {
-    }
-
-
     return {
         props: {
             initialZustandState: JSON.parse(JSON.stringify(state)),
@@ -54,4 +45,4 @@ export const getServerSideProps: GetServerSideProps = async context => {
     }
 }
 
-export default Teste
+export default Locadoras

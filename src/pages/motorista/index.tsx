@@ -1,11 +1,14 @@
 import { GetServerSideProps, NextPage } from "next";
 import ListaMotoristas from "@components/Listas/ListaMotoristas";
-import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
+import style from "../../styles/Home.module.css"
 import { initializeStore } from "@domain/store/store";
 import PageContainer from "src/presentation/containers/PageContainer";
-import fetchMotoristas from "@domain/requests/fetch/fetchMotoristas";
+import useMotoristas from "@domain/hooks/useMotoristas";
 
-const Teste: NextPage = () => {
+const Motoristas: NextPage = () => {
+
+    useMotoristas(1)
+
     return (
         <PageContainer>
             <h2 className={style["title"]}>Motoristas</h2>
@@ -35,20 +38,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
     state.user = isAuthenticated;
 
 
-    try {
-        const { motoristas, total } = await fetchMotoristas({
-            page: 1,
-            limit: 10
-        });
-
-        state.motoristas = motoristas;
-
-        state.motoristaPages = total;
-    } catch (error) {
-
-    }
-
-
     return {
         props: {
             initialZustandState: JSON.parse(JSON.stringify(state)),
@@ -56,4 +45,4 @@ export const getServerSideProps: GetServerSideProps = async context => {
     }
 }
 
-export default Teste
+export default Motoristas

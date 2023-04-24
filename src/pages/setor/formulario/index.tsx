@@ -1,10 +1,10 @@
 import { GetServerSideProps, NextPage } from "next";
-import style from "@components/Cadastros/CadastroLocadora/index.module.scss"
 import { initializeStore } from "@domain/store/store";
 import PageContainer from "src/presentation/containers/PageContainer";
 import CadastroSetor from "@components/Cadastros/CadastroSetor";
 
 const Setores: NextPage = () => {
+
     return (
         <PageContainer>
             <CadastroSetor />

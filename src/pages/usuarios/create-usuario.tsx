@@ -4,6 +4,7 @@ import type { GetServerSideProps, NextPage } from 'next'
 import { initializeStore } from '../../domain/store/store'
 import tipoUsuario from 'prisma/seeds/insert/tipoUsuario';
 import fetchTiposUsuario from '@domain/requests/fetch/fetchTiposUsuario';
+import useUsuarios from '@domain/hooks/useUsuarios';
 
 
 interface Props {
@@ -11,6 +12,8 @@ interface Props {
 }
 
 const CreateUser: NextPage<Props> = ({ isAuthenticated }) => {
+    
+    useUsuarios()
     return (
         <PageContainer>
 
@@ -39,13 +42,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
     state.user = isAuthenticated;
 
-    try {
-
-        const { tiposUsuario } = await fetchTiposUsuario();
-        state.tiposUsuario = tiposUsuario
-    } catch (err) {
-        //
-    }
 
     return {
         props: {

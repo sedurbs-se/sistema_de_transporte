@@ -10,6 +10,7 @@ import { WarningPopUp } from "@shared/swal";
 import usePagination from "@domain/hooks/usePagination";
 import fetchVeiculos from "@domain/requests/fetch/fetchVeiculos";
 import PaginationComponent from "@components/Pagination";
+import useVeiculos from "@domain/hooks/useVeiculo";
 
 
 const ListaVeiculos = () => {

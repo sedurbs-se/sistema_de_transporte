@@ -23,7 +23,6 @@ function MyApp({ Component, pageProps }: AppProps<pageProps>) {
   const createStore = useCreateStore(pageProps.initialZustandState)
 
   const user = pageProps.initialZustandState?.user;
-
   // Validade if logged here
   return (
     <SSRProvider>
