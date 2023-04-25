@@ -11,7 +11,7 @@ export interface ISolicitacaoStore {
     addSolictacao: (solicitacao: Solicitacao) => void
     updateSolicitacao: (solicitacao: Solicitacao) => void
     removeSolicitacao: (id: string) => void
-    tiposSolcitacao: TipoSolicitacao[]
+    tiposSolicitacao: TipoSolicitacao[]
     setTiposSolicitacao: (tiposSolicitacao: TipoSolicitacao[]) => void
 
     statusSolicitacao: StatusSolicitacao[]
@@ -26,7 +26,7 @@ export const initialSolicitacaoState: ISolicitacaoStore = {
     addSolictacao: () => { },
     removeSolicitacao: () => { },
     updateSolicitacao: () => { },
-    tiposSolcitacao: [],
+    tiposSolicitacao: [],
     setTiposSolicitacao: () => { },
     statusSolicitacao: [],
     setStatusSolicitacao: () => { },
@@ -46,7 +46,10 @@ export const createSolicitacaoStore = (set: any, get: any, api: any) => ({
         set({ solicitacoes });
     },
     setSelectedSolicitacao: (solicitacao?: Solicitacao) => set({ selectedSolicitacao: solicitacao }),
-    setTiposSolicitacao: (tiposSolicitacao: TipoSolicitacao[]) => set({ tiposSolicitacao }),
+    setTiposSolicitacao: (tiposSolicitacao: TipoSolicitacao[]) => {
+        set({ tiposSolicitacao })
+
+    },
     setStatusSolicitacao: (statusSolicitacao: StatusSolicitacao[]) => set({ statusSolicitacao }),
 })
 

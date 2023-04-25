@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   trailingSlash:false,
-  basePath:"/transporte"
+  // basePath:"/transporte"
 }
 
 

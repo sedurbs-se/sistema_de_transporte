@@ -21,7 +21,7 @@ const CadastroSolicitacao = () => {
         addSolictacao,
         updateSolicitacao,
 
-        tiposSolcitacao,
+        tiposSolicitacao ,
         statusSolicitacao,
 
         setores,
@@ -43,7 +43,7 @@ const CadastroSolicitacao = () => {
     })
 
     const isFetching = false;
-
+    console.log( tiposSolicitacao )
     const { register, handleSubmit, watch, formState: { errors }, setValue, reset } = useForm({ resolver: yupResolver(validationSchema) });
 
     const onSuccess = ({ solicitacao }: ICreateSolicitacaoResponse) => {
@@ -203,7 +203,7 @@ const CadastroSolicitacao = () => {
                                     isInvalid={errors.tipo_solicitacao != undefined}
                                 >
                                     <option value="">Selecione um Tipo</option>
-                                    {tiposSolcitacao.map(tipo => (
+                                    {tiposSolicitacao.map(tipo => (
                                         <option key={tipo.id} value={tipo.id}>{tipo.nome}</option>
                                     ))}
 
