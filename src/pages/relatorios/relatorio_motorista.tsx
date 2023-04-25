@@ -11,6 +11,7 @@ import RelatorioContainer from "src/presentation/containers/RelatorioContainer";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { api } from "@domain/config/api";
+import useMotoristas from "@domain/hooks/useMotoristas";
 
 const RelatorioMotorista = () => {
   const { motoristasSearch, selectedMotoristaSearch, setMotoristasSearch, setSelectedMotoristaSearch } =
@@ -51,6 +52,8 @@ const RelatorioMotorista = () => {
         `/relatorios/motoristas?id=${selectedMotoristaSearch.id}&start_date=${form.start_date}&final_date=${form.final_date}`;
     }
   };
+
+  useMotoristas()
 
   return (
     <PageContainer>

@@ -3,14 +3,20 @@ import { useStore } from "@domain/store/store";
 import { removeModal, setLoading } from "@shared/utils/modalUtils";
 import { useEffect } from "react";
 
-const useMotoristas = (page: number) => {
-  const { setMotoristas, setMotoristaPages} = useStore((state) => state);
+const useMotoristas = (page?: number) => {
+  const { setMotoristas, setMotoristaPages,setMotoristasSearch} = useStore((state) => state);
 
   const fetch = async () => {
     setLoading()
-    const { motoristas, total } = await fetchMotoristas({ page, limit: 10});
-    setMotoristas(motoristas);
-    setMotoristaPages(total);
+    if(page) {
+      const { motoristas, total } = await fetchMotoristas({ page, limit: 10});
+      setMotoristas(motoristas);
+      setMotoristaPages(total);
+    } else {
+      const { motoristas } = await fetchMotoristas({});
+      setMotoristasSearch(motoristas);
+    }
+
     removeModal()
   };
 

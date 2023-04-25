@@ -3,12 +3,12 @@ import { useStore } from "@domain/store/store";
 import { removeModal, setLoading } from "@shared/utils/modalUtils";
 import { useEffect } from "react";
 
-const useSetores = (page:number) => {
+const useSetores = (page?: number) => {
   const { setSetores, setSetorPages } = useStore((state) => state);
 
   const fetch = async () => {
     setLoading()
-    const { setores, total } = await fetchSetores({ page, limit: 10 });
+    const { setores, total } = page ? await fetchSetores({ page, limit: 10 }) : await fetchSetores({ all: 1 });
     setSetores(setores);
     setSetorPages(total);
     removeModal()

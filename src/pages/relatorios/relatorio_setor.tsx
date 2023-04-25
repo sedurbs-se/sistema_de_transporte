@@ -13,8 +13,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { api } from "@domain/config/api";
 import { Setor } from "@prisma/client";
 import fetchSetores from "@domain/requests/fetch/fetchSetores";
+import useSetores from "@domain/hooks/useSetores";
 
 const RelatorioSetor = () => {
+
+  useSetores()
+
   const { setoresSearch, selectedSetorSearch, setSetoresSearch, setSelectedSetorSearch } =
     useStore((state) => state);
 
@@ -117,9 +121,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
-  const { setores }: { setores: Setor[] } = await fetchSetores({});
 
-  state.setoresSearch = setores;
   state.user = isAuthenticated;
 
   return {
