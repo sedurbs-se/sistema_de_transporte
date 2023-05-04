@@ -102,6 +102,7 @@ const NavBarT = () => {
                         !drop.disabled
                             ?
                             <NavDropdown
+                                key={drop.id}
                                 className={style['dropdown-box']}
                                 show={drop.show}
                                 onMouseEnter={showDropDown}
