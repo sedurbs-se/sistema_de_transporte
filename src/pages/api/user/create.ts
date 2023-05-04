@@ -5,7 +5,9 @@ import { createUsuarioController } from "src/http/modules/usuario/controller/cre
 import { updateUsuarioController } from "src/http/modules/usuario/controller/updateUsuarioController";
 import onError from "../../../http/middlewares/onErrors";
 
+
 const handler = nc({ onError }).all(verifyAuthentication);
+
 
 
 handler.post(createUsuarioController);

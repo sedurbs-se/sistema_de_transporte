@@ -7,7 +7,10 @@ import catchAsyncErrors from "src/http/middlewares/catchAsyncErrors";
 import { Request, Response } from "src/http/type";
 import onError from "../../../http/middlewares/onErrors";
 import { logoRelatorio } from "../../../assets/logo";
+
 const handler = nc({ onError });
+
+
 
 handler.get(
   catchAsyncErrors(async (req: Request, res: Response) => {

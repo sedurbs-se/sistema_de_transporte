@@ -3,7 +3,9 @@ import { createTipoFrotaController } from "src/http/modules/tipo_frota/controlle
 import onError from "../../../http/middlewares/onErrors";
 
 
+
 const handler = nc({ onError })
+
 
 handler.post(createTipoFrotaController);
 

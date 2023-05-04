@@ -5,7 +5,9 @@ import { getSolicitacaoController } from "src/http/modules/solicitacao/controlle
 import { updateSolicitacaoController } from "src/http/modules/solicitacao/controller/updateSolicitacaoController";
 import onError from "../../../http/middlewares/onErrors";
 
+
 const handler = nc({ onError })
+
 
 handler.post(createSolicitacaoController)
 handler.get(getSolicitacaoController)

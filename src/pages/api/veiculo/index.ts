@@ -5,7 +5,10 @@ import { createVeiculoController } from "../../../http/modules/veiculos/controll
 import { deleteVeiculoController } from "../../../http/modules/veiculos/controllers/deleteVeiculoController";
 import { getVeiculoController } from "../../../http/modules/veiculos/controllers/getVeiculoController";
 
+
 const handler = nc({ onError })
+
+
 
 handler.get(getVeiculoController);
 

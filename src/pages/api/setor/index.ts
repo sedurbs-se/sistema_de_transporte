@@ -5,7 +5,10 @@ import { createSetorController } from "../../../http/modules/setores/controllers
 import { deleteSetorController } from "../../../http/modules/setores/controllers/deleteSetorController";
 import { getSetorController } from "../../../http/modules/setores/controllers/getSetorController";
 
+
 const handler = nc({ onError })
+
+
 
 handler.get(getSetorController);
 

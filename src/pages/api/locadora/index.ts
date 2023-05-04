@@ -5,7 +5,10 @@ import { createLocadoraController } from "../../../http/modules/locadoras/contro
 import { deleteLocadoraController } from "../../../http/modules/locadoras/controllers/deleteLocadoraController";
 import { getLocadoraController } from "../../../http/modules/locadoras/controllers/getLocadoraController";
 
+
 const handler = nc({ onError })
+
+
 
 handler.get(getLocadoraController);
 

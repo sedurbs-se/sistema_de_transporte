@@ -118,9 +118,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
-  const { motoristas }: { motoristas: Motorista[] } = await fetchMotoristas({});
 
-  state.motoristasSearch = motoristas;
   state.user = isAuthenticated;
 
   return {
@@ -128,7 +126,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       isAuthenticated,
       initialZustandState: JSON.parse(JSON.stringify(state)),
     },
-  };
+  };;
 };
 
 export default RelatorioMotorista;
