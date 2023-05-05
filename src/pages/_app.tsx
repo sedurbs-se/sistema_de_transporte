@@ -34,6 +34,9 @@ function MyApp({ Component, pageProps }: AppProps<pageProps>) {
           <Component {...pageProps} />
         </QueryClientProvider>
       </Provider>
+     <div style={{backgroundColor:'gray'}}>
+     <span>Versão: 1.0.1</span>
+     </div>
     </SSRProvider>
 
   )

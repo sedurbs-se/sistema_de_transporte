@@ -114,10 +114,14 @@ const CadastroMovimentacao = () => {
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Status</Form.Label>
                                 <Form.Select {...register("status_id")}>
-                                    <option value="">Selecione uma status</option>
+                                    <option value="">Selecione um status</option>
                                     {
                                         statusMovimentacao.map(status => (
-                                            <option key={status.id} value={status.id}>{status.nome}</option>
+                                            status.nome !== "RETORNO" ?
+                                            <option 
+                                            selected={status.nome.includes("SAIDA")}
+                                            key={status.id} value={status.id}>{status.nome}</option>
+                                            : <></>
                                         ))
                                     }
                                 </Form.Select>

@@ -36,7 +36,6 @@ const TableComponent = ({
                 (onDelete || onEdit || onDetail) && 
                
                 <td className={style["table-colunm-button-group"]}>
-
                     {onEdit &&
                         <Button  
                         style={{borderRadius:'24px'}}
@@ -79,7 +78,7 @@ const TableComponent = ({
         );
 
     return (
-        <Table striped bordered responsive className={style["table"]}>
+        <Table  responsive className={style["table"]}>
             <thead>
                 <tr>
                     {generatedTableHead(tableHeaderData)}

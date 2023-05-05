@@ -1,6 +1,18 @@
 
 .table {
   background-color: white;
+  border-radius: 12px;
+  border-bottom-width: 0px!important;
+  border-style: inherit!important;
+  td {
+    border-style: inherit!important;
+  }
+  tbody{
+    border-style: inherit!important;
+  }
+  tr {
+    border-style: inherit!important;
+  }
 }
 .table-colunm-button-group {
   display: flex;

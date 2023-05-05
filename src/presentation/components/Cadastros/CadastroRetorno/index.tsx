@@ -71,9 +71,12 @@ const CadastroRetorno = () => {
         if (key === "dtsaida") {
             setValue('dtsaida', dayjs(selectedMovimentacao.dtsaida).locale('pt-br').format());
         } else if(key === "dtretorno"){
-            setValue('dtretorno', dayjs(selectedMovimentacao.dtretorno).locale('pt-br').format());
-        } else {
-          setValue(key, selectedMovimentacao[key as keyof Movimentacao]);
+            setValue('dtretorno', dayjs().locale('pt-br').format());
+        } 
+        else {
+          if (key !== "status_id") {
+            setValue(key, selectedMovimentacao[key as keyof Movimentacao]);
+          }
         }
       });
     }
@@ -156,9 +159,9 @@ const CadastroRetorno = () => {
                   <Form.Label>Data e Hora de retorno</Form.Label>
                   <Form.Control
                     type="datetime-local"
-                    placeholder="Data de saída"
                     {...register("dtretorno")}
                     value={form.dtretorno?.slice(0, 16)}
+                    defaultValue={dayjs().locale('pt-br').format().slice(0,16)}
                   />
                 </Form.Group>
               </Col>
@@ -168,9 +171,11 @@ const CadastroRetorno = () => {
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Status</Form.Label>
                 <Form.Select {...register("status_id")}>
-                  <option value="">Selecione uma status</option>
+                  <option value="">Selecione um status</option>
                   {statusMovimentacao.map((status) => (
-                    <option key={status.id} value={status.id}>
+                    <option 
+                    selected={status.nome === "RETORNO"}
+                    key={status.id} value={status.id}>
                       {status.nome}
                     </option>
                   ))}

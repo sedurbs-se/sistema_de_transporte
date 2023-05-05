@@ -1,4 +1,4 @@
-import { Badge, Button} from "react-bootstrap"
+import { Badge, Button } from "react-bootstrap"
 import getBadgeTypeByStatus from "@shared/utils/getBadgeTypeByStatus"
 import TableComponent from "@components/Table"
 import { useStore } from "@domain/store/store"
@@ -37,13 +37,13 @@ const ListaSolicitacoes = () => {
         return `${hours}:${minutes}:${seconds}`;
     }
 
-    if(!solicitacoes || solicitacoes === undefined) return (<div>Carregando...</div>);
+    if (!solicitacoes || solicitacoes === undefined) return (<div>Carregando...</div>);
 
     const tableBody = solicitacoes.map((solicitacao) => ({
         data: getData(solicitacao?.data_hora_saida || new Date()),
         hora: getTime(solicitacao?.data_hora_saida || new Date()),
         municipios: solicitacao?.municipiosolicitacao ?
-            solicitacao?.municipiosolicitacao.map((municipio:any) => municipio.nome).join(', ') : '',
+            solicitacao?.municipiosolicitacao.map((municipio: any) => municipio.nome).join(', ') : '',
         ...solicitacao,
         status_solicitacao_id:
             <Badge pill bg={getBadgeTypeByStatus(solicitacao?.statussolicitacao!.nome)}>{solicitacao?.statussolicitacao!.nome}
@@ -81,8 +81,10 @@ const ListaSolicitacoes = () => {
                 onDelete={(id) => onDelete(id)}
                 onEdit={(id) => onEdit(id)}
             ></TableComponent>
+                        <Button
+                variant="primary" onClick={onAdd}>Adicionar</Button>
 
-            <Button variant="primary" onClick={onAdd}>Adicionar</Button>
+
         </>
 
     )

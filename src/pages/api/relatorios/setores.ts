@@ -6,6 +6,8 @@ import AppError from "src/http/errors/AppError";
 import catchAsyncErrors from "src/http/middlewares/catchAsyncErrors";
 import { Request, Response } from "src/http/type";
 import onError from "../../../http/middlewares/onErrors";
+import dayjs from "dayjs";
+import { logoRelatorio } from "src/assets/logo";
 
 
 const handler = nc({ onError });
@@ -19,6 +21,8 @@ handler.get(
       start_date: string;
       final_date: string;
     };
+
+
     
     if (!id) {
       throw new AppError("Id não informado", 400);
@@ -42,8 +46,8 @@ handler.get(
           setor_id: id as string,
         },
         createdAt: {
-          gte: new Date(start_date),
-          lte: new Date(final_date),
+          gte: dayjs(start_date).toISOString(),
+          lte: dayjs(final_date).add(20,'hour').add(59,'minute').toISOString(),
         },
         status: {
           nome: { in: ["RETORNO", "CANCELADO"] },
@@ -69,9 +73,13 @@ handler.get(
         motorista: true,
       },
     });
+
+
     if (!movimentacoes) {
       throw new AppError("Setor não encontrado", 404);
     }
+
+  
 
     var fonts = {
       Courier: {
@@ -121,20 +129,29 @@ handler.get(
     };
 
     let header = [
+
       {
-        text: "Governo de Sergipe\n\n",
-        style: "header",
+        image: logoRelatorio,
+        width: 150,
+        height: 150,
         alignment: "center",
       },
       {
-        text: "SECRETARIA DE ESTADO DO DESENVOLVIMENTO URBANO E INFRAESTRUTURA - SEDURB\n\n",
+        text: "SECRETARIA DE ESTADO DO DESENVOLVIMENTO URBANO E INFRAESTRUTURA - SEDURBI\n\n",
         style: "bigger",
         alignment: "center",
+        marginTop:15
       },
+    ];
+
+    let footer = [
       {
-        text: "Rua Vila Cristina, nº 1051 Bairro 13 de Julho - Aracaju/SE CEP: 49020-150",
+        text: "Rua Vila Cristina, nº 1051 |  Bairro 13 de Julho - Aracaju/SE  | CEP: 49020-150",
         style: "small",
         alignment: "center",
+        marginTop: 10,
+        textAlign: "center",
+        fontWeight: 400,
       },
     ];
 
@@ -165,6 +182,14 @@ handler.get(
       ];
     });
 
+
+    const whiteSpaceTable = new Array(8).fill("\n");
+    whiteSpaceTable.forEach((item) => {
+      setorTable.push([item, item, item, item, item, item, item, item]);
+    });
+
+    
+
     let table = {
       body: [
         [
@@ -186,17 +211,18 @@ handler.get(
         style: "medium",
       },
       {
-        text: "Relatório de Setor\n\n",
-        style: "medium",
-        alignment: "center",
-      },
-      {
         text: `Setor: ${setor.nome}\n\n`,
         style: "medium",
         bold: true,
       },
       {
-        text: "Movimentações\n\n",
+        text: "Relatório de Setor\n\n",
+        style: "medium",
+        alignment: "center",
+        marginTop:15
+      },
+      {
+        text: `Movimentações de ${dayjs(start_date).format('DD/MM/YYYY')} à ${dayjs(final_date).format('DD/MM/YYYY')}\n\n`,
         alignment: "center",
       },
       {
@@ -205,7 +231,7 @@ handler.get(
       },
     ];
     let content = {
-      content: [...header, ...body],
+      content: [...header, ...body, ...footer],
       styles,
       defaultStyle: {
         font: Object.keys(fonts)[1], // Any already loaded font

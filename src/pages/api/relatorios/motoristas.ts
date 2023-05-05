@@ -7,6 +7,7 @@ import catchAsyncErrors from "src/http/middlewares/catchAsyncErrors";
 import { Request, Response } from "src/http/type";
 import onError from "../../../http/middlewares/onErrors";
 import { logoRelatorio } from "../../../assets/logo";
+import dayjs from "dayjs";
 
 const handler = nc({ onError });
 
@@ -37,8 +38,8 @@ handler.get(
         Movimentacao: {
           where: {
             createdAt: {
-              gte: new Date(start_date),
-              lte: new Date(final_date),
+              gte: dayjs(start_date).toISOString(),
+              lte: dayjs(final_date).add(20,'hour').add(59,'minute').toISOString(),
             },
             status: {
               nome: { in: ["RETORNO", "CANCELADO"] },
@@ -127,12 +128,13 @@ handler.get(
       },
 
       {
-        text: "SECRETARIA DE ESTADO DO DESENVOLVIMENTO URBANO E INFRAESTRUTURA - SEDURB\n\n",
+        text: "SECRETARIA DE ESTADO DO DESENVOLVIMENTO URBANO E INFRAESTRUTURA - SEDURBI\n\n",
         style: "bigger",
         alignment: "center",
         marginTop: 15,
       },
     ];
+
     let footer = [
       {
         text: "Rua Vila Cristina, nº 1051 |  Bairro 13 de Julho - Aracaju/SE  | CEP: 49020-150",
@@ -178,7 +180,6 @@ handler.get(
 
 
     let table = {
-      widths: ["*", "*", "*", "*", "*", "*", "*", "*"],
       body: [
         [
           "Data Saída",
@@ -216,7 +217,7 @@ handler.get(
         alignment: "center",
       },
       {
-        text: "Movimentações\n\n",
+        text: `Movimentações de ${dayjs(start_date).format('DD/MM/YYYY')} à ${dayjs(final_date).format('DD/MM/YYYY')}\n\n`,
         alignment: "center",
       },
       {

@@ -12,6 +12,7 @@ import { Solicitacao } from "@shared/types/Solicitação"
 import CadastroContainer from "../../../containers/CadastroContainer"
 import { onErrorResponse } from "@domain/query/createUsuario";
 import dayjs from "dayjs";
+import Router from "next/router";
 
 const CadastroSolicitacao = () => {
     const {
@@ -49,9 +50,11 @@ const CadastroSolicitacao = () => {
     const onSuccess = ({ solicitacao }: ICreateSolicitacaoResponse) => {
 
         if (selectedSolicitacao) {
-            setSelectedSolicitacao()
-            updateSolicitacao(solicitacao);
+           
+            console.log('solicitacao', solicitacao)
+            updateSolicitacao(selectedSolicitacao);
             setModalSuccess(true);
+            setSelectedSolicitacao()
         } else {
             addSolictacao(solicitacao)
             setModalSuccess();
@@ -101,10 +104,10 @@ const CadastroSolicitacao = () => {
                     <Row>
                         <Col md={6} xs={12} xl={12} xls={12}>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Usuario</Form.Label>
+                                <Form.Label>Usuário</Form.Label>
                                 <Form.Control
                                     type="text"
-                                    placeholder="Usuario"
+                                    placeholder="Ex: João"
                                     isValid={!errors.usuario && form.usuario != ""}
                                     isInvalid={errors.usuario != undefined}
                                     {...register("usuario")}
@@ -116,7 +119,7 @@ const CadastroSolicitacao = () => {
                         <Col md={6} xs={6} xl={6} xls={6}>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Ramal</Form.Label>
-                                <Form.Control type="text" placeholder="Ramal"
+                                <Form.Control type="text" placeholder="Ex: 5667"
                                     {...register("ramal")}
                                     isValid={!errors.ramal && form.ramal !== ""}
                                     isInvalid={errors.ramal != undefined}
@@ -150,8 +153,9 @@ const CadastroSolicitacao = () => {
 
                         <Col md={6} xs={3} xl={3} xls={3}>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>N. Ocupates</Form.Label>
+                                <Form.Label>N. Ocupantes</Form.Label>
                                 <Form.Control
+                                    min="1"
                                     type="number"
                                     placeholder="N. Ocupates"
                                     {...register("num_ocupantes",
@@ -185,6 +189,7 @@ const CadastroSolicitacao = () => {
                                     value={
                                         form.data_hora_saida?.slice(0, 16)
                                     }
+                                    defaultValue={dayjs().locale('pt-br').format().slice(0,16)}
                                     isValid={!errors.data_hora_saida && form.data_hora_saida !== ""}
                                     isInvalid={errors.data_hora_saida != undefined}
                                 />
@@ -221,7 +226,9 @@ const CadastroSolicitacao = () => {
                                 >
                                     <option value="">Selecione um Status</option>
                                     {statusSolicitacao.map(status => (
-                                        <option key={status.id} value={status.id}>{status.nome}</option>
+                                        <option 
+                                        selected={status.nome.includes("ESPERA")}
+                                        key={status.id} value={status.id}>{status.nome}</option>
                                     ))}
                                 </Form.Select>
                                 {errors?.status_solicitacao?.type &&

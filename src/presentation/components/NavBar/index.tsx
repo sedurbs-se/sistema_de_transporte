@@ -96,7 +96,7 @@ const NavBarT = () => {
     return (
         <Navbar variant="dark" bg="dark" sticky="top">
             <Container>
-                <Navbar.Brand href="/">Sistema de transporte</Navbar.Brand>
+                <Navbar.Brand href="/transporte">Sistema de transporte</Navbar.Brand>
                 <Nav className="me-auto">
                     {ItemsDropDown.map((drop, index) => (
                         !drop.disabled

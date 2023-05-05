@@ -8,16 +8,27 @@ export const getFormatedDateString = (date: Date) => dayjs(date).locale('pt-br')
 
 export const getData = (data: Date) => {
     const date = new Date(data);
-    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    // console.log(date)
+    let formated = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+    // console.log(formated)
+    return formated;
 }
 
 export const getTime = (data: Date) => {
     const date = new Date(data);
 
+    console.log(date)
+
     const hours = date.getHours();
     const minutes = date.getMinutes();
 
-    return `${hours}:${minutes}`;
+
+
+    const formated = `${hours}:${minutes}`
+
+    console.log(formated)
+
+    return formated ;
 };
 
 

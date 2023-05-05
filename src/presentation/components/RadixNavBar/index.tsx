@@ -78,7 +78,7 @@ const RadixNavBar = () => {
     return (
         <Navbar variant="dark" bg="dark" sticky="top" style={{ zIndex: 'auto', color: 'white' }}>
             <Container>
-                <Navbar.Brand href="/">Sistema de transporte</Navbar.Brand>
+                <Navbar.Brand href="/transporte">Sistema de transporte</Navbar.Brand>
                 <div className={styles.DropdownMenuRoot}>
                     {
                         ItemsDropDown.map((drop, index) => (
@@ -112,6 +112,7 @@ const RadixNavBar = () => {
                                 : null
 
                         ))}
+                        
                 </div>
 
                 {user ?
@@ -119,6 +120,8 @@ const RadixNavBar = () => {
                         <span className={styles.user}
                             onClick={handleOnClick}>{user?.nome}</span></p>
                     : null}
+                   
+                    
 
             </Container>
         </Navbar>
