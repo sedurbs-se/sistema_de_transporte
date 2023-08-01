@@ -1,7 +1,7 @@
 import axios from "axios"
 import Router from "next/router"
 import { useEffect, useState } from "react"
-import { Button, Modal, Table } from "react-bootstrap"
+import { Modal, Table } from "react-bootstrap"
 import shallow from "zustand/shallow"
 import { useStore } from "@domain/store/store"
 import TableComponent from "@components/Table"
@@ -11,6 +11,11 @@ import { WarningPopUp } from "@shared/swal"
 import { deleteSetor } from "@domain/requests/delete/deleteSetor"
 import fetchSetores from "@domain/requests/fetch/fetchSetores"
 import usePagination from "@domain/hooks/usePagination"
+import { ArrowUpDown, MoreHorizontal } from "lucide-react"
+import { ColumnDef } from "@tanstack/react-table"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { DataTable } from "@components/DataTable"
+import { Button } from "@/components/ui/button"
 
 export interface ListaSetoresProps {
 }
@@ -23,12 +28,71 @@ const ListaSetores = (props: ListaSetoresProps) => {
     const [setor, setSetor] = useState([{ nome: "", codigo: "", sigla: "", responsavel: "", ramal: "", createdAt: "", updatedAt: "" }]);
     const [show, setShow] = useState(false);
 
-    const tableColumns = [
-        ["Código", "codigo"],
-        ["Sigla", "sigla"],
-        ['Ramal', "ramal"],
-        ["", ""]
+
+    type Setor = {
+        id: string;
+        codigo: string;
+        sigla: string;
+        ramal : string;
+    }
+
+
+
+
+        const tableColumns: ColumnDef<Setor>[] = [
+                    { header: "Código", accessorKey: "codigo" },
+        {
+            header: ({ column }) => {
+                return (
+                    <Button onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} variant="ghost">
+                        Sigla
+
+                        <ArrowUpDown className="ml-2 h-4 w-4" />
+                    </Button>
+                )
+            },
+            accessorKey: "sigla", id: "sigla",
+            enableSorting: true, enableResizing: true,
+            enableGlobalFilter: true
+        },
+        { header: "Ramal", accessorKey: "ramal" },
+        {
+            id: "actions",
+            enableHiding: false,
+            cell: ({ row }) => {
+              const setor = row.original
+         
+              return (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="h-8 w-8 p-0">
+                      <span className="sr-only">Open menu</span>
+                      <MoreHorizontal className="h-4 w-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuLabel>Ações</DropdownMenuLabel>
+                    <DropdownMenuItem
+                      onClick={() => onEdit(setor.id)}
+                    >
+                      Editar
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                    onClick={() => onDelete(setor.id)}
+                    >Excluir</DropdownMenuItem>
+                                        <DropdownMenuItem
+                    onClick={() => onDetail(setor.id)}
+                    >Ver detalhes</DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )
+            },
+          },
+        
+
     ]
+
+
 
     const onDelete = async (id: string) => {
 
@@ -79,13 +143,18 @@ const ListaSetores = (props: ListaSetoresProps) => {
 
     return (
         <>
-            <TableComponent
+            {/* <TableComponent
                 tableHeaderData={tableColumns}
                 tableBodyData={setores}
                 onDelete={onDelete}
                 onEdit={onEdit}
                 onDetail={onDetail}
-            ></TableComponent>
+            ></TableComponent> */}
+
+<DataTable
+                columns={tableColumns}
+                data={setores}
+            />
 
             <Modal show={show} fullscreen={true} onHide={() => setShow(false)}>
                 <Modal.Header closeButton>
@@ -106,13 +175,20 @@ const ListaSetores = (props: ListaSetoresProps) => {
                     />
                 </Modal.Body>
             </Modal>
+           
 
             <PaginationComponent
                 totalPages={setorPages}
                 page={page}
                 onPageChange={setPage}
             />
-            <Button onClick={onAdd}>Adicionar</Button>
+
+            <div className="w-1/2">
+            <Button variant="outline" onClick={onAdd}>Adicionar</Button>
+            </div>
+
+
+           
         </>
 
     )

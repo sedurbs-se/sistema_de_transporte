@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }: AppProps<pageProps>) {
   const user = pageProps.initialZustandState?.user;
   // Validade if logged here
   return (
-    <SSRProvider>
+<>
       <Provider createStore={createStore}>
         <QueryClientProvider client={queryClient}>
           {/* {!!user && <NavBarT />} */}
@@ -35,9 +35,10 @@ function MyApp({ Component, pageProps }: AppProps<pageProps>) {
         </QueryClientProvider>
       </Provider>
      <div style={{backgroundColor:'gray'}}>
-     <span>Versão: 1.0.1</span>
+    
      </div>
-    </SSRProvider>
+     </>
+
 
   )
 }

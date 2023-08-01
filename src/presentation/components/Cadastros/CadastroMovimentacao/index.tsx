@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap"
+import {  Col, Form, Row } from "react-bootstrap"
 import { useForm } from "react-hook-form";
 import shallow from "zustand/shallow";
 import { useStore } from "@domain/store/store";
@@ -8,7 +8,7 @@ import { ISaidaMovimentacaoDTO, ISaidaMovimentacaoResponse, useSaidaMovimentacao
 import ListaSolicitacoesAprovada from "@components/Listas/ListaSolicitacoesAprovadas";
 import CadastroContainer from "../../../containers/CadastroContainer"
 import { onErrorResponse } from "@domain/query/createUsuario";
-
+import { Button } from "@/components/ui/button";
 
 
 const CadastroMovimentacao = () => {
@@ -21,7 +21,7 @@ const CadastroMovimentacao = () => {
          removeSolicitacao,
     } = useStore(state => state, shallow);
 
-    const { register, handleSubmit, watch, formState: { errors }, setValue, reset } = useForm();
+    const { register, handleSubmit, watch, formState: { errors }, setValue, reset, control } = useForm();
 
     const onSuccess = ({ }: ISaidaMovimentacaoResponse) => {
         removeSolicitacao(form.solicitacao_id)
@@ -135,7 +135,7 @@ const CadastroMovimentacao = () => {
                     </Form.Group>
 
                     <Col md={12} xs={12} xl={12} xls={12}>
-                        <Button className="mt-2" variant="primary" type="submit">
+                        <Button className="mt-2" variant="outline" type="submit">
                             Salvar
                         </Button>
                     </Col>

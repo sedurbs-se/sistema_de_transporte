@@ -1,0 +1,29 @@
+name: CI Produção
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: [prod-almox]
+
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Instalar dependencias
+        run: npm --proxy http://thiagofreire.carvalho:abcd1234@proxy.sedurb.gov-se:8080 install
+        
+      - name: Build
+        run: npm run build
+      
+      - name: "Inicializar"
+        run: pm2 reload transporte
+
+        
+          

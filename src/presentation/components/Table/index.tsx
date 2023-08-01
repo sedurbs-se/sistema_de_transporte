@@ -12,6 +12,7 @@ export interface TableComponentProps {
     onDetail?: (id: string) => void,
 }
 
+
 const TableComponent = ({
     tableHeaderData,
     tableBodyData,
