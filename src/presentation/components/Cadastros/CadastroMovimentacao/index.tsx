@@ -118,8 +118,7 @@ const CadastroMovimentacao = () => {
                                     {
                                         statusMovimentacao.map(status => (
                                             status.nome !== "RETORNO" ?
-                                            <option 
-                                            selected={status.nome.includes("SAIDA")}
+                                            <option
                                             key={status.id} value={status.id}>{status.nome}</option>
                                             : <></>
                                         ))
