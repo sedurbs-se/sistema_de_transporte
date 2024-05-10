@@ -6,7 +6,14 @@ import prisma from "../../../../shared/prisma.index";
 const listVinculoController = catchAsyncErrors(async (req: Request, res: Response) => {
     
     
-    const vinculos = await prisma.vinculo.findMany();
+    const vinculos = await prisma.vinculo.findMany({
+            where: {
+                    nome: {
+                        in: ["EFETIVO", "TERCEIRIZADO", "COMISSIONADO", "AFASTADO"]
+                    }
+            }
+        }
+    );
     res.status(200).json({
         vinculos
     });

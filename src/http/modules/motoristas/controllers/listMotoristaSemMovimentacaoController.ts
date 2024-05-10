@@ -21,7 +21,7 @@ const listMotoristaSemMovimentacaoController = catchAsyncErrors(async (req: Requ
                 nome: {
                     in: ["EFETIVO", "TERCEIRIZADO", "COMISSIONADO"]
                 }
-            }
+            },
         },
         include: {
             vinculo: {
