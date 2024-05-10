@@ -12,7 +12,16 @@ const deleteMotoristaController = catchAsyncErrors(async (req: Request, res: Res
         throw new AppError('Id não informado', 400)
     }
 
-    await prisma.motorista.delete({ where: { id: id as string } })
+    await prisma.motorista.update({ 
+        where: { id: id as string },
+        data: {
+            vinculo: {
+                connect: {
+                    id: '3cc7d034-ff64-4dfe-9605-0a3c8746ed87'
+                }
+            }
+        }
+    });
 
     res.status(200).send({});
 });
