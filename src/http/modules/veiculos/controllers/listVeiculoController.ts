@@ -7,7 +7,10 @@ const listVeiculoController = catchAsyncErrors(async (req: Request, res: Respons
     const { page, limit } = req.query;
 
     const veiculosQuery = await prisma.veiculo.findMany(
-        {
+        {   
+            where: {
+                ativo: true
+            },
             include: {
                 tipoFrota: {
                     select: {

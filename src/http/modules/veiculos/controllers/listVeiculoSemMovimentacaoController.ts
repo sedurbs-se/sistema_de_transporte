@@ -21,7 +21,8 @@ const listVeiculoSemMovimentacaoController = catchAsyncErrors(async (req: Reques
                     none: {
                         status_id: statusAtivo.id
                     }
-                }
+                },
+                ativo: true
             },
             include: {
                 tipoFrota: {

@@ -11,9 +11,10 @@ const getVeiculoController = catchAsyncErrors(async (req: Request, res: Response
         throw new AppError('Id não informado', 400)
     }
 
-    const veiculoQuery = await prisma.veiculo.findUnique({
+    const veiculoQuery = await prisma.veiculo.findFirst({
         where: {
-            id: id as string
+            id: id as string,
+            ativo: true
         },
         include:{
             tipoFrota:true,
