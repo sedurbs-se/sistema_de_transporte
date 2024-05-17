@@ -12,7 +12,14 @@ const deleteVeiculoController = catchAsyncErrors(async (req: Request, res: Respo
         throw new AppError('Id não informado', 400)
     }
 
-    await prisma.veiculo.delete({ where: { id: id as string } })
+    await prisma.veiculo.update({
+        where: {
+            id: String(id)
+        },
+        data: {
+            ativo: false
+        }
+    });
 
     res.status(200).send({});
 });

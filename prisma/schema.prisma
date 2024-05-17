@@ -182,7 +182,7 @@ model Veiculo {
   locadora_id          String
   setor_id             String
   observacao           String         @default("")
-  ocupado              Boolean        @default(false)
+  ativo                Boolean        @default(true)
   locadora             Locadora       @relation(fields: [locadora_id], references: [id], map: "Veiculo_locadora_id_fkey")
   setor                Setor          @relation(fields: [setor_id], references: [id], map: "Veiculo_setor_id_fkey")
   tipoFrota            TipoFrota      @relation(fields: [tipo_frota_id], references: [id], map: "Veiculo_tipo_frota_id_fkey")
