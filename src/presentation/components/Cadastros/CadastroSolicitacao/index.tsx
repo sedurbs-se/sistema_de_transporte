@@ -44,7 +44,6 @@ const CadastroSolicitacao = () => {
     })
 
     const isFetching = false;
-    console.log( tiposSolicitacao )
     const { register, handleSubmit, watch, formState: { errors }, setValue, reset } = useForm({ resolver: yupResolver(validationSchema) });
 
     const onSuccess = ({ solicitacao }: ICreateSolicitacaoResponse) => {

@@ -126,5 +126,10 @@
         "observacao": {
             "required":"Informe a observação!"
         }
+    },
+    "movimentacao": {
+        "motorista":{
+            "required":"Informe o nome do motorista!"
+        }
     }
 }
