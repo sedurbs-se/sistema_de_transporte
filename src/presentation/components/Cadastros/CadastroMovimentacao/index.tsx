@@ -8,6 +8,9 @@ import { ISaidaMovimentacaoDTO, ISaidaMovimentacaoResponse, useSaidaMovimentacao
 import ListaSolicitacoesAprovada from "@components/Listas/ListaSolicitacoesAprovadas";
 import CadastroContainer from "../../../containers/CadastroContainer"
 import { onErrorResponse } from "@domain/query/createUsuario";
+import * as yup from 'yup';
+import { yupResolver } from "@hookform/resolvers/yup";
+import { InputError } from "@components/InputError";
 
 
 
@@ -21,7 +24,12 @@ const CadastroMovimentacao = () => {
          removeSolicitacao,
     } = useStore(state => state, shallow);
 
-    const { register, handleSubmit, watch, formState: { errors }, setValue, reset } = useForm();
+    const validationSchema = yup.object().shape({
+        motorista_id: yup.string().required(),
+        status_id: yup.string().required()
+    })
+
+    const { register, handleSubmit, watch, formState: { errors }, setValue, reset } = useForm({ resolver: yupResolver(validationSchema) });
 
     const onSuccess = ({ }: ISaidaMovimentacaoResponse) => {
         removeSolicitacao(form.solicitacao_id)
@@ -92,13 +100,16 @@ const CadastroMovimentacao = () => {
                         <Col md={6} xs={12} xl={12} xls={12}>
                             <Form.Group className="mb-3" controlId="formBasicBairro">
                                 <Form.Label>Motorista</Form.Label>
-                                <Form.Select {...register("motorista_id")}>
+                                <Form.Select {...register("motorista_id")}
+                                isValid={!errors.motorista && form.motorista_id !== ""}
+                                isInvalid={errors.motorista != undefined && form.motorista_id == ""}>
                                     <option value="">Selecione o motorista</option>
                                     {motoristas.map(motorista => (
                                         <option key={motorista.id} value={motorista.id}>{motorista.nome}</option>
                                     ))}
 
                                 </Form.Select>
+                                {errors?.motorista?.type && <InputError type={errors.motorista?.type} form="movimentacao" field='motorista' />}
                             </Form.Group>
                         </Col>
                         <Col md={6} xs={12} xl={12} xls={12}>
@@ -113,7 +124,9 @@ const CadastroMovimentacao = () => {
                         <Col>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Status</Form.Label>
-                                <Form.Select {...register("status_id")}>
+                                <Form.Select {...register("status_id")}
+                                isValid={!errors.status && form.status_id !== ""}
+                                isInvalid={errors.status != undefined && form.status_id == ""}>
                                     <option value="">Selecione um status</option>
                                     {
                                         statusMovimentacao.map(status => (
@@ -124,6 +137,7 @@ const CadastroMovimentacao = () => {
                                         ))
                                     }
                                 </Form.Select>
+                                {errors?.status?.type && <InputError type={errors.motorista?.type} form="movimentacao" field='motorista' />}
                             </Form.Group>
                         </Col>
                     </Row>
