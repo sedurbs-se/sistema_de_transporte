@@ -27,14 +27,27 @@ const createSolicitacaoController = catchAsyncErrors(async (req: Request, res: R
             throw new AppError('Todos os campos são obrigatórios', 400)
         };
     })
+
+    // Verifica se existem mais de 4 solicitacoes
+    const solicitacoesDoDia = await prisma.solicitacao.findMany({
+        where: {
+            data_hora_saida: {
+                gte: new Date(`${dayjs(data_hora_saida).locale('pt-br').format('YYYY-MM-DD')}T00:00:00.000Z`),
+                lte: new Date(`${dayjs(data_hora_saida).locale('pt-br').format('YYYY-MM-DD')}T23:59:59.999Z`)
+            }
+        }
+    });
+
+    if (solicitacoesDoDia.length >= 4) {
+        throw new AppError("Não é possível realizar mais de 4 solicitações por dia", 400);
+    }
     
-    console.log(dayjs(data_hora_saida).locale('pt-br').format('YYYY-MM-DD'))
     // Verifica se existem mais de 4 solicitacoes para fora de aracaju 
     const solicitacoesForaAracaju = await prisma.solicitacao.findMany({
         where: {
-            data_hora_saida:{
-              gte: new Date(`${dayjs(data_hora_saida).locale('pt-br').format('YYYY-MM-DD')}T00:00:00.000Z`),
-              lte: new Date(`${dayjs(data_hora_saida).locale('pt-br').format('YYYY-MM-DD')}T23:59:59.999Z`)
+            data_hora_saida: {
+                gte: new Date(`${dayjs(data_hora_saida).locale('pt-br').format('YYYY-MM-DD')}T00:00:00.000Z`),
+                lte: new Date(`${dayjs(data_hora_saida).locale('pt-br').format('YYYY-MM-DD')}T23:59:59.999Z`)
             },
             municipiosolicitacao: {
                 some: {
@@ -47,18 +60,16 @@ const createSolicitacaoController = catchAsyncErrors(async (req: Request, res: R
             },
             statussolicitacao: {
                 nome: {
-                   notIn: ["CANCELADO", "AUTORIZADO"]
+                    notIn: ["CANCELADO", "AUTORIZADO"]
                 }
             }
         }
     });
 
-    console.log(solicitacoesForaAracaju)
-
     if (municipios.find(m => m != "Aracaju") && solicitacoesForaAracaju.length >= 4) {
         throw new AppError("Não é possível realizar mais de 4 solicitações para fora de Aracaju", 400);
     }
-    console.log(dayjs(data_hora_saida).locale('pt-br').format())
+    
     const solicitacao = await prisma.solicitacao.create({
         data: {
             usuario,
