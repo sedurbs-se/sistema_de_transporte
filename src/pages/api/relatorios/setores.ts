@@ -45,7 +45,7 @@ handler.get(
         Solicitacao: {
           setor_id: id as string,
         },
-        createdAt: {
+        dtsaida: {
           gte: dayjs(start_date).toISOString(),
           lte: dayjs(final_date).add(20,'hour').add(59,'minute').toISOString(),
         },
